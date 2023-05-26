@@ -1,7 +1,14 @@
+import 'package:builders_act_maker/models/data_models/act_file.dart';
+import 'package:builders_act_maker/models/data_models/fields_data.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  final a = ActData(
+      name: 'da',
+      maxCOunt: 1,
+      fields: [FieldsData(text: ' ', hasSpace: false, subText: null)]);
+  final b = a.toJson;
+  print(a.toJson().toString());
 }
 
 class MainApp extends StatelessWidget {
