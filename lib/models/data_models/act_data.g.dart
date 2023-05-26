@@ -8,7 +8,7 @@ part of 'act_data.dart';
 
 _$_ActData _$$_ActDataFromJson(Map<String, dynamic> json) => _$_ActData(
       name: json['name'] as String,
-      type: DocumentType.fromJson(json['type'] as Map<String, dynamic>),
+      type: fromJson(json['type'] as String),
       fields: (json['fields'] as List<dynamic>?)
               ?.map((e) => FieldsData.fromJson(e as Map<String, dynamic>))
               .toList() ??

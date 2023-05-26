@@ -1,12 +1,14 @@
-import 'package:builders_act_maker/models/data_models/act_file.dart';
+import 'package:builders_act_maker/models/data_models/act_data.dart';
 import 'package:builders_act_maker/models/data_models/fields_data.dart';
+import 'package:builders_act_maker/models/type_models/document_type.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   final a = ActData(
-      name: 'da',
-      maxCOunt: 1,
-      fields: [FieldsData(text: ' ', hasSpace: false, subText: null)]);
+    name: 'da',
+    fields: [FieldsData(text: ' ', hasSpace: false, subText: null)],
+    type: DocumentType('key', 1),
+  );
   final b = a.toJson;
   print(a.toJson().toString());
 }

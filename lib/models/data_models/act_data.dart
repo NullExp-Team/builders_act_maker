@@ -9,10 +9,19 @@ part 'act_data.g.dart';
 class ActData with _$ActData {
   factory ActData({
     required String name,
+    //заменить энамом
     required DocumentType type,
     @Default([]) List<FieldsData> fields,
   }) = _ActData;
 
   factory ActData.fromJson(Map<String, dynamic> json) =>
       _$ActDataFromJson(json);
+}
+
+String toJson(DocumentType type) {
+  return '';
+}
+
+DocumentType fromJson(String json) {
+  return DocumentType('key', 1);
 }

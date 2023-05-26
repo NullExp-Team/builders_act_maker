@@ -21,6 +21,7 @@ ActData _$ActDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ActData {
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(toJson: toJson, fromJson: fromJson)
   DocumentType get type => throw _privateConstructorUsedError;
   List<FieldsData> get fields => throw _privateConstructorUsedError;
 
@@ -34,7 +35,10 @@ abstract class $ActDataCopyWith<$Res> {
   factory $ActDataCopyWith(ActData value, $Res Function(ActData) then) =
       _$ActDataCopyWithImpl<$Res, ActData>;
   @useResult
-  $Res call({String name, DocumentType type, List<FieldsData> fields});
+  $Res call(
+      {String name,
+      @JsonKey(toJson: toJson, fromJson: fromJson) DocumentType type,
+      List<FieldsData> fields});
 }
 
 /// @nodoc
@@ -78,7 +82,10 @@ abstract class _$$_ActDataCopyWith<$Res> implements $ActDataCopyWith<$Res> {
       __$$_ActDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, DocumentType type, List<FieldsData> fields});
+  $Res call(
+      {String name,
+      @JsonKey(toJson: toJson, fromJson: fromJson) DocumentType type,
+      List<FieldsData> fields});
 }
 
 /// @nodoc
@@ -117,7 +124,7 @@ class __$$_ActDataCopyWithImpl<$Res>
 class _$_ActData implements _ActData {
   _$_ActData(
       {required this.name,
-      required this.type,
+      @JsonKey(toJson: toJson, fromJson: fromJson) required this.type,
       final List<FieldsData> fields = const []})
       : _fields = fields;
 
@@ -127,6 +134,7 @@ class _$_ActData implements _ActData {
   @override
   final String name;
   @override
+  @JsonKey(toJson: toJson, fromJson: fromJson)
   final DocumentType type;
   final List<FieldsData> _fields;
   @override
@@ -174,7 +182,8 @@ class _$_ActData implements _ActData {
 abstract class _ActData implements ActData {
   factory _ActData(
       {required final String name,
-      required final DocumentType type,
+      @JsonKey(toJson: toJson, fromJson: fromJson)
+          required final DocumentType type,
       final List<FieldsData> fields}) = _$_ActData;
 
   factory _ActData.fromJson(Map<String, dynamic> json) = _$_ActData.fromJson;
@@ -182,6 +191,7 @@ abstract class _ActData implements ActData {
   @override
   String get name;
   @override
+  @JsonKey(toJson: toJson, fromJson: fromJson)
   DocumentType get type;
   @override
   List<FieldsData> get fields;

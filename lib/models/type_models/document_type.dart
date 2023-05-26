@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 @JsonSerializable()
 @DocumentTypeConverter()
-sealed class DocumentType {
+class DocumentType {
   DocumentType(this.key, this.maxCOunt);
   final String key;
   final int maxCOunt;
