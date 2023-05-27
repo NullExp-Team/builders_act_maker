@@ -19,7 +19,7 @@ namespace ActBuilder
         ""subText"" : ""kek""
     },
     {
-        ""text"" : ""hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"",
+        ""text"" : ""lolkek"",
         ""hasSpace"" : false
     }
   ],
@@ -29,7 +29,7 @@ namespace ActBuilder
         ""type"" : ""actOSR"",
         ""fields"" : [
             {
-                ""text"" : ""hah"",
+                ""text"" : ""haррррррррррррррррррр ррррррр ррррррррр рррр рррррррр ррррр рррррр рррррр ррррррррррррррр рррр ррррррр рррр рррррр ррррррррррh"",
                 ""hasSpace"" : true,
                 ""subText"" : ""heh""
             },
@@ -44,7 +44,7 @@ namespace ActBuilder
         ""type"" : ""actOSR"",
         ""fields"" : [
             {
-                ""text"" : ""hah1"",
+                ""text"" : ""lol kek"",
                 ""hasSpace"" : false
             },
             {
