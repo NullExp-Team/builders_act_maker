@@ -1,6 +1,8 @@
 ﻿using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,8 @@ namespace ActBuilder
 
             File.WriteAllBytes(clouser.path +"\\"+ clouser.name + ".xlsx", packages.GetAsByteArray());
             packages.Dispose();
+            _bitmap?.Dispose();
+            _graphics?.Dispose();
         }
         
         private static void makeSheet(ExcelPackage packages, Act act, List<FieldData> commonInfo)
@@ -39,8 +43,75 @@ namespace ActBuilder
 
         private static void fillSheet(ExcelWorksheet sheet, List<FieldData> fields, (int, int)[] coords)
         {
-            // шаблон есть, координаты есть, что вставлять есть - можно делать
-            Console.WriteLine(1);
+            const double maxFieldsWidth = 700;
+            int shift = 0;
+            for (int i = 0; i < fields.Count; i++)
+            {
+                FieldData field = fields[i];
+                (int x, int y) = coords[i];
+                x += shift;
+                if (field.hasSpace)
+                {
+                } else
+                {
+                    double widthOfText = CalculateTextWidth(field.text, sheet.Cells[x, y].Style.Font);
+                    if (widthOfText <= maxFieldsWidth)
+                    {
+                        sheet.Cells[x, y].Value = field.text;
+                    } else
+                    {
+                        // считаем сколько клетов смержено
+                        int mergeCount = 0;
+                        while (sheet.Cells[x, y+1 + mergeCount].Merge)
+                        {
+                            mergeCount++;
+                        }
+
+
+                        List<string> partOfText = field.text.Split(" ").ToList();
+                        string nowText = partOfText[0];
+                        int j = 1;
+                        while (j < partOfText.Count)
+                        {
+                            double widthOfNextText = CalculateTextWidth(nowText + " " + partOfText[j], sheet.Cells[x, y].Style.Font);
+                            if (widthOfNextText > maxFieldsWidth)
+                            {
+                                sheet.InsertRow(x, y);
+                                sheet.Cells[x, y, x, y + mergeCount].Merge = true;
+                                sheet.Cells[x, y].Value = nowText;
+                                sheet.Cells[x, y].Style.Font.Italic = sheet.Cells[x+1, y].Style.Font.Italic;
+                                for (int k = 0; k <= mergeCount; k++)
+                                {
+                                    sheet.Cells[x, y+k].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                }
+
+                                nowText = partOfText[j];
+                                shift++;
+                                x++;
+                            } else
+                            {
+                                nowText += " " + partOfText[j];
+                            }
+                            j++;
+                        }
+                        sheet.Cells[x, y].Value = nowText;
+                    }
+                }
+            }
+        }
+
+        private static Bitmap? _bitmap;
+        private static Graphics? _graphics;
+        private static double CalculateTextWidth(string text, ExcelFont font)
+        {
+            if (string.IsNullOrEmpty(text)) return 0.0;
+            Bitmap bitmap = _bitmap ?? (_bitmap = new Bitmap(1, 1));
+            Graphics graphics = _graphics ?? (_graphics = Graphics.FromImage(bitmap));
+
+            var drawingFont = new Font(font.Name, font.Size * 1.01f);
+            var size = graphics.MeasureString(text, drawingFont);
+
+            return Convert.ToDouble(size.Width) * 0.75;
         }
     }
 }
