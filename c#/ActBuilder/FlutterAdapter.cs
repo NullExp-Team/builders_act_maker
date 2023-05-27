@@ -27,10 +27,10 @@ namespace ActBuilder
             try
             {
                 string stringInput = Marshal.PtrToStringAnsi(pointerInput)!;
-                JsonNode clouserNode = JsonNode.Parse(stringInput)!;
-                Clouser clouser = clouserNode.Deserialize<Clouser>()!;
+                JsonNode closureNode = JsonNode.Parse(stringInput)!;
+                Сlosure closure = closureNode.Deserialize<Сlosure>()!;
 
-                ActMaker.CreateAct(clouser);
+                ActMaker.CreateAct(closure);
 
                 // ошибки нет, возвращаем 0
                 return 0;

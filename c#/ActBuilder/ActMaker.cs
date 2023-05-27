@@ -13,7 +13,8 @@ namespace ActBuilder
     static class ActMaker
     {
 
-        public static void CreateAct(Clouser clouser)
+        // создаём файл и начинаем обрабатывать листы
+        public static void CreateAct(Сlosure clouser)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             ExcelPackage packages = new ExcelPackage();
@@ -28,6 +29,7 @@ namespace ActBuilder
             _graphics?.Dispose();
         }
         
+        // создаём листы
         private static void makeSheet(ExcelPackage packages, Act act, List<FieldData> commonInfo)
         {
             ExcelPackage typeTemplate = new ExcelPackage(act.type + ".xlsx");
@@ -41,6 +43,7 @@ namespace ActBuilder
             FillSheet(sheet, fullFields, FieldDataContainer.GetCoordsContainer(act.type));
         }
 
+        // заполняем по координатам и по полям данный нам лист
         private static void FillSheet(ExcelWorksheet sheet, List<FieldData> fields, (int, int)[] coords)
         {
             const double maxFieldsWidth = 107;
@@ -52,7 +55,8 @@ namespace ActBuilder
                 x += shift;
                 double widthOfSubPart = 0;
 
-                // если нужен отступ, то размещаем его в первой строке, а дальше действуем как обычно
+                // если нужен отступ, то размещаем дополнительный текст его в первой строке,
+                // а дальше действуем как обычно с учётом уменьшенной длины первой строки
                 if (field.hasSpace)
                 {
                     // считаем сколько клеток смержено
@@ -77,7 +81,8 @@ namespace ActBuilder
                     sheet.Cells[x, y].Value = field.text;
                 } else
                 {
-                    // если текст длиннее, чем одна строка, то дробим его на слова по пробелам и увеличиваем количество строк, чтобы поместились все слова
+                    // если текст длиннее, чем одна строка, то дробим его на слова по пробелам и увеличиваем количество строк,
+                    // до тех пор, пока не впихнём все слова
 
                     // считаем сколько клеток смержено
                     int mergeCount = 0;

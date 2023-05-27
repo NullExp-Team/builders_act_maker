@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ActBuilder
 {
-    class Clouser
+    class Сlosure
     {
         public string name { get; set; }
         public string path { get; set; }
