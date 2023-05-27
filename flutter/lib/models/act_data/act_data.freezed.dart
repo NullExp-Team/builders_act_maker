@@ -21,9 +21,8 @@ ActData _$ActDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ActData {
   String get name => throw _privateConstructorUsedError;
-  @JsonKey(toJson: toJson, fromJson: fromJson)
   DocumentType get type => throw _privateConstructorUsedError;
-  List<FieldsData> get fields => throw _privateConstructorUsedError;
+  List<FieldData> get fields => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,10 +34,7 @@ abstract class $ActDataCopyWith<$Res> {
   factory $ActDataCopyWith(ActData value, $Res Function(ActData) then) =
       _$ActDataCopyWithImpl<$Res, ActData>;
   @useResult
-  $Res call(
-      {String name,
-      @JsonKey(toJson: toJson, fromJson: fromJson) DocumentType type,
-      List<FieldsData> fields});
+  $Res call({String name, DocumentType type, List<FieldData> fields});
 }
 
 /// @nodoc
@@ -70,7 +66,7 @@ class _$ActDataCopyWithImpl<$Res, $Val extends ActData>
       fields: null == fields
           ? _value.fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as List<FieldsData>,
+              as List<FieldData>,
     ) as $Val);
   }
 }
@@ -82,10 +78,7 @@ abstract class _$$_ActDataCopyWith<$Res> implements $ActDataCopyWith<$Res> {
       __$$_ActDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String name,
-      @JsonKey(toJson: toJson, fromJson: fromJson) DocumentType type,
-      List<FieldsData> fields});
+  $Res call({String name, DocumentType type, List<FieldData> fields});
 }
 
 /// @nodoc
@@ -114,7 +107,7 @@ class __$$_ActDataCopyWithImpl<$Res>
       fields: null == fields
           ? _value._fields
           : fields // ignore: cast_nullable_to_non_nullable
-              as List<FieldsData>,
+              as List<FieldData>,
     ));
   }
 }
@@ -124,8 +117,8 @@ class __$$_ActDataCopyWithImpl<$Res>
 class _$_ActData implements _ActData {
   _$_ActData(
       {required this.name,
-      @JsonKey(toJson: toJson, fromJson: fromJson) required this.type,
-      final List<FieldsData> fields = const []})
+      required this.type,
+      final List<FieldData> fields = const []})
       : _fields = fields;
 
   factory _$_ActData.fromJson(Map<String, dynamic> json) =>
@@ -134,12 +127,11 @@ class _$_ActData implements _ActData {
   @override
   final String name;
   @override
-  @JsonKey(toJson: toJson, fromJson: fromJson)
   final DocumentType type;
-  final List<FieldsData> _fields;
+  final List<FieldData> _fields;
   @override
   @JsonKey()
-  List<FieldsData> get fields {
+  List<FieldData> get fields {
     if (_fields is EqualUnmodifiableListView) return _fields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_fields);
@@ -182,19 +174,17 @@ class _$_ActData implements _ActData {
 abstract class _ActData implements ActData {
   factory _ActData(
       {required final String name,
-      @JsonKey(toJson: toJson, fromJson: fromJson)
-          required final DocumentType type,
-      final List<FieldsData> fields}) = _$_ActData;
+      required final DocumentType type,
+      final List<FieldData> fields}) = _$_ActData;
 
   factory _ActData.fromJson(Map<String, dynamic> json) = _$_ActData.fromJson;
 
   @override
   String get name;
   @override
-  @JsonKey(toJson: toJson, fromJson: fromJson)
   DocumentType get type;
   @override
-  List<FieldsData> get fields;
+  List<FieldData> get fields;
   @override
   @JsonKey(ignore: true)
   _$$_ActDataCopyWith<_$_ActData> get copyWith =>

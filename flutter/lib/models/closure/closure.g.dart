@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'clouser.dart';
+part of 'closure.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Clouser _$$_ClouserFromJson(Map<String, dynamic> json) => _$_Clouser(
+_$_Closure _$$_ClosureFromJson(Map<String, dynamic> json) => _$_Closure(
       id: json['id'] as int,
       name: json['name'] as String,
       acts: (json['acts'] as List<dynamic>?)
@@ -14,12 +14,12 @@ _$_Clouser _$$_ClouserFromJson(Map<String, dynamic> json) => _$_Clouser(
               .toList() ??
           const <ActData>[],
       commonInfo: (json['commonInfo'] as List<dynamic>?)
-              ?.map((e) => FieldsData.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => FieldData.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const <FieldsData>[],
+          const <FieldData>[],
     );
 
-Map<String, dynamic> _$$_ClouserToJson(_$_Clouser instance) =>
+Map<String, dynamic> _$$_ClosureToJson(_$_Closure instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
