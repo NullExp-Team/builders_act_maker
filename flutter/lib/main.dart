@@ -1,4 +1,4 @@
-import 'package:builders_act_maker/models/document_type/document_type.dart';
+import 'models/document_type/document_type.dart';
 import 'package:flutter/material.dart';
 
 import 'models/act_data/act_data.dart';

@@ -1,4 +1,4 @@
-import 'package:builders_act_maker/models/document_type/document_type.dart';
+import '../document_type/document_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../field_data/field_data.dart';
