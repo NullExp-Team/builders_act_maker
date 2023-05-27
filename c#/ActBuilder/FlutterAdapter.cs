@@ -20,8 +20,8 @@ namespace ActBuilder
             return a + b;
         }
 
-        // основная функция создания файла
-        [UnmanagedCallersOnly(EntryPoint = "createFile")]
+        // основная функция создания файла. На время тестов отключаем атрибут
+        // [UnmanagedCallersOnly(EntryPoint = "createFile")]
         public static int СreateFile(IntPtr pointerInput)
         {
             try

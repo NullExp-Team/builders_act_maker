@@ -20,7 +20,7 @@ namespace ActBuilder
                 makeSheet(packages, clouser.acts[i] ,clouser.commonInfo);
             }
 
-            File.WriteAllBytes(clouser.path + clouser.name + ".xlsx", packages.GetAsByteArray());
+            File.WriteAllBytes(clouser.path +"\\"+ clouser.name + ".xlsx", packages.GetAsByteArray());
             packages.Dispose();
         }
         
