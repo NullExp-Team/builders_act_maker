@@ -44,7 +44,6 @@ namespace ActBuilder
         private static void FillSheet(ExcelWorksheet sheet, List<FieldData> fields, (int, int)[] coords)
         {
             const double maxFieldsWidth = 107;
-            const double spaceLetterWidth = 3.25;
             int shift = 0;
             for (int i = 0; i < fields.Count; i++)
             {
@@ -72,19 +71,20 @@ namespace ActBuilder
                 } 
 
                 double widthOfText = CalculateTextWidth(field.text, sheet.Cells[x, y].Style.Font);
-                // если текст длиннее, чем одна строка
+                
                 if (widthOfText + widthOfSubPart <= maxFieldsWidth)
                 {
                     sheet.Cells[x, y].Value = field.text;
                 } else
                 {
+                    // если текст длиннее, чем одна строка, то дробим его на слова по пробелам и увеличиваем количество строк, чтобы поместились все слова
+
                     // считаем сколько клеток смержено
                     int mergeCount = 0;
                     while (sheet.Cells[x, y+1 + mergeCount].Merge)
                     {
                         mergeCount++;
                     }
-
 
                     List<string> partOfText = field.text.Split(" ").ToList();
                     string nowText = partOfText[0];
@@ -125,6 +125,7 @@ namespace ActBuilder
         private static Graphics? _graphics;
         private static double CalculateTextWidth(string text, ExcelFont font)
         {
+            const double excelWidthMult = 8.625;
             if (string.IsNullOrEmpty(text)) return 0.0;
             Bitmap bitmap = _bitmap ?? (_bitmap = new Bitmap(1, 1));
             Graphics graphics = _graphics ?? (_graphics = Graphics.FromImage(bitmap));
@@ -132,7 +133,7 @@ namespace ActBuilder
             var drawingFont = new Font(font.Name, font.Size * 1.01f);
             var size = graphics.MeasureString(text, drawingFont);
 
-            return Convert.ToDouble(size.Width) / 8.625;
+            return Convert.ToDouble(size.Width) / excelWidthMult;
         }
     }
 }
