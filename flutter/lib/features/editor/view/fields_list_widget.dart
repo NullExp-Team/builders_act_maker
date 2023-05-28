@@ -29,7 +29,7 @@ class FieldsList extends StatelessWidget {
                 },
               ),
             DropDownFieldType(name: var name) => DropdownButton(
-                items: [],
+                items: const [],
                 onChanged: (chosen) {
                   // по name получаем из общего блока все варианты
                 },

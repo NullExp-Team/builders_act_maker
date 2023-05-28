@@ -26,6 +26,7 @@ dependencies:
 
   app_runner: ^2.2.0+1
   fluent_ui: ^4.6.1
+  dyn_mouse_scroll: ^1.0.7
 
 
 

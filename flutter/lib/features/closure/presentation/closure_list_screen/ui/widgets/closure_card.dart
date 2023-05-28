@@ -13,21 +13,34 @@ class ClosureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = FluentTheme.of(context).typography;
+
     final cubit = context.read<ClosureCubit>();
 
     return Button(
       onPressed: cubit.goToClosureDetailScreen,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(
-                  closure.name,
-                  style: textStyles.bodyLarge,
+                const Icon(FluentIcons.document_set, size: 20),
+                const SizedBox(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      closure.name,
+                      style: textStyles.bodyLarge,
+                    ),
+                    Text(
+                      closure.path,
+                      style: textStyles.caption?.copyWith(
+                        color: Colors.grey[80],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
