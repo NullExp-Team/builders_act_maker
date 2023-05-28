@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../act_data/act_data.dart';
-import '../field_data/field_data.dart';
+import '../../../../models/act_data/act_data.dart';
+import '../../../../models/field_data/field_data.dart';
 
 part 'closure.freezed.dart';
 part 'closure.g.dart';

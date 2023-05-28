@@ -4,9 +4,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'widgets/closure_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dyn_mouse_scroll/dyn_mouse_scroll.dart';
-import '../cubit/closure_cubit.dart';
-
-// TODO: Фикс множественного rebuild
+import '../cubit/closure_list_cubit.dart';
 
 class ClosureListScreen extends StatefulWidget {
   const ClosureListScreen({super.key});
@@ -16,7 +14,7 @@ class ClosureListScreen extends StatefulWidget {
 }
 
 class _ClosureListScreenState extends State<ClosureListScreen> {
-  late final cubit = context.read<ClosureCubit>();
+  late final cubit = context.read<ClosureListCubit>();
 
   @override
   void initState() {
@@ -30,12 +28,12 @@ class _ClosureListScreenState extends State<ClosureListScreen> {
       header: const PageHeader(
         title: Text('Список закрытий'),
       ),
-      content: BlocBuilder<ClosureCubit, ClosureState>(
+      content: BlocBuilder<ClosureListCubit, ClosureListState>(
         builder: (context, state) {
           switch (state) {
-            case ClosureInitialState() || ClosureLoadingState():
+            case ClosureListInitialState() || ClosureListLoadingState():
               return const Center(child: ProgressRing());
-            case ClosureLoadedState(:final closures):
+            case ClosureListLoadedState(:final closures):
               return DynMouseScroll(
                 durationMS: 100,
                 builder: (context, controller, physics) => ListView.separated(
@@ -59,7 +57,7 @@ class _ClosureListScreenState extends State<ClosureListScreen> {
                       const SizedBox(height: 6),
                 ),
               );
-            case ClosureErrorState():
+            case ClosureListErrorState():
               return const Center(child: Text('Ошибка'));
           }
         },

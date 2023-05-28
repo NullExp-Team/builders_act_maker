@@ -2,8 +2,8 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../models/closure/closure.dart';
-import '../../cubit/closure_cubit.dart';
+import '../../../../data/closure/closure.dart';
+import '../../cubit/closure_list_cubit.dart';
 
 class ClosureCard extends StatelessWidget {
   final Closure closure;
@@ -14,7 +14,7 @@ class ClosureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyles = FluentTheme.of(context).typography;
 
-    final cubit = context.read<ClosureCubit>();
+    final cubit = context.read<ClosureListCubit>();
 
     return Button(
       onPressed: cubit.goToClosureDetailScreen,

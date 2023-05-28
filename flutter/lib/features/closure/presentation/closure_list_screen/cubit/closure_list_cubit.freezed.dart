@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'closure_cubit.dart';
+part of 'closure_list_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ClosureState {
+mixin _$ClosureListState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -43,42 +43,42 @@ mixin _$ClosureState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ClosureInitialState value) initial,
-    required TResult Function(ClosureLoadingState value) loading,
-    required TResult Function(ClosureLoadedState value) loaded,
-    required TResult Function(ClosureErrorState value) error,
+    required TResult Function(ClosureListInitialState value) initial,
+    required TResult Function(ClosureListLoadingState value) loading,
+    required TResult Function(ClosureListLoadedState value) loaded,
+    required TResult Function(ClosureListErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ClosureInitialState value)? initial,
-    TResult? Function(ClosureLoadingState value)? loading,
-    TResult? Function(ClosureLoadedState value)? loaded,
-    TResult? Function(ClosureErrorState value)? error,
+    TResult? Function(ClosureListInitialState value)? initial,
+    TResult? Function(ClosureListLoadingState value)? loading,
+    TResult? Function(ClosureListLoadedState value)? loaded,
+    TResult? Function(ClosureListErrorState value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ClosureInitialState value)? initial,
-    TResult Function(ClosureLoadingState value)? loading,
-    TResult Function(ClosureLoadedState value)? loaded,
-    TResult Function(ClosureErrorState value)? error,
+    TResult Function(ClosureListInitialState value)? initial,
+    TResult Function(ClosureListLoadingState value)? loading,
+    TResult Function(ClosureListLoadedState value)? loaded,
+    TResult Function(ClosureListErrorState value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ClosureStateCopyWith<$Res> {
-  factory $ClosureStateCopyWith(
-          ClosureState value, $Res Function(ClosureState) then) =
-      _$ClosureStateCopyWithImpl<$Res, ClosureState>;
+abstract class $ClosureListStateCopyWith<$Res> {
+  factory $ClosureListStateCopyWith(
+          ClosureListState value, $Res Function(ClosureListState) then) =
+      _$ClosureListStateCopyWithImpl<$Res, ClosureListState>;
 }
 
 /// @nodoc
-class _$ClosureStateCopyWithImpl<$Res, $Val extends ClosureState>
-    implements $ClosureStateCopyWith<$Res> {
-  _$ClosureStateCopyWithImpl(this._value, this._then);
+class _$ClosureListStateCopyWithImpl<$Res, $Val extends ClosureListState>
+    implements $ClosureListStateCopyWith<$Res> {
+  _$ClosureListStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -87,35 +87,36 @@ class _$ClosureStateCopyWithImpl<$Res, $Val extends ClosureState>
 }
 
 /// @nodoc
-abstract class _$$ClosureInitialStateCopyWith<$Res> {
-  factory _$$ClosureInitialStateCopyWith(_$ClosureInitialState value,
-          $Res Function(_$ClosureInitialState) then) =
-      __$$ClosureInitialStateCopyWithImpl<$Res>;
+abstract class _$$ClosureListInitialStateCopyWith<$Res> {
+  factory _$$ClosureListInitialStateCopyWith(_$ClosureListInitialState value,
+          $Res Function(_$ClosureListInitialState) then) =
+      __$$ClosureListInitialStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ClosureInitialStateCopyWithImpl<$Res>
-    extends _$ClosureStateCopyWithImpl<$Res, _$ClosureInitialState>
-    implements _$$ClosureInitialStateCopyWith<$Res> {
-  __$$ClosureInitialStateCopyWithImpl(
-      _$ClosureInitialState _value, $Res Function(_$ClosureInitialState) _then)
+class __$$ClosureListInitialStateCopyWithImpl<$Res>
+    extends _$ClosureListStateCopyWithImpl<$Res, _$ClosureListInitialState>
+    implements _$$ClosureListInitialStateCopyWith<$Res> {
+  __$$ClosureListInitialStateCopyWithImpl(_$ClosureListInitialState _value,
+      $Res Function(_$ClosureListInitialState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ClosureInitialState implements ClosureInitialState {
-  const _$ClosureInitialState();
+class _$ClosureListInitialState implements ClosureListInitialState {
+  const _$ClosureListInitialState();
 
   @override
   String toString() {
-    return 'ClosureState.initial()';
+    return 'ClosureListState.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ClosureInitialState);
+        (other.runtimeType == runtimeType &&
+            other is _$ClosureListInitialState);
   }
 
   @override
@@ -161,10 +162,10 @@ class _$ClosureInitialState implements ClosureInitialState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ClosureInitialState value) initial,
-    required TResult Function(ClosureLoadingState value) loading,
-    required TResult Function(ClosureLoadedState value) loaded,
-    required TResult Function(ClosureErrorState value) error,
+    required TResult Function(ClosureListInitialState value) initial,
+    required TResult Function(ClosureListLoadingState value) loading,
+    required TResult Function(ClosureListLoadedState value) loaded,
+    required TResult Function(ClosureListErrorState value) error,
   }) {
     return initial(this);
   }
@@ -172,10 +173,10 @@ class _$ClosureInitialState implements ClosureInitialState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ClosureInitialState value)? initial,
-    TResult? Function(ClosureLoadingState value)? loading,
-    TResult? Function(ClosureLoadedState value)? loaded,
-    TResult? Function(ClosureErrorState value)? error,
+    TResult? Function(ClosureListInitialState value)? initial,
+    TResult? Function(ClosureListLoadingState value)? loading,
+    TResult? Function(ClosureListLoadedState value)? loaded,
+    TResult? Function(ClosureListErrorState value)? error,
   }) {
     return initial?.call(this);
   }
@@ -183,10 +184,10 @@ class _$ClosureInitialState implements ClosureInitialState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ClosureInitialState value)? initial,
-    TResult Function(ClosureLoadingState value)? loading,
-    TResult Function(ClosureLoadedState value)? loaded,
-    TResult Function(ClosureErrorState value)? error,
+    TResult Function(ClosureListInitialState value)? initial,
+    TResult Function(ClosureListLoadingState value)? loading,
+    TResult Function(ClosureListLoadedState value)? loaded,
+    TResult Function(ClosureListErrorState value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -196,40 +197,41 @@ class _$ClosureInitialState implements ClosureInitialState {
   }
 }
 
-abstract class ClosureInitialState implements ClosureState {
-  const factory ClosureInitialState() = _$ClosureInitialState;
+abstract class ClosureListInitialState implements ClosureListState {
+  const factory ClosureListInitialState() = _$ClosureListInitialState;
 }
 
 /// @nodoc
-abstract class _$$ClosureLoadingStateCopyWith<$Res> {
-  factory _$$ClosureLoadingStateCopyWith(_$ClosureLoadingState value,
-          $Res Function(_$ClosureLoadingState) then) =
-      __$$ClosureLoadingStateCopyWithImpl<$Res>;
+abstract class _$$ClosureListLoadingStateCopyWith<$Res> {
+  factory _$$ClosureListLoadingStateCopyWith(_$ClosureListLoadingState value,
+          $Res Function(_$ClosureListLoadingState) then) =
+      __$$ClosureListLoadingStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ClosureLoadingStateCopyWithImpl<$Res>
-    extends _$ClosureStateCopyWithImpl<$Res, _$ClosureLoadingState>
-    implements _$$ClosureLoadingStateCopyWith<$Res> {
-  __$$ClosureLoadingStateCopyWithImpl(
-      _$ClosureLoadingState _value, $Res Function(_$ClosureLoadingState) _then)
+class __$$ClosureListLoadingStateCopyWithImpl<$Res>
+    extends _$ClosureListStateCopyWithImpl<$Res, _$ClosureListLoadingState>
+    implements _$$ClosureListLoadingStateCopyWith<$Res> {
+  __$$ClosureListLoadingStateCopyWithImpl(_$ClosureListLoadingState _value,
+      $Res Function(_$ClosureListLoadingState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ClosureLoadingState implements ClosureLoadingState {
-  const _$ClosureLoadingState();
+class _$ClosureListLoadingState implements ClosureListLoadingState {
+  const _$ClosureListLoadingState();
 
   @override
   String toString() {
-    return 'ClosureState.loading()';
+    return 'ClosureListState.loading()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ClosureLoadingState);
+        (other.runtimeType == runtimeType &&
+            other is _$ClosureListLoadingState);
   }
 
   @override
@@ -275,10 +277,10 @@ class _$ClosureLoadingState implements ClosureLoadingState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ClosureInitialState value) initial,
-    required TResult Function(ClosureLoadingState value) loading,
-    required TResult Function(ClosureLoadedState value) loaded,
-    required TResult Function(ClosureErrorState value) error,
+    required TResult Function(ClosureListInitialState value) initial,
+    required TResult Function(ClosureListLoadingState value) loading,
+    required TResult Function(ClosureListLoadedState value) loaded,
+    required TResult Function(ClosureListErrorState value) error,
   }) {
     return loading(this);
   }
@@ -286,10 +288,10 @@ class _$ClosureLoadingState implements ClosureLoadingState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ClosureInitialState value)? initial,
-    TResult? Function(ClosureLoadingState value)? loading,
-    TResult? Function(ClosureLoadedState value)? loaded,
-    TResult? Function(ClosureErrorState value)? error,
+    TResult? Function(ClosureListInitialState value)? initial,
+    TResult? Function(ClosureListLoadingState value)? loading,
+    TResult? Function(ClosureListLoadedState value)? loaded,
+    TResult? Function(ClosureListErrorState value)? error,
   }) {
     return loading?.call(this);
   }
@@ -297,10 +299,10 @@ class _$ClosureLoadingState implements ClosureLoadingState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ClosureInitialState value)? initial,
-    TResult Function(ClosureLoadingState value)? loading,
-    TResult Function(ClosureLoadedState value)? loaded,
-    TResult Function(ClosureErrorState value)? error,
+    TResult Function(ClosureListInitialState value)? initial,
+    TResult Function(ClosureListLoadingState value)? loading,
+    TResult Function(ClosureListLoadedState value)? loaded,
+    TResult Function(ClosureListErrorState value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -310,25 +312,25 @@ class _$ClosureLoadingState implements ClosureLoadingState {
   }
 }
 
-abstract class ClosureLoadingState implements ClosureState {
-  const factory ClosureLoadingState() = _$ClosureLoadingState;
+abstract class ClosureListLoadingState implements ClosureListState {
+  const factory ClosureListLoadingState() = _$ClosureListLoadingState;
 }
 
 /// @nodoc
-abstract class _$$ClosureLoadedStateCopyWith<$Res> {
-  factory _$$ClosureLoadedStateCopyWith(_$ClosureLoadedState value,
-          $Res Function(_$ClosureLoadedState) then) =
-      __$$ClosureLoadedStateCopyWithImpl<$Res>;
+abstract class _$$ClosureListLoadedStateCopyWith<$Res> {
+  factory _$$ClosureListLoadedStateCopyWith(_$ClosureListLoadedState value,
+          $Res Function(_$ClosureListLoadedState) then) =
+      __$$ClosureListLoadedStateCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Closure> closures});
 }
 
 /// @nodoc
-class __$$ClosureLoadedStateCopyWithImpl<$Res>
-    extends _$ClosureStateCopyWithImpl<$Res, _$ClosureLoadedState>
-    implements _$$ClosureLoadedStateCopyWith<$Res> {
-  __$$ClosureLoadedStateCopyWithImpl(
-      _$ClosureLoadedState _value, $Res Function(_$ClosureLoadedState) _then)
+class __$$ClosureListLoadedStateCopyWithImpl<$Res>
+    extends _$ClosureListStateCopyWithImpl<$Res, _$ClosureListLoadedState>
+    implements _$$ClosureListLoadedStateCopyWith<$Res> {
+  __$$ClosureListLoadedStateCopyWithImpl(_$ClosureListLoadedState _value,
+      $Res Function(_$ClosureListLoadedState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -336,7 +338,7 @@ class __$$ClosureLoadedStateCopyWithImpl<$Res>
   $Res call({
     Object? closures = null,
   }) {
-    return _then(_$ClosureLoadedState(
+    return _then(_$ClosureListLoadedState(
       closures: null == closures
           ? _value._closures
           : closures // ignore: cast_nullable_to_non_nullable
@@ -347,8 +349,8 @@ class __$$ClosureLoadedStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ClosureLoadedState implements ClosureLoadedState {
-  const _$ClosureLoadedState({required final List<Closure> closures})
+class _$ClosureListLoadedState implements ClosureListLoadedState {
+  const _$ClosureListLoadedState({required final List<Closure> closures})
       : _closures = closures;
 
   final List<Closure> _closures;
@@ -361,14 +363,14 @@ class _$ClosureLoadedState implements ClosureLoadedState {
 
   @override
   String toString() {
-    return 'ClosureState.loaded(closures: $closures)';
+    return 'ClosureListState.loaded(closures: $closures)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ClosureLoadedState &&
+            other is _$ClosureListLoadedState &&
             const DeepCollectionEquality().equals(other._closures, _closures));
   }
 
@@ -379,8 +381,8 @@ class _$ClosureLoadedState implements ClosureLoadedState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClosureLoadedStateCopyWith<_$ClosureLoadedState> get copyWith =>
-      __$$ClosureLoadedStateCopyWithImpl<_$ClosureLoadedState>(
+  _$$ClosureListLoadedStateCopyWith<_$ClosureListLoadedState> get copyWith =>
+      __$$ClosureListLoadedStateCopyWithImpl<_$ClosureListLoadedState>(
           this, _$identity);
 
   @override
@@ -423,10 +425,10 @@ class _$ClosureLoadedState implements ClosureLoadedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ClosureInitialState value) initial,
-    required TResult Function(ClosureLoadingState value) loading,
-    required TResult Function(ClosureLoadedState value) loaded,
-    required TResult Function(ClosureErrorState value) error,
+    required TResult Function(ClosureListInitialState value) initial,
+    required TResult Function(ClosureListLoadingState value) loading,
+    required TResult Function(ClosureListLoadedState value) loaded,
+    required TResult Function(ClosureListErrorState value) error,
   }) {
     return loaded(this);
   }
@@ -434,10 +436,10 @@ class _$ClosureLoadedState implements ClosureLoadedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ClosureInitialState value)? initial,
-    TResult? Function(ClosureLoadingState value)? loading,
-    TResult? Function(ClosureLoadedState value)? loaded,
-    TResult? Function(ClosureErrorState value)? error,
+    TResult? Function(ClosureListInitialState value)? initial,
+    TResult? Function(ClosureListLoadingState value)? loading,
+    TResult? Function(ClosureListLoadedState value)? loaded,
+    TResult? Function(ClosureListErrorState value)? error,
   }) {
     return loaded?.call(this);
   }
@@ -445,10 +447,10 @@ class _$ClosureLoadedState implements ClosureLoadedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ClosureInitialState value)? initial,
-    TResult Function(ClosureLoadingState value)? loading,
-    TResult Function(ClosureLoadedState value)? loaded,
-    TResult Function(ClosureErrorState value)? error,
+    TResult Function(ClosureListInitialState value)? initial,
+    TResult Function(ClosureListLoadingState value)? loading,
+    TResult Function(ClosureListLoadedState value)? loaded,
+    TResult Function(ClosureListErrorState value)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -458,31 +460,31 @@ class _$ClosureLoadedState implements ClosureLoadedState {
   }
 }
 
-abstract class ClosureLoadedState implements ClosureState {
-  const factory ClosureLoadedState({required final List<Closure> closures}) =
-      _$ClosureLoadedState;
+abstract class ClosureListLoadedState implements ClosureListState {
+  const factory ClosureListLoadedState(
+      {required final List<Closure> closures}) = _$ClosureListLoadedState;
 
   List<Closure> get closures;
   @JsonKey(ignore: true)
-  _$$ClosureLoadedStateCopyWith<_$ClosureLoadedState> get copyWith =>
+  _$$ClosureListLoadedStateCopyWith<_$ClosureListLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ClosureErrorStateCopyWith<$Res> {
-  factory _$$ClosureErrorStateCopyWith(
-          _$ClosureErrorState value, $Res Function(_$ClosureErrorState) then) =
-      __$$ClosureErrorStateCopyWithImpl<$Res>;
+abstract class _$$ClosureListErrorStateCopyWith<$Res> {
+  factory _$$ClosureListErrorStateCopyWith(_$ClosureListErrorState value,
+          $Res Function(_$ClosureListErrorState) then) =
+      __$$ClosureListErrorStateCopyWithImpl<$Res>;
   @useResult
   $Res call({dynamic message, StackTrace stackTrace});
 }
 
 /// @nodoc
-class __$$ClosureErrorStateCopyWithImpl<$Res>
-    extends _$ClosureStateCopyWithImpl<$Res, _$ClosureErrorState>
-    implements _$$ClosureErrorStateCopyWith<$Res> {
-  __$$ClosureErrorStateCopyWithImpl(
-      _$ClosureErrorState _value, $Res Function(_$ClosureErrorState) _then)
+class __$$ClosureListErrorStateCopyWithImpl<$Res>
+    extends _$ClosureListStateCopyWithImpl<$Res, _$ClosureListErrorState>
+    implements _$$ClosureListErrorStateCopyWith<$Res> {
+  __$$ClosureListErrorStateCopyWithImpl(_$ClosureListErrorState _value,
+      $Res Function(_$ClosureListErrorState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -491,7 +493,7 @@ class __$$ClosureErrorStateCopyWithImpl<$Res>
     Object? message = freezed,
     Object? stackTrace = null,
   }) {
-    return _then(_$ClosureErrorState(
+    return _then(_$ClosureListErrorState(
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -506,8 +508,9 @@ class __$$ClosureErrorStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ClosureErrorState implements ClosureErrorState {
-  const _$ClosureErrorState({required this.message, required this.stackTrace});
+class _$ClosureListErrorState implements ClosureListErrorState {
+  const _$ClosureListErrorState(
+      {required this.message, required this.stackTrace});
 
   @override
   final dynamic message;
@@ -516,14 +519,14 @@ class _$ClosureErrorState implements ClosureErrorState {
 
   @override
   String toString() {
-    return 'ClosureState.error(message: $message, stackTrace: $stackTrace)';
+    return 'ClosureListState.error(message: $message, stackTrace: $stackTrace)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ClosureErrorState &&
+            other is _$ClosureListErrorState &&
             const DeepCollectionEquality().equals(other.message, message) &&
             (identical(other.stackTrace, stackTrace) ||
                 other.stackTrace == stackTrace));
@@ -536,8 +539,9 @@ class _$ClosureErrorState implements ClosureErrorState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClosureErrorStateCopyWith<_$ClosureErrorState> get copyWith =>
-      __$$ClosureErrorStateCopyWithImpl<_$ClosureErrorState>(this, _$identity);
+  _$$ClosureListErrorStateCopyWith<_$ClosureListErrorState> get copyWith =>
+      __$$ClosureListErrorStateCopyWithImpl<_$ClosureListErrorState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -579,10 +583,10 @@ class _$ClosureErrorState implements ClosureErrorState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ClosureInitialState value) initial,
-    required TResult Function(ClosureLoadingState value) loading,
-    required TResult Function(ClosureLoadedState value) loaded,
-    required TResult Function(ClosureErrorState value) error,
+    required TResult Function(ClosureListInitialState value) initial,
+    required TResult Function(ClosureListLoadingState value) loading,
+    required TResult Function(ClosureListLoadedState value) loaded,
+    required TResult Function(ClosureListErrorState value) error,
   }) {
     return error(this);
   }
@@ -590,10 +594,10 @@ class _$ClosureErrorState implements ClosureErrorState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ClosureInitialState value)? initial,
-    TResult? Function(ClosureLoadingState value)? loading,
-    TResult? Function(ClosureLoadedState value)? loaded,
-    TResult? Function(ClosureErrorState value)? error,
+    TResult? Function(ClosureListInitialState value)? initial,
+    TResult? Function(ClosureListLoadingState value)? loading,
+    TResult? Function(ClosureListLoadedState value)? loaded,
+    TResult? Function(ClosureListErrorState value)? error,
   }) {
     return error?.call(this);
   }
@@ -601,10 +605,10 @@ class _$ClosureErrorState implements ClosureErrorState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ClosureInitialState value)? initial,
-    TResult Function(ClosureLoadingState value)? loading,
-    TResult Function(ClosureLoadedState value)? loaded,
-    TResult Function(ClosureErrorState value)? error,
+    TResult Function(ClosureListInitialState value)? initial,
+    TResult Function(ClosureListLoadingState value)? loading,
+    TResult Function(ClosureListLoadedState value)? loaded,
+    TResult Function(ClosureListErrorState value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -614,14 +618,14 @@ class _$ClosureErrorState implements ClosureErrorState {
   }
 }
 
-abstract class ClosureErrorState implements ClosureState {
-  const factory ClosureErrorState(
+abstract class ClosureListErrorState implements ClosureListState {
+  const factory ClosureListErrorState(
       {required final dynamic message,
-      required final StackTrace stackTrace}) = _$ClosureErrorState;
+      required final StackTrace stackTrace}) = _$ClosureListErrorState;
 
   dynamic get message;
   StackTrace get stackTrace;
   @JsonKey(ignore: true)
-  _$$ClosureErrorStateCopyWith<_$ClosureErrorState> get copyWith =>
+  _$$ClosureListErrorStateCopyWith<_$ClosureListErrorState> get copyWith =>
       throw _privateConstructorUsedError;
 }

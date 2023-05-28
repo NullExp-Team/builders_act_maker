@@ -1,16 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../models/closure/closure.dart';
+import '../../../data/closure/closure.dart';
 
-part 'closure_state.dart';
-part 'closure_cubit.freezed.dart';
+part 'closure_list_state.dart';
+part 'closure_list_cubit.freezed.dart';
 
-class ClosureCubit extends Cubit<ClosureState> {
-  ClosureCubit() : super(const ClosureState.initial());
+class ClosureListCubit extends Cubit<ClosureListState> {
+  ClosureListCubit() : super(const ClosureListState.initial());
 
   Future<void> loadClosures() async {
-    emit(const ClosureState.loading());
+    emit(const ClosureListState.loading());
 
     await Future.delayed(const Duration(milliseconds: 1500));
 
@@ -18,7 +18,7 @@ class ClosureCubit extends Cubit<ClosureState> {
       for (var i = 0; i < 100; i++) Closure.random(),
     ];
 
-    emit(ClosureState.loaded(closures: closures));
+    emit(ClosureListState.loaded(closures: closures));
   }
 
   void goToClosureDetailScreen() {
