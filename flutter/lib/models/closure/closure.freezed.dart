@@ -22,6 +22,7 @@ Closure _$ClosureFromJson(Map<String, dynamic> json) {
 mixin _$Closure {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
   List<ActData> get acts => throw _privateConstructorUsedError;
   List<FieldData> get commonInfo => throw _privateConstructorUsedError;
 
@@ -36,7 +37,11 @@ abstract class $ClosureCopyWith<$Res> {
       _$ClosureCopyWithImpl<$Res, Closure>;
   @useResult
   $Res call(
-      {int id, String name, List<ActData> acts, List<FieldData> commonInfo});
+      {int id,
+      String name,
+      String path,
+      List<ActData> acts,
+      List<FieldData> commonInfo});
 }
 
 /// @nodoc
@@ -54,6 +59,7 @@ class _$ClosureCopyWithImpl<$Res, $Val extends Closure>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? path = null,
     Object? acts = null,
     Object? commonInfo = null,
   }) {
@@ -65,6 +71,10 @@ class _$ClosureCopyWithImpl<$Res, $Val extends Closure>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
       acts: null == acts
           ? _value.acts
@@ -86,7 +96,11 @@ abstract class _$$_ClosureCopyWith<$Res> implements $ClosureCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id, String name, List<ActData> acts, List<FieldData> commonInfo});
+      {int id,
+      String name,
+      String path,
+      List<ActData> acts,
+      List<FieldData> commonInfo});
 }
 
 /// @nodoc
@@ -101,6 +115,7 @@ class __$$_ClosureCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? path = null,
     Object? acts = null,
     Object? commonInfo = null,
   }) {
@@ -112,6 +127,10 @@ class __$$_ClosureCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
               as String,
       acts: null == acts
           ? _value._acts
@@ -131,6 +150,7 @@ class _$_Closure implements _Closure {
   _$_Closure(
       {required this.id,
       required this.name,
+      required this.path,
       final List<ActData> acts = const <ActData>[],
       final List<FieldData> commonInfo = const <FieldData>[]})
       : _acts = acts,
@@ -143,6 +163,8 @@ class _$_Closure implements _Closure {
   final int id;
   @override
   final String name;
+  @override
+  final String path;
   final List<ActData> _acts;
   @override
   @JsonKey()
@@ -163,7 +185,7 @@ class _$_Closure implements _Closure {
 
   @override
   String toString() {
-    return 'Closure(id: $id, name: $name, acts: $acts, commonInfo: $commonInfo)';
+    return 'Closure(id: $id, name: $name, path: $path, acts: $acts, commonInfo: $commonInfo)';
   }
 
   @override
@@ -173,6 +195,7 @@ class _$_Closure implements _Closure {
             other is _$_Closure &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.path, path) || other.path == path) &&
             const DeepCollectionEquality().equals(other._acts, _acts) &&
             const DeepCollectionEquality()
                 .equals(other._commonInfo, _commonInfo));
@@ -184,6 +207,7 @@ class _$_Closure implements _Closure {
       runtimeType,
       id,
       name,
+      path,
       const DeepCollectionEquality().hash(_acts),
       const DeepCollectionEquality().hash(_commonInfo));
 
@@ -205,6 +229,7 @@ abstract class _Closure implements Closure {
   factory _Closure(
       {required final int id,
       required final String name,
+      required final String path,
       final List<ActData> acts,
       final List<FieldData> commonInfo}) = _$_Closure;
 
@@ -214,6 +239,8 @@ abstract class _Closure implements Closure {
   int get id;
   @override
   String get name;
+  @override
+  String get path;
   @override
   List<ActData> get acts;
   @override

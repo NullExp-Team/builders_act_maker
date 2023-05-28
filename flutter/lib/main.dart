@@ -1,19 +1,12 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
 import 'features/closure/presentation/closure_list_screen/ui/closure_list_screen.dart';
-import 'models/document_type/document_type.dart';
-
 import 'models/act_data/act_data.dart';
+import 'models/closure/closure.dart';
+import 'models/document_type/document_type.dart';
 import 'models/field_data/field_data.dart';
 
 void main() {
-  final a = ActData(
-    name: 'da',
-    fields: [FieldData(text: ' ', hasSpace: false, subText: null)],
-    type: DocumentType.actOSR,
-  );
-  final b = a.toJson;
-  print(a.toJson().toString());
   runApp(const MainApp());
 }
 
@@ -23,6 +16,58 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Colors.blue;
+
+    final closure = Closure(
+      id: 0,
+      name: 'lol',
+      path: 'kek',
+      commonInfo: [
+        FieldData(
+          text: 'rar',
+          hasSpace: false,
+          subText: null,
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: true,
+          subText: 'hah',
+        ),
+      ],
+      acts: [
+        ActData(
+          name: 'super',
+          type: DocumentType.actOSR,
+          fields: [
+            FieldData(
+              text: 'rar',
+              hasSpace: false,
+              subText: null,
+            ),
+            FieldData(
+              text: 'tat',
+              hasSpace: true,
+              subText: 'hah',
+            ),
+          ],
+        ),
+        ActData(
+          name: 'repus',
+          type: DocumentType.actOSR,
+          fields: [
+            FieldData(
+              text: 'tat',
+              hasSpace: false,
+              subText: null,
+            ),
+            FieldData(
+              text: 'rar',
+              hasSpace: true,
+              subText: 'hah',
+            ),
+          ],
+        ),
+      ],
+    );
 
     return FluentApp(
       debugShowCheckedModeBanner: false,

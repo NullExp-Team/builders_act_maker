@@ -13,6 +13,7 @@ class Closure with _$Closure {
   factory Closure({
     required int id,
     required String name,
+    required String path,
     @Default(<ActData>[]) List<ActData> acts,
     @Default(<FieldData>[]) List<FieldData> commonInfo,
   }) = _Closure;
@@ -25,6 +26,7 @@ class Closure with _$Closure {
     final random = Random();
     final id = random.nextInt(100);
     final name = 'Закрытие $id';
+    final path = 'Путь $id';
     final acts = List.generate(
       random.nextInt(10),
       (index) => ActData.random(),
@@ -37,6 +39,7 @@ class Closure with _$Closure {
     return Closure(
       id: id,
       name: name,
+      path: path,
       acts: acts,
       commonInfo: commonInfo,
     );
