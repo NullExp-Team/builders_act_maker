@@ -6,28 +6,32 @@ import 'navigation_breadcrumb.dart';
 import 'package:flutter/material.dart' as m;
 
 class NavigationHeader extends StatefulWidget {
-  const NavigationHeader({super.key});
+  final List<GoRoute> routes;
+
+  const NavigationHeader({super.key, required this.routes});
 
   @override
   State<NavigationHeader> createState() => _NavigationHeaderState();
 }
 
 class _NavigationHeaderState extends State<NavigationHeader> {
-  final goRouter = Di.get<GoRouter>();
-
-  void pop(int count) {
-    for (var i = 0; i < count; i++) {
-      goRouter.pop();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final currentRoutes = goRouter.location.substring(1).split('/');
+    // TODO: Всё это кринж, переделать
 
-    final allRoutes = goRouter.routerDelegate.currentConfiguration.matches
+    final goRouter = Di.get<GoRouter>();
+
+    void pop(int count) {
+      for (var i = 0; i < count; i++) {
+        goRouter.pop();
+      }
+    }
+
+    final routesLength = widget.routes.length;
+
+    final allRoutes = widget.routes
         .map(
-          (e) => (e.route as GoRoute).name ?? 'Hey',
+          (e) => e.name ?? 'Hey',
         )
         .toList();
 
@@ -37,11 +41,11 @@ class _NavigationHeaderState extends State<NavigationHeader> {
         child: ListView.separated(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
-          itemCount: currentRoutes.length,
+          itemCount: routesLength,
           itemBuilder: (context, index) => NavigationBreadcrumb(
             text: allRoutes[index],
-            isCurrent: index == currentRoutes.length - 1,
-            onPressed: () => pop(currentRoutes.length - 1 - index),
+            isCurrent: index == routesLength - 1,
+            onPressed: () => pop(routesLength - 1 - index),
           ),
           separatorBuilder: (context, index) => const Padding(
             padding: EdgeInsets.only(left: 12, right: 12),
