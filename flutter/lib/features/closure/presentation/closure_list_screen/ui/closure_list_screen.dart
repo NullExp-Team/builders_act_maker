@@ -1,3 +1,4 @@
+import '../../../../../core/widgets/navigation_header.dart';
 import 'widgets/add_closure_card.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
@@ -25,9 +26,7 @@ class _ClosureListScreenState extends State<ClosureListScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
-      header: const PageHeader(
-        title: Text('Список закрытий'),
-      ),
+      header: const NavigationHeader(),
       content: BlocBuilder<ClosureListCubit, ClosureListState>(
         builder: (context, state) {
           switch (state) {

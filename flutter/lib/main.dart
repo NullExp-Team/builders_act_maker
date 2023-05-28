@@ -1,9 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'core/di.dart';
 import 'features/closure/presentation/closure_list_screen/cubit/closure_list_cubit.dart';
-import 'features/closure/presentation/closure_list_screen/ui/closure_list_screen.dart';
 import 'models/act_data/act_data.dart';
 import 'features/closure/data/closure/closure.dart';
 import 'models/document_type/document_type.dart';
@@ -20,6 +20,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Colors.blue;
+
+    final goRouter = Di.get<GoRouter>();
 
     final closure = Closure(
       id: 0,
@@ -73,7 +75,7 @@ class MainApp extends StatelessWidget {
       ],
     );
 
-    return FluentApp(
+    return FluentApp.router(
       debugShowCheckedModeBanner: false,
       color: color,
       darkTheme: FluentThemeData(
@@ -93,14 +95,17 @@ class MainApp extends StatelessWidget {
           glowFactor: is10footScreen(context) ? 2.0 : 0.0,
         ),
       ),
-      home: MultiBlocProvider(
+      builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => getIt.get<ClosureListCubit>(),
+            create: (context) => Di.get<ClosureListCubit>(),
           ),
         ],
-        child: const ClosureListScreen(),
+        child: child!,
       ),
+      routerDelegate: goRouter.routerDelegate,
+      routeInformationParser: goRouter.routeInformationParser,
+      routeInformationProvider: goRouter.routeInformationProvider,
     );
   }
 }

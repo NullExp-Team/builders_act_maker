@@ -16,7 +16,7 @@ class ClosureCard extends StatelessWidget {
     final cubit = context.read<ClosureListCubit>();
 
     return Button(
-      onPressed: cubit.goToClosureDetailScreen,
+      onPressed: () => cubit.goToClosureDetailScreen(closure),
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Row(
