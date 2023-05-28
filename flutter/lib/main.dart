@@ -1,16 +1,18 @@
-import 'package:builders_act_maker/models/data_models/act_data.dart';
-import 'package:builders_act_maker/models/data_models/fields_data.dart';
-import 'package:builders_act_maker/models/type_models/document_type.dart';
+import 'models/document_type/document_type.dart';
 import 'package:flutter/material.dart';
+
+import 'models/act_data/act_data.dart';
+import 'models/field_data/field_data.dart';
 
 void main() {
   final a = ActData(
     name: 'da',
-    fields: [FieldsData(text: ' ', hasSpace: false, subText: null)],
-    type: DocumentType('key', 1),
+    fields: [FieldData(text: ' ', hasSpace: false, subText: null)],
+    type: DocumentType.actOSR,
   );
   final b = a.toJson;
   print(a.toJson().toString());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
