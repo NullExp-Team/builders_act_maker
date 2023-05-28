@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'features/editor_screen/view/editor_page.dart';
+import 'features/editor/view/editor_view.dart';
 import 'models/act_data/act_data.dart';
 import 'models/closure/closure.dart';
 import 'models/document_type/document_type.dart';
@@ -67,7 +67,10 @@ class MainApp extends StatelessWidget {
       ],
     );
     return MaterialApp(
-      home: EditorPage(closure: closure),
+      home: EditorView(
+        actData: closure.acts[0],
+        index: 0,
+      ),
     );
   }
 }
