@@ -1,5 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/di.dart';
+import 'features/closure/presentation/closure_list_screen/cubit/closure_cubit.dart';
 import 'features/closure/presentation/closure_list_screen/ui/closure_list_screen.dart';
 import 'models/act_data/act_data.dart';
 import 'models/closure/closure.dart';
@@ -7,6 +10,7 @@ import 'models/document_type/document_type.dart';
 import 'models/field_data/field_data.dart';
 
 void main() {
+  Di.initialize();
   runApp(const MainApp());
 }
 
@@ -89,7 +93,14 @@ class MainApp extends StatelessWidget {
           glowFactor: is10footScreen(context) ? 2.0 : 0.0,
         ),
       ),
-      home: const ClosureListScreen(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => getIt.get<ClosureCubit>(),
+          ),
+        ],
+        child: const ClosureListScreen(),
+      ),
     );
   }
 }
