@@ -1,5 +1,7 @@
+import 'package:fluent_ui/fluent_ui.dart';
+
+import 'features/closure/presentation/closure_list_screen/ui/closure_list_screen.dart';
 import 'models/document_type/document_type.dart';
-import 'package:flutter/material.dart';
 
 import 'models/act_data/act_data.dart';
 import 'models/field_data/field_data.dart';
@@ -20,12 +22,29 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    final color = Colors.blue;
+
+    return FluentApp(
+      debugShowCheckedModeBanner: false,
+      color: color,
+      darkTheme: FluentThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.grey[170],
+        accentColor: color,
+        visualDensity: VisualDensity.standard,
+        focusTheme: FocusThemeData(
+          glowFactor: is10footScreen(context) ? 2.0 : 0.0,
         ),
       ),
+      theme: FluentThemeData(
+        accentColor: color,
+        scaffoldBackgroundColor: Colors.grey[30],
+        visualDensity: VisualDensity.standard,
+        focusTheme: FocusThemeData(
+          glowFactor: is10footScreen(context) ? 2.0 : 0.0,
+        ),
+      ),
+      home: const ClosureListScreen(),
     );
   }
 }

@@ -22,9 +22,10 @@ dependencies:
   get_it: ^7.6.0
 
   google_fonts: ^4.0.5
-  intl: ^0.18.1
+  intl: ^0.18.0
 
   app_runner: ^2.2.0+1
+  fluent_ui: ^4.6.1
 
 
 
