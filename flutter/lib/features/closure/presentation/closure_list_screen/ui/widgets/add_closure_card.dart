@@ -3,6 +3,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/theme/theme_context_extension.dart';
 import '../../cubit/closure_list_cubit.dart';
 
 class AddClosureCard extends StatelessWidget {
@@ -10,7 +11,6 @@ class AddClosureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyles = FluentTheme.of(context).typography;
     final cubit = context.read<ClosureListCubit>();
 
     return Button(
@@ -22,7 +22,7 @@ class AddClosureCard extends StatelessWidget {
           children: [
             Text(
               'Создать новое закрытие',
-              style: textStyles.body,
+              style: context.textStyles.body,
             ),
             Button(
               onPressed: cubit.goToAddClosureScreen,

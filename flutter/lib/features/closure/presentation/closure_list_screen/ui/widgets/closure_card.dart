@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/theme/theme_context_extension.dart';
 import '../../../../data/closure/closure.dart';
 import '../../cubit/closure_list_cubit.dart';
 
@@ -12,8 +13,6 @@ class ClosureCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyles = FluentTheme.of(context).typography;
-
     final cubit = context.read<ClosureListCubit>();
 
     return Button(
@@ -32,11 +31,11 @@ class ClosureCard extends StatelessWidget {
                   children: [
                     Text(
                       closure.name,
-                      style: textStyles.bodyLarge,
+                      style: context.textStyles.bodyLarge,
                     ),
                     Text(
                       closure.path,
-                      style: textStyles.caption?.copyWith(
+                      style: context.textStyles.caption?.copyWith(
                         color: Colors.grey[80],
                       ),
                     ),
