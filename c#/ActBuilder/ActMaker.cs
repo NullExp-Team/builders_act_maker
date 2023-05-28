@@ -13,8 +13,8 @@ namespace ActBuilder
     static class ActMaker
     {
         const double maxFieldsWidth = 107;
-        private static Bitmap? bitmap;
-        private static Graphics? graphics;
+        static Bitmap? bitmap;
+        static Graphics? graphics;
 
         // создаём файл и начинаем обрабатывать листы
         public static void CreateAct(Сlosure clouser)
@@ -36,7 +36,7 @@ namespace ActBuilder
         }
         
         // создаём листы
-        private static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
+        static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
             ExcelPackage typeTemplate = new ExcelPackage(act.type + ".xlsx");
             ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.name, typeTemplate.Workbook.Worksheets.First());
@@ -50,7 +50,7 @@ namespace ActBuilder
         }
 
         // заполняем по координатам и по полям данный нам лист
-        private static void FillSheet(ExcelWorksheet sheet, List<FieldData> fields, (int, int)[] coords)
+        static void FillSheet(ExcelWorksheet sheet, List<FieldData> fields, (int, int)[] coords)
         {
             int shift = 0;
             for (int i = 0; i < fields.Count; i++)
@@ -131,7 +131,7 @@ namespace ActBuilder
             }
         }
 
-        private static double CalculateTextWidth(string text, ExcelFont font)
+        static double CalculateTextWidth(string text, ExcelFont font)
         {
             const double excelWidthMult = 8.625;
             if (string.IsNullOrEmpty(text)) return 0.0;
