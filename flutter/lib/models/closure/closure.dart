@@ -11,6 +11,7 @@ class Closure with _$Closure {
   factory Closure({
     required int id,
     required String name,
+    required String path,
     @Default(<ActData>[]) List<ActData> acts,
     @Default(<FieldData>[]) List<FieldData> commonInfo,
   }) = _Closure;
