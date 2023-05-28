@@ -12,25 +12,31 @@ namespace ActBuilder
     
     static class ActMaker
     {
+        const double maxFieldsWidth = 107;
+        private static Bitmap? bitmap;
+        private static Graphics? graphics;
 
         // создаём файл и начинаем обрабатывать листы
         public static void CreateAct(Сlosure clouser)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             ExcelPackage packages = new ExcelPackage();
+            bitmap = new Bitmap(1, 1);
+            graphics = Graphics.FromImage(bitmap);
+
             for (int i = 0; i < clouser.acts.Count; i++)
             {
-                makeSheet(packages, clouser.acts[i] ,clouser.commonInfo);
+                MakeSheet(packages, clouser.acts[i] ,clouser.commonInfo);
             }
 
             File.WriteAllBytes(clouser.path +"\\"+ clouser.name + ".xlsx", packages.GetAsByteArray());
             packages.Dispose();
-            _bitmap?.Dispose();
-            _graphics?.Dispose();
+            bitmap?.Dispose();
+            graphics?.Dispose();
         }
         
         // создаём листы
-        private static void makeSheet(ExcelPackage packages, Act act, List<FieldData> commonInfo)
+        private static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
             ExcelPackage typeTemplate = new ExcelPackage(act.type + ".xlsx");
             ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.name, typeTemplate.Workbook.Worksheets.First());
@@ -46,7 +52,6 @@ namespace ActBuilder
         // заполняем по координатам и по полям данный нам лист
         private static void FillSheet(ExcelWorksheet sheet, List<FieldData> fields, (int, int)[] coords)
         {
-            const double maxFieldsWidth = 107;
             int shift = 0;
             for (int i = 0; i < fields.Count; i++)
             {
@@ -126,14 +131,10 @@ namespace ActBuilder
             }
         }
 
-        private static Bitmap? _bitmap;
-        private static Graphics? _graphics;
         private static double CalculateTextWidth(string text, ExcelFont font)
         {
             const double excelWidthMult = 8.625;
             if (string.IsNullOrEmpty(text)) return 0.0;
-            Bitmap bitmap = _bitmap ?? (_bitmap = new Bitmap(1, 1));
-            Graphics graphics = _graphics ?? (_graphics = Graphics.FromImage(bitmap));
 
             var drawingFont = new Font(font.Name, font.Size * 1.01f);
             var size = graphics.MeasureString(text, drawingFont);

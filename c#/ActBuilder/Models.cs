@@ -11,9 +11,9 @@ namespace ActBuilder
         public string name { get; set; }
         public string path { get; set; }
         public List<FieldData> commonInfo { get; set; }
-        public List<Act> acts { get; set; }
+        public List<ActData> acts { get; set; }
     }
-    class Act
+    class ActData
     {
         public string name { get; set; }
         public string type { get; set; }

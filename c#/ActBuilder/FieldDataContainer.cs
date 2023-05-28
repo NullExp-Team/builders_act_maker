@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace ActBuilder
 {
+    /// <summary>
+    /// Хранит в себе coordsContainer, в котором по названию типа акта можно получить массив координат его полей
+    /// </summary>
     static class FieldDataContainer
     {
-        static bool isInit = false;
-        static Dictionary<String, (int, int)[]> coordsContainer = new Dictionary<string, (int, int)[]>();
+        static Dictionary<String, (int, int)[]>? coordsContainer;
+        
         public static (int, int)[] GetCoordsContainer(string type)
         {
-            if (!isInit)
+            if (coordsContainer == null)
             {
-                isInit = true;
                 Init();
             }
 
-            return coordsContainer[type]!;
+            return coordsContainer![type]!;
         }
 
         static private void Init()
@@ -58,6 +60,7 @@ namespace ActBuilder
                 (87, 1),
             };
 
+            coordsContainer = new Dictionary<string, (int, int)[]>();
             coordsContainer.Add("actOSR", listOfCoordsOSR);
         }
     }
