@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/field_data/field_data.dart';
-import '../bloc/editor_bloc.dart';
+import '../../../../models/field_data/field_data.dart';
+import '../../editor_bloc/editor_bloc.dart';
 
 class TypedTextField extends StatefulWidget {
   const TypedTextField({

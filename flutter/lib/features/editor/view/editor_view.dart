@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/document_types_fields_info_container.dart';
 import '../../../models/act_data/act_data.dart';
-import '../bloc/editor_bloc.dart';
+import '../editor_bloc/editor_bloc.dart';
 import 'widgets/fields_list_widget.dart';
 
 class EditorView extends StatefulWidget {
