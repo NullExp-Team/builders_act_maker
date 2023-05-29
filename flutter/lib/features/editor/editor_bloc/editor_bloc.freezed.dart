@@ -22,7 +22,7 @@ mixin _$EditorEvent {
             int fieldIndex, String text, List<int>? dependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function() save,
+    required TResult Function(int? index) save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,7 +30,7 @@ mixin _$EditorEvent {
     TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function()? save,
+    TResult? Function(int? index)? save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,7 +38,7 @@ mixin _$EditorEvent {
     TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function()? save,
+    TResult Function(int? index)? save,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -182,7 +182,7 @@ class _$_EditField implements _EditField {
             int fieldIndex, String text, List<int>? dependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function() save,
+    required TResult Function(int? index) save,
   }) {
     return editField(fieldIndex, text, dependedFields);
   }
@@ -193,7 +193,7 @@ class _$_EditField implements _EditField {
     TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function()? save,
+    TResult? Function(int? index)? save,
   }) {
     return editField?.call(fieldIndex, text, dependedFields);
   }
@@ -204,7 +204,7 @@ class _$_EditField implements _EditField {
     TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function()? save,
+    TResult Function(int? index)? save,
     required TResult orElse(),
   }) {
     if (editField != null) {
@@ -339,7 +339,7 @@ class _$_EditSubField implements _EditSubField {
             int fieldIndex, String text, List<int>? dependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function() save,
+    required TResult Function(int? index) save,
   }) {
     return editSubField(fieldIndex, subText);
   }
@@ -350,7 +350,7 @@ class _$_EditSubField implements _EditSubField {
     TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function()? save,
+    TResult? Function(int? index)? save,
   }) {
     return editSubField?.call(fieldIndex, subText);
   }
@@ -361,7 +361,7 @@ class _$_EditSubField implements _EditSubField {
     TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function()? save,
+    TResult Function(int? index)? save,
     required TResult orElse(),
   }) {
     if (editSubField != null) {
@@ -421,6 +421,8 @@ abstract class _EditSubField implements EditorEvent {
 abstract class _$$_SaveCopyWith<$Res> {
   factory _$$_SaveCopyWith(_$_Save value, $Res Function(_$_Save) then) =
       __$$_SaveCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int? index});
 }
 
 /// @nodoc
@@ -429,26 +431,50 @@ class __$$_SaveCopyWithImpl<$Res>
     implements _$$_SaveCopyWith<$Res> {
   __$$_SaveCopyWithImpl(_$_Save _value, $Res Function(_$_Save) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = freezed,
+  }) {
+    return _then(_$_Save(
+      freezed == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Save implements _Save {
-  const _$_Save();
+  const _$_Save(this.index);
+
+  @override
+  final int? index;
 
   @override
   String toString() {
-    return 'EditorEvent.save()';
+    return 'EditorEvent.save(index: $index)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Save);
+        (other.runtimeType == runtimeType &&
+            other is _$_Save &&
+            (identical(other.index, index) || other.index == index));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SaveCopyWith<_$_Save> get copyWith =>
+      __$$_SaveCopyWithImpl<_$_Save>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -457,9 +483,9 @@ class _$_Save implements _Save {
             int fieldIndex, String text, List<int>? dependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function() save,
+    required TResult Function(int? index) save,
   }) {
-    return save();
+    return save(index);
   }
 
   @override
@@ -468,9 +494,9 @@ class _$_Save implements _Save {
     TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function()? save,
+    TResult? Function(int? index)? save,
   }) {
-    return save?.call();
+    return save?.call(index);
   }
 
   @override
@@ -479,11 +505,11 @@ class _$_Save implements _Save {
     TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function()? save,
+    TResult Function(int? index)? save,
     required TResult orElse(),
   }) {
     if (save != null) {
-      return save();
+      return save(index);
     }
     return orElse();
   }
@@ -524,7 +550,11 @@ class _$_Save implements _Save {
 }
 
 abstract class _Save implements EditorEvent {
-  const factory _Save() = _$_Save;
+  const factory _Save(final int? index) = _$_Save;
+
+  int? get index;
+  @JsonKey(ignore: true)
+  _$$_SaveCopyWith<_$_Save> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

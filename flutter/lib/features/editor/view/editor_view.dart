@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../document_type_info/document_types_fields_info_container.dart';
+import '../../../core/document_types_fields_info_container.dart';
 import '../../../models/act_data/act_data.dart';
 import '../bloc/editor_bloc.dart';
-import 'fields_list_widget.dart';
+import 'widgets/fields_list_widget.dart';
 
 class EditorView extends StatefulWidget {
   final ActData actData;
@@ -45,7 +45,7 @@ class _EditorViewState extends State<EditorView> {
             const Spacer(),
             TextButton(
               onPressed: () {
-                context.read<EditorBloc>().add(const EditorEvent.save());
+                context.read<EditorBloc>().add(EditorEvent.save(widget.index));
               },
               child: const Icon(
                 Icons.check,

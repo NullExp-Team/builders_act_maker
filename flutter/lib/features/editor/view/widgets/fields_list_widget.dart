@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/field_types/field_types.dart';
-import '../bloc/editor_bloc.dart';
+import '../../../../models/field_types/field_types.dart';
+import '../../bloc/editor_bloc.dart';
 import 'sub_text_field.dart';
 import 'typed_text_field.dart';
 
