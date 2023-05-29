@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/field_types/field_types.dart';
 import '../bloc/editor_bloc.dart';
+import 'typed_text_field.dart';
 
 class FieldsList extends StatelessWidget {
   const FieldsList({
@@ -35,29 +36,11 @@ class FieldsList extends StatelessWidget {
                       ),
                     ),
                   switch (fieldsTypes[index]) {
-                    TextFieldType(dependedFields: var dependedFields) => Row(
-                        children: [
-                          if (field.subText != null)
-                            Text(
-                              field.subText!,
-                            ),
-                          Expanded(
-                            child: TextField(
-                              controller: TextEditingController(
-                                text: field.text,
-                              ),
-                              onSubmitted: (text) {
-                                context.read<EditorBloc>().add(
-                                      EditorEvent.editField(
-                                        fieldIndex: index,
-                                        text: text,
-                                        dependedFields: dependedFields,
-                                      ),
-                                    );
-                              },
-                            ),
-                          ),
-                        ],
+                    TextFieldType(dependedFields: var dependedFields) =>
+                      TypedTextField(
+                        index: index,
+                        field: field,
+                        dependedFields: dependedFields,
                       ),
                     DropDownFieldType(name: var name) => Align(
                         alignment: Alignment.topLeft,
