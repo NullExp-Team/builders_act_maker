@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../models/act_data/act_data.dart';
-import '../../../../models/field_data/field_data.dart';
 
 part 'closure.freezed.dart';
 part 'closure.g.dart';
@@ -15,26 +14,23 @@ class Closure with _$Closure {
     required String name,
     required String path,
     @Default(<ActData>[]) List<ActData> acts,
-    @Default(<FieldData>[]) List<FieldData> commonInfo,
+    required ActData commonInfo,
   }) = _Closure;
 
   factory Closure.fromJson(Map<String, dynamic> json) =>
       _$ClosureFromJson(json);
 
-  // random constructor
+  // great random constructor
   factory Closure.random() {
     final random = Random();
-    final id = random.nextInt(100);
-    final name = 'Закрытие $id';
-    final path = 'Путь $id';
+    final id = random.nextInt(1000);
+    final name = 'Closure $id';
+    final path = 'Path $id';
     final acts = List.generate(
       random.nextInt(10),
       (index) => ActData.random(),
     );
-    final commonInfo = List.generate(
-      random.nextInt(10),
-      (index) => FieldData.random(),
-    );
+    final commonInfo = ActData.random();
 
     return Closure(
       id: id,

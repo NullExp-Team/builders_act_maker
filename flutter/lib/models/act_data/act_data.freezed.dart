@@ -115,7 +115,7 @@ class __$$_ActDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ActData implements _ActData {
-  _$_ActData(
+  const _$_ActData(
       {required this.name,
       required this.type,
       final List<FieldData> fields = const []})
@@ -172,7 +172,7 @@ class _$_ActData implements _ActData {
 }
 
 abstract class _ActData implements ActData {
-  factory _ActData(
+  const factory _ActData(
       {required final String name,
       required final DocumentType type,
       final List<FieldData> fields}) = _$_ActData;

@@ -27,18 +27,32 @@ class MainApp extends StatelessWidget {
       id: 0,
       name: 'lol',
       path: 'kek',
-      commonInfo: [
-        FieldData(
-          text: 'rar',
-          hasSpace: false,
-          subText: null,
-        ),
-        FieldData(
-          text: 'tat',
-          hasSpace: true,
-          subText: 'hah',
-        ),
-      ],
+      commonInfo: ActData(
+        name: 'Общая информация',
+        type: DocumentType.commonInfo,
+        fields: [
+          FieldData(
+            text: 'rar',
+            hasSpace: true,
+            subText: null,
+          ),
+          FieldData(
+            text: 'tat',
+            hasSpace: true,
+            subText: 'hah',
+          ),
+          FieldData(
+            text: 'rar',
+            hasSpace: true,
+            subText: null,
+          ),
+          FieldData(
+            text: 'tat',
+            hasSpace: true,
+            subText: 'hah',
+          ),
+        ],
+      ),
       acts: [
         ActData(
           name: 'super',
@@ -48,6 +62,21 @@ class MainApp extends StatelessWidget {
               text: 'rar',
               hasSpace: false,
               subText: null,
+            ),
+            FieldData(
+              text: 'tat',
+              hasSpace: true,
+              subText: 'hah',
+            ),
+            FieldData(
+              text: 'tat',
+              hasSpace: false,
+              subText: 'hah',
+            ),
+            FieldData(
+              text: 'tat',
+              hasSpace: false,
+              subText: 'hah',
             ),
             FieldData(
               text: 'tat',
