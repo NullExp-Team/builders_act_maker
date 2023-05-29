@@ -30,7 +30,12 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
       // меняем зависимые текста
       if (event.dependedFields != null) {
         for (int i in event.dependedFields!) {
-          newAct = _changeElement(newAct, i, event.text, true);
+          newAct = _changeElement(
+            newAct,
+            i,
+            event.textForDependedFields ?? event.text,
+            true,
+          );
         }
       }
 

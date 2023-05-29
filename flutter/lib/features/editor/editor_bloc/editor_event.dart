@@ -6,6 +6,7 @@ class EditorEvent with _$EditorEvent {
     required int fieldIndex,
     required String text,
     List<int>? dependedFields,
+    String? textForDependedFields,
   }) = _EditField;
   const factory EditorEvent.editSubField({
     required int fieldIndex,

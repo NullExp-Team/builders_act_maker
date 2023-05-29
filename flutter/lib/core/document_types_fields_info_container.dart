@@ -34,7 +34,7 @@ class FieldTypeContainer {
     TextFieldType(dependedFields: [2]),
     DuplicateFieldType(),
     SpaceTextFieldType(),
-    DropDownFieldType(name: 'da'),
+    DropDownFieldType(name: 'testName'),
   ];
 
   static const List<String> _commonInfoName = [
