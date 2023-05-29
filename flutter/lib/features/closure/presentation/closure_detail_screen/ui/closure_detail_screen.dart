@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/widgets/navigation_header.dart';
 import '../cubit/closure_detail_cubit.dart';
 
-class ClosureDetailScreen extends StatefulWidget {
+class ClosureDetailScreen extends StatelessWidget {
   final int closureId;
 
   const ClosureDetailScreen({
@@ -19,24 +19,20 @@ class ClosureDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<ClosureDetailScreen> createState() => _ClosureDetailScreenState();
-}
-
-class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
-  final goRouter = Di.get<GoRouter>();
-  late final routes = goRouter.routerDelegate.currentConfiguration.matches
-      .map((e) => e.route as GoRoute)
-      .toList();
-
-  @override
   Widget build(BuildContext context) {
     // TODO: Кринж для теста, всё сделать нормально через репозиторий
     final state =
         context.read<ClosureListCubit>().state as ClosureListLoadedState;
 
     final closure = state.closures.firstWhere(
-      (element) => element.id == widget.closureId,
+      (element) => element.id == closureId,
     );
+
+    final goRouter = Di.get<GoRouter>();
+
+    final routes = goRouter.routerDelegate.currentConfiguration.matches
+        .map((e) => e.route as GoRoute)
+        .toList();
 
     return BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
       bloc: ClosureDetailCubit(ClosureDetailState.loaded(closure: closure)),

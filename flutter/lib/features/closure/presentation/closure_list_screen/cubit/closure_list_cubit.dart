@@ -17,7 +17,7 @@ class ClosureListCubit extends Cubit<ClosureListState> {
   Future<void> loadClosures() async {
     emit(const ClosureListState.loading());
 
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 1000));
 
     final closures = [
       for (var i = 0; i < 100; i++) Closure.random(),
@@ -26,13 +26,13 @@ class ClosureListCubit extends Cubit<ClosureListState> {
     emit(ClosureListState.loaded(closures: closures));
   }
 
-  void goToClosureDetailScreen(Closure closure) {
+  void goToClosureDetail(Closure closure) {
     final location = ClosureDetailRoute(closureId: closure.id).location;
     print(location);
     goRouter.go(location);
   }
 
-  void goToAddClosureScreen() {
-    print('goToAddClosureScreen');
+  void addNewClosure() {
+    print('addNewClosure');
   }
 }

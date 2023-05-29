@@ -25,7 +25,7 @@ class AddClosureCard extends StatelessWidget {
               style: context.textStyles.body,
             ),
             Button(
-              onPressed: cubit.goToAddClosureScreen,
+              onPressed: cubit.addNewClosure,
               child: const Text('Добавить закрытие'),
             )
           ],
