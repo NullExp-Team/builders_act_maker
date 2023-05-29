@@ -1,50 +1,104 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/act_data/act_data.dart';
 import '../../../models/field_types/field_types.dart';
+import '../bloc/editor_bloc.dart';
 
 class FieldsList extends StatelessWidget {
   const FieldsList({
     super.key,
     required this.fieldsTypes,
-    required this.actData,
+    required this.fieldsNames,
   });
 
+  //получаем инфу о типах полей
   final List<FieldType> fieldsTypes;
-  final ActData actData;
+  //получаем инфу о названиях полей
+  final List<String> fieldsNames;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemBuilder: (context, index) => Column(
-        children: [
-          Text('поле $index'),
-          switch (fieldsTypes[index]) {
-            TextFieldType(nextTextMapped: var nextTextMapped) => TextField(
-                controller: TextEditingController(
-                  text: actData.fields[index].text,
-                ),
-                onSubmitted: (text) {
-                  // вызов блока от text, index и nextTextMapped, чтобы поменять в ActData это поле и все зависимые
-                },
-              ),
-            DropDownFieldType(name: var name) => DropdownButton(
-                items: [],
-                onChanged: (chosen) {
-                  // по name получаем из общего блока все варианты
-                },
-              ),
-            DuplicateFieldType() => const SizedBox(),
-          }
-        ],
-      ),
-      separatorBuilder: (context, index) =>
-          fieldsTypes[index] is DuplicateFieldType
-              ? const SizedBox()
-              : const SizedBox(
-                  height: 15,
-                ),
-      itemCount: fieldsTypes.length,
+    return BlocBuilder<EditorBloc, EditorState>(
+      builder: (context, state) {
+        if (state is EditorLoadedState) {
+          return ListView.separated(
+            itemBuilder: (context, index) {
+              final field = state.act.fields[index];
+              return Column(
+                children: [
+                  if (fieldsTypes[index] is! DuplicateFieldType)
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        fieldsNames[index],
+                        style: const TextStyle(fontSize: 24),
+                      ),
+                    ),
+                  switch (fieldsTypes[index]) {
+                    TextFieldType(dependedFields: var dependedFields) => Row(
+                        children: [
+                          if (field.subText != null)
+                            Text(
+                              field.subText!,
+                            ),
+                          Expanded(
+                            child: TextField(
+                              controller: TextEditingController(
+                                text: field.text,
+                              ),
+                              onSubmitted: (text) {
+                                context.read<EditorBloc>().add(
+                                      EditorEvent.editField(
+                                        fieldIndex: index,
+                                        text: text,
+                                        dependedFields: dependedFields,
+                                      ),
+                                    );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    DropDownFieldType(name: var name) => Align(
+                        alignment: Alignment.topLeft,
+                        child: DropdownButton(
+                          isExpanded: true,
+                          items: const [
+                            DropdownMenuItem(
+                              value: 1,
+                              child: Text('1'),
+                            ),
+                            DropdownMenuItem(
+                              value: 1,
+                              child: Text('2'),
+                            ),
+                            DropdownMenuItem(
+                              value: 1,
+                              child: Text('2'),
+                            ),
+                          ],
+                          onChanged: (chosen) {
+                            // по name получаем из общего блока все варианты
+                          },
+                        ),
+                      ),
+                    DuplicateFieldType() => const SizedBox(),
+                  }
+                ],
+              );
+            },
+            separatorBuilder: (context, index) =>
+                fieldsTypes[index] is DuplicateFieldType
+                    ? const SizedBox()
+                    : const SizedBox(
+                        height: 15,
+                      ),
+            itemCount: fieldsTypes.length,
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 }

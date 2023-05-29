@@ -3,13 +3,19 @@ sealed class FieldType {
 }
 
 class TextFieldType extends FieldType {
-  final List<int>? nextTextMapped;
-  const TextFieldType({this.nextTextMapped});
+  // содержит индексы тех TextField, для которых этот текст является их началом. Этот текст записывается subText
+  final List<int>? dependedFields;
+  const TextFieldType({this.dependedFields});
 }
 
 class DropDownFieldType extends FieldType {
   final String name;
-  const DropDownFieldType({required this.name});
+  // аналогично массиву из TextFieldType, но текст проходит через map
+  final List<int>? dependedMappedFields;
+  const DropDownFieldType({
+    required this.name,
+    this.dependedMappedFields,
+  });
 }
 
 //нужен для того, чтобы сохранять структуру массива List<FieldData> и при этом не создавать повторяющееся поле в редакторе

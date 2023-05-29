@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../document_type_info/document_types_fields_info_container.dart';
 import '../../../models/act_data/act_data.dart';
-import '../../../models/field_types/field_types.dart';
 import '../bloc/editor_bloc.dart';
 import 'fields_list_widget.dart';
 
@@ -21,14 +20,6 @@ class EditorView extends StatefulWidget {
 }
 
 class _EditorViewState extends State<EditorView> {
-  late final List<FieldType> fieldsTypes;
-
-  @override
-  void initState() {
-    fieldsTypes = FieldTypeContainer.getFieldsTypes(widget.actData.type);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -36,27 +27,36 @@ class _EditorViewState extends State<EditorView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.actData.name,
+            widget.actData.name, // TODO gde?
+            style: const TextStyle(
+              fontSize: 32,
+              color: Colors.black,
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Icon(
                 Icons.arrow_back,
+                color: Colors.red,
               ),
             ),
             const Spacer(),
             TextButton(
               onPressed: () {
-                // save
+                context.read<EditorBloc>().add(const EditorEvent.save());
               },
               child: const Icon(
                 Icons.check,
+                color: Colors.red,
               ),
             ),
           ],
         ),
-        body: FieldsList(fieldsTypes: fieldsTypes, actData: widget.actData),
+        body: FieldsList(
+          fieldsTypes: FieldTypeContainer.getFieldsTypes(widget.actData.type),
+          fieldsNames: FieldTypeContainer.getFieldsNames(widget.actData.type),
+        ),
       ),
     );
   }
