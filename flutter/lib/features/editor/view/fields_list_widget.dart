@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../models/field_types/field_types.dart';
 import '../bloc/editor_bloc.dart';
+import 'sub_text_field.dart';
 import 'typed_text_field.dart';
 
 class FieldsList extends StatelessWidget {
@@ -23,6 +24,7 @@ class FieldsList extends StatelessWidget {
       builder: (context, state) {
         if (state is EditorLoadedState) {
           return ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             itemBuilder: (context, index) {
               final field = state.act.fields[index];
               return Column(
@@ -65,6 +67,10 @@ class FieldsList extends StatelessWidget {
                             // TODO это будет реализовано, когда появится общий блок, что хранит эти данные
                           },
                         ),
+                      ),
+                    SpaceTextFieldType() => SpaceTextField(
+                        index: index,
+                        field: field,
                       ),
                     DuplicateFieldType() => const SizedBox(),
                   }

@@ -22,3 +22,7 @@ class DropDownFieldType extends FieldType {
 class DuplicateFieldType extends FieldType {
   const DuplicateFieldType();
 }
+
+class SpaceTextFieldType extends FieldType {
+  const SpaceTextFieldType();
+}

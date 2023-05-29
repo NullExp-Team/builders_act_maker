@@ -23,6 +23,7 @@ class FieldTypeContainer {
     'Первое поле',
     'Второе поле',
     'Поле, что повторяет первое поле',
+    'Поле с пробелом',
     'ДропДаун поле',
   ];
 
@@ -30,6 +31,7 @@ class FieldTypeContainer {
     TextFieldType(dependedFields: [1]),
     TextFieldType(dependedFields: [2]),
     DuplicateFieldType(),
+    SpaceTextFieldType(),
     DropDownFieldType(name: 'da'),
   ];
 }

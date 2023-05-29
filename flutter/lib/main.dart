@@ -56,6 +56,11 @@ class MainApp extends StatelessWidget {
               hasSpace: false,
               subText: 'hah',
             ),
+            FieldData(
+              text: 'tat',
+              hasSpace: true,
+              subText: 'hah',
+            ),
           ],
         ),
         ActData(

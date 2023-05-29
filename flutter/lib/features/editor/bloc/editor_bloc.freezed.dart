@@ -21,6 +21,7 @@ mixin _$EditorEvent {
     required TResult Function(
             int fieldIndex, String text, List<int>? dependedFields)
         editField,
+    required TResult Function(int fieldIndex, String subText) editSubField,
     required TResult Function() save,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,6 +29,7 @@ mixin _$EditorEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
+    TResult? Function(int fieldIndex, String subText)? editSubField,
     TResult? Function()? save,
   }) =>
       throw _privateConstructorUsedError;
@@ -35,6 +37,7 @@ mixin _$EditorEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
+    TResult Function(int fieldIndex, String subText)? editSubField,
     TResult Function()? save,
     required TResult orElse(),
   }) =>
@@ -42,18 +45,21 @@ mixin _$EditorEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_EditField value) editField,
+    required TResult Function(_EditSubField value) editSubField,
     required TResult Function(_Save value) save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_EditField value)? editField,
+    TResult? Function(_EditSubField value)? editSubField,
     TResult? Function(_Save value)? save,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_EditField value)? editField,
+    TResult Function(_EditSubField value)? editSubField,
     TResult Function(_Save value)? save,
     required TResult orElse(),
   }) =>
@@ -125,7 +131,7 @@ class _$_EditField implements _EditField {
   const _$_EditField(
       {required this.fieldIndex,
       required this.text,
-      required final List<int>? dependedFields})
+      final List<int>? dependedFields})
       : _dependedFields = dependedFields;
 
   @override
@@ -175,6 +181,7 @@ class _$_EditField implements _EditField {
     required TResult Function(
             int fieldIndex, String text, List<int>? dependedFields)
         editField,
+    required TResult Function(int fieldIndex, String subText) editSubField,
     required TResult Function() save,
   }) {
     return editField(fieldIndex, text, dependedFields);
@@ -185,6 +192,7 @@ class _$_EditField implements _EditField {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
+    TResult? Function(int fieldIndex, String subText)? editSubField,
     TResult? Function()? save,
   }) {
     return editField?.call(fieldIndex, text, dependedFields);
@@ -195,6 +203,7 @@ class _$_EditField implements _EditField {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
+    TResult Function(int fieldIndex, String subText)? editSubField,
     TResult Function()? save,
     required TResult orElse(),
   }) {
@@ -208,6 +217,7 @@ class _$_EditField implements _EditField {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_EditField value) editField,
+    required TResult Function(_EditSubField value) editSubField,
     required TResult Function(_Save value) save,
   }) {
     return editField(this);
@@ -217,6 +227,7 @@ class _$_EditField implements _EditField {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_EditField value)? editField,
+    TResult? Function(_EditSubField value)? editSubField,
     TResult? Function(_Save value)? save,
   }) {
     return editField?.call(this);
@@ -226,6 +237,7 @@ class _$_EditField implements _EditField {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_EditField value)? editField,
+    TResult Function(_EditSubField value)? editSubField,
     TResult Function(_Save value)? save,
     required TResult orElse(),
   }) {
@@ -240,13 +252,168 @@ abstract class _EditField implements EditorEvent {
   const factory _EditField(
       {required final int fieldIndex,
       required final String text,
-      required final List<int>? dependedFields}) = _$_EditField;
+      final List<int>? dependedFields}) = _$_EditField;
 
   int get fieldIndex;
   String get text;
   List<int>? get dependedFields;
   @JsonKey(ignore: true)
   _$$_EditFieldCopyWith<_$_EditField> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_EditSubFieldCopyWith<$Res> {
+  factory _$$_EditSubFieldCopyWith(
+          _$_EditSubField value, $Res Function(_$_EditSubField) then) =
+      __$$_EditSubFieldCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int fieldIndex, String subText});
+}
+
+/// @nodoc
+class __$$_EditSubFieldCopyWithImpl<$Res>
+    extends _$EditorEventCopyWithImpl<$Res, _$_EditSubField>
+    implements _$$_EditSubFieldCopyWith<$Res> {
+  __$$_EditSubFieldCopyWithImpl(
+      _$_EditSubField _value, $Res Function(_$_EditSubField) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? fieldIndex = null,
+    Object? subText = null,
+  }) {
+    return _then(_$_EditSubField(
+      fieldIndex: null == fieldIndex
+          ? _value.fieldIndex
+          : fieldIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      subText: null == subText
+          ? _value.subText
+          : subText // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_EditSubField implements _EditSubField {
+  const _$_EditSubField({required this.fieldIndex, required this.subText});
+
+  @override
+  final int fieldIndex;
+  @override
+  final String subText;
+
+  @override
+  String toString() {
+    return 'EditorEvent.editSubField(fieldIndex: $fieldIndex, subText: $subText)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_EditSubField &&
+            (identical(other.fieldIndex, fieldIndex) ||
+                other.fieldIndex == fieldIndex) &&
+            (identical(other.subText, subText) || other.subText == subText));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, fieldIndex, subText);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_EditSubFieldCopyWith<_$_EditSubField> get copyWith =>
+      __$$_EditSubFieldCopyWithImpl<_$_EditSubField>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            int fieldIndex, String text, List<int>? dependedFields)
+        editField,
+    required TResult Function(int fieldIndex, String subText) editSubField,
+    required TResult Function() save,
+  }) {
+    return editSubField(fieldIndex, subText);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
+        editField,
+    TResult? Function(int fieldIndex, String subText)? editSubField,
+    TResult? Function()? save,
+  }) {
+    return editSubField?.call(fieldIndex, subText);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
+        editField,
+    TResult Function(int fieldIndex, String subText)? editSubField,
+    TResult Function()? save,
+    required TResult orElse(),
+  }) {
+    if (editSubField != null) {
+      return editSubField(fieldIndex, subText);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EditField value) editField,
+    required TResult Function(_EditSubField value) editSubField,
+    required TResult Function(_Save value) save,
+  }) {
+    return editSubField(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EditField value)? editField,
+    TResult? Function(_EditSubField value)? editSubField,
+    TResult? Function(_Save value)? save,
+  }) {
+    return editSubField?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EditField value)? editField,
+    TResult Function(_EditSubField value)? editSubField,
+    TResult Function(_Save value)? save,
+    required TResult orElse(),
+  }) {
+    if (editSubField != null) {
+      return editSubField(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EditSubField implements EditorEvent {
+  const factory _EditSubField(
+      {required final int fieldIndex,
+      required final String subText}) = _$_EditSubField;
+
+  int get fieldIndex;
+  String get subText;
+  @JsonKey(ignore: true)
+  _$$_EditSubFieldCopyWith<_$_EditSubField> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -289,6 +456,7 @@ class _$_Save implements _Save {
     required TResult Function(
             int fieldIndex, String text, List<int>? dependedFields)
         editField,
+    required TResult Function(int fieldIndex, String subText) editSubField,
     required TResult Function() save,
   }) {
     return save();
@@ -299,6 +467,7 @@ class _$_Save implements _Save {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
+    TResult? Function(int fieldIndex, String subText)? editSubField,
     TResult? Function()? save,
   }) {
     return save?.call();
@@ -309,6 +478,7 @@ class _$_Save implements _Save {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int fieldIndex, String text, List<int>? dependedFields)?
         editField,
+    TResult Function(int fieldIndex, String subText)? editSubField,
     TResult Function()? save,
     required TResult orElse(),
   }) {
@@ -322,6 +492,7 @@ class _$_Save implements _Save {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_EditField value) editField,
+    required TResult Function(_EditSubField value) editSubField,
     required TResult Function(_Save value) save,
   }) {
     return save(this);
@@ -331,6 +502,7 @@ class _$_Save implements _Save {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_EditField value)? editField,
+    TResult? Function(_EditSubField value)? editSubField,
     TResult? Function(_Save value)? save,
   }) {
     return save?.call(this);
@@ -340,6 +512,7 @@ class _$_Save implements _Save {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_EditField value)? editField,
+    TResult Function(_EditSubField value)? editSubField,
     TResult Function(_Save value)? save,
     required TResult orElse(),
   }) {

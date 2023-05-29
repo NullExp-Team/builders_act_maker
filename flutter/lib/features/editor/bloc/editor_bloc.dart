@@ -12,6 +12,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     required ActData initAct,
   }) : super(EditorLoadedState(act: initAct)) {
     on<_EditField>(_onFieldChanged);
+    on<_EditSubField>(_onSubFieldChanged);
     on<_Save>(_onSave);
   }
 
@@ -32,6 +33,27 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
           newAct = _changeElement(newAct, i, event.text, true);
         }
       }
+
+      emit(
+        loadedState.copyWith(
+          act: newAct,
+        ),
+      );
+    }
+  }
+
+  void _onSubFieldChanged(
+    _EditSubField event,
+    Emitter<EditorState> emit,
+  ) {
+    if (state is EditorLoadedState) {
+      // меняем доп текст
+      ActData newAct = _changeElement(
+        loadedState.act,
+        event.fieldIndex,
+        event.subText,
+        true,
+      );
 
       emit(
         loadedState.copyWith(
