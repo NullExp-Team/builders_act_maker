@@ -25,4 +25,5 @@ Map<String, dynamic> _$$_ActDataToJson(_$_ActData instance) =>
 const _$DocumentTypeEnumMap = {
   DocumentType.actOSR: 'actOSR',
   DocumentType.clouseAct: 'clouseAct',
+  DocumentType.commonInfo: 'commonInfo',
 };

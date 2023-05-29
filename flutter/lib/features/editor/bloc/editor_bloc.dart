@@ -53,6 +53,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
         event.fieldIndex,
         event.subText,
         true,
+        true,
       );
 
       emit(
@@ -70,15 +71,21 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     // TODO потом это всё надо бы к репозиторию привязать, когда экраны будут готовы
   }
 
-  ActData _changeElement(ActData act, int index, String text, bool isSubText) =>
+  ActData _changeElement(
+    ActData act,
+    int index,
+    String text,
+    bool isSubText, [
+    bool hasSpace = false,
+  ]) =>
       act.copyWith(
         fields: List.generate(
           act.fields.length,
           (i) => i != index
               ? act.fields[i]
               : isSubText
-                  ? act.fields[i].copyWith(subText: text)
-                  : act.fields[i].copyWith(text: text),
+                  ? act.fields[i].copyWith(subText: text, hasSpace: hasSpace)
+                  : act.fields[i].copyWith(text: text, hasSpace: hasSpace),
         ),
       );
 }

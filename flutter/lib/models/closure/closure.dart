@@ -13,7 +13,7 @@ class Closure with _$Closure {
     required String name,
     required String path,
     @Default(<ActData>[]) List<ActData> acts,
-    @Default(<FieldData>[]) List<FieldData> commonInfo,
+    required ActData commonInfo,
   }) = _Closure;
 
   factory Closure.fromJson(Map<String, dynamic> json) =>

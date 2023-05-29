@@ -8,11 +8,11 @@ import 'fields_list_widget.dart';
 
 class EditorView extends StatefulWidget {
   final ActData actData;
-  final int index;
+  final int? index;
   const EditorView({
     super.key,
     required this.actData,
-    required this.index,
+    this.index,
   });
 
   @override

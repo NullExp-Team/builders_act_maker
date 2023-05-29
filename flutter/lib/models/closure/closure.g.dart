@@ -14,10 +14,7 @@ _$_Closure _$$_ClosureFromJson(Map<String, dynamic> json) => _$_Closure(
               ?.map((e) => ActData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <ActData>[],
-      commonInfo: (json['commonInfo'] as List<dynamic>?)
-              ?.map((e) => FieldData.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <FieldData>[],
+      commonInfo: ActData.fromJson(json['commonInfo'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ClosureToJson(_$_Closure instance) =>
@@ -26,5 +23,5 @@ Map<String, dynamic> _$$_ClosureToJson(_$_Closure instance) =>
       'name': instance.name,
       'path': instance.path,
       'acts': instance.acts.map((e) => e.toJson()).toList(),
-      'commonInfo': instance.commonInfo.map((e) => e.toJson()).toList(),
+      'commonInfo': instance.commonInfo.toJson(),
     };
