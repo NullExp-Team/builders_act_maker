@@ -672,11 +672,11 @@ class _$EditorStateCopyWithImpl<$Res, $Val extends EditorState>
 }
 
 /// @nodoc
-abstract class _$$EditorLoadedStateCopyWith<$Res>
+abstract class _$$EditorStateLoadedCopyWith<$Res>
     implements $EditorStateCopyWith<$Res> {
-  factory _$$EditorLoadedStateCopyWith(
-          _$EditorLoadedState value, $Res Function(_$EditorLoadedState) then) =
-      __$$EditorLoadedStateCopyWithImpl<$Res>;
+  factory _$$EditorStateLoadedCopyWith(
+          _$EditorStateLoaded value, $Res Function(_$EditorStateLoaded) then) =
+      __$$EditorStateLoadedCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({ActData act});
@@ -686,11 +686,11 @@ abstract class _$$EditorLoadedStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$EditorLoadedStateCopyWithImpl<$Res>
-    extends _$EditorStateCopyWithImpl<$Res, _$EditorLoadedState>
-    implements _$$EditorLoadedStateCopyWith<$Res> {
-  __$$EditorLoadedStateCopyWithImpl(
-      _$EditorLoadedState _value, $Res Function(_$EditorLoadedState) _then)
+class __$$EditorStateLoadedCopyWithImpl<$Res>
+    extends _$EditorStateCopyWithImpl<$Res, _$EditorStateLoaded>
+    implements _$$EditorStateLoadedCopyWith<$Res> {
+  __$$EditorStateLoadedCopyWithImpl(
+      _$EditorStateLoaded _value, $Res Function(_$EditorStateLoaded) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -698,7 +698,7 @@ class __$$EditorLoadedStateCopyWithImpl<$Res>
   $Res call({
     Object? act = null,
   }) {
-    return _then(_$EditorLoadedState(
+    return _then(_$EditorStateLoaded(
       act: null == act
           ? _value.act
           : act // ignore: cast_nullable_to_non_nullable
@@ -709,8 +709,8 @@ class __$$EditorLoadedStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EditorLoadedState implements EditorStateLoaded {
-  const _$EditorLoadedState({required this.act});
+class _$EditorStateLoaded implements EditorStateLoaded {
+  const _$EditorStateLoaded({required this.act});
 
   @override
   final ActData act;
@@ -724,7 +724,7 @@ class _$EditorLoadedState implements EditorStateLoaded {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EditorLoadedState &&
+            other is _$EditorStateLoaded &&
             (identical(other.act, act) || other.act == act));
   }
 
@@ -734,8 +734,8 @@ class _$EditorLoadedState implements EditorStateLoaded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditorLoadedStateCopyWith<_$EditorLoadedState> get copyWith =>
-      __$$EditorLoadedStateCopyWithImpl<_$EditorLoadedState>(this, _$identity);
+  _$$EditorStateLoadedCopyWith<_$EditorStateLoaded> get copyWith =>
+      __$$EditorStateLoadedCopyWithImpl<_$EditorStateLoaded>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -796,12 +796,12 @@ class _$EditorLoadedState implements EditorStateLoaded {
 
 abstract class EditorStateLoaded implements EditorState {
   const factory EditorStateLoaded({required final ActData act}) =
-      _$EditorLoadedState;
+      _$EditorStateLoaded;
 
   @override
   ActData get act;
   @override
   @JsonKey(ignore: true)
-  _$$EditorLoadedStateCopyWith<_$EditorLoadedState> get copyWith =>
+  _$$EditorStateLoadedCopyWith<_$EditorStateLoaded> get copyWith =>
       throw _privateConstructorUsedError;
 }
