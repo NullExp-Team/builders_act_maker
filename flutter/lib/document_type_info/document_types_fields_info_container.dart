@@ -16,17 +16,20 @@ class FieldTypeContainer {
     };
   }
 
-  static const List<FieldType> _actOSRFieldsTypes = [
-    TextFieldType(dependedFields: [1]),
-    TextFieldType(dependedFields: [2]),
-    DuplicateFieldType(),
-    DropDownFieldType(name: 'da'),
-  ];
+  // данные
+  // TODO заполнить данные нормально и заполнить их для другого документа
 
   static const List<String> _actOSRFieldsName = [
     'Первое поле',
     'Второе поле',
     'Поле, что повторяет первое поле',
     'ДропДаун поле',
+  ];
+
+  static const List<FieldType> _actOSRFieldsTypes = [
+    TextFieldType(dependedFields: [1]),
+    TextFieldType(dependedFields: [2]),
+    DuplicateFieldType(),
+    DropDownFieldType(name: 'da'),
   ];
 }

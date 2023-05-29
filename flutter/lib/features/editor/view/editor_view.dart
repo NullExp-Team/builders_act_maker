@@ -27,7 +27,8 @@ class _EditorViewState extends State<EditorView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.actData.name, // TODO gde?
+            widget.actData
+                .name, // TODO Вообще не понимаю почему title тупо не появляется
             style: const TextStyle(
               fontSize: 32,
               color: Colors.black,

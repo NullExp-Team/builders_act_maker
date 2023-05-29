@@ -62,6 +62,7 @@ class FieldsList extends StatelessWidget {
                           ],
                           onChanged: (chosen) {
                             // по name получаем из общего блока все варианты
+                            // TODO это будет реализовано, когда появится общий блок, что хранит эти данные
                           },
                         ),
                       ),
@@ -79,6 +80,8 @@ class FieldsList extends StatelessWidget {
             itemCount: fieldsTypes.length,
           );
         } else {
+          // обработка ошибок и состояния загрузки. В целом, эти два состояния нигде не возникают, так что пока что
+          // это мёртвый код. Нужно либо выпилить состояния, либо обработать
           return const CircularProgressIndicator();
         }
       },

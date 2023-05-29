@@ -22,13 +22,17 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     Emitter<EditorState> emit,
   ) {
     if (state is EditorLoadedState) {
+      // меняем сам текст
       ActData newAct =
           _changeElement(loadedState.act, event.fieldIndex, event.text, false);
+
+      // меняем зависимые текста
       if (event.dependedFields != null) {
         for (int i in event.dependedFields!) {
           newAct = _changeElement(newAct, i, event.text, true);
         }
       }
+
       emit(
         loadedState.copyWith(
           act: newAct,
@@ -40,7 +44,9 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
   void _onSave(
     _Save event,
     Emitter<EditorState> emit,
-  ) {}
+  ) {
+    // TODO потом это всё надо бы к репозиторию привязать, когда экраны будут готовы
+  }
 
   ActData _changeElement(ActData act, int index, String text, bool isSubText) =>
       act.copyWith(

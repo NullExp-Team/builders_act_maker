@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/field_data/field_data.dart';
 
+// TODO думаю, надо бы это отрефакторить
 class CommonInfoEditorView extends StatefulWidget {
   final List<FieldData> fieldData;
   const CommonInfoEditorView({
