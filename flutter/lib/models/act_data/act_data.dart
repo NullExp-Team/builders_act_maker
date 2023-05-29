@@ -8,7 +8,7 @@ part 'act_data.g.dart';
 
 @freezed
 class ActData with _$ActData {
-  factory ActData({
+  const factory ActData({
     required String name,
     required DocumentType type,
     @Default([]) List<FieldData> fields,

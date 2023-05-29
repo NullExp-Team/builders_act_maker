@@ -22,8 +22,9 @@ Closure _$ClosureFromJson(Map<String, dynamic> json) {
 mixin _$Closure {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get path => throw _privateConstructorUsedError;
   List<ActData> get acts => throw _privateConstructorUsedError;
-  List<FieldData> get commonInfo => throw _privateConstructorUsedError;
+  ActData get commonInfo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,13 @@ abstract class $ClosureCopyWith<$Res> {
       _$ClosureCopyWithImpl<$Res, Closure>;
   @useResult
   $Res call(
-      {int id, String name, List<ActData> acts, List<FieldData> commonInfo});
+      {int id,
+      String name,
+      String path,
+      List<ActData> acts,
+      ActData commonInfo});
+
+  $ActDataCopyWith<$Res> get commonInfo;
 }
 
 /// @nodoc
@@ -54,6 +61,7 @@ class _$ClosureCopyWithImpl<$Res, $Val extends Closure>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? path = null,
     Object? acts = null,
     Object? commonInfo = null,
   }) {
@@ -66,6 +74,10 @@ class _$ClosureCopyWithImpl<$Res, $Val extends Closure>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       acts: null == acts
           ? _value.acts
           : acts // ignore: cast_nullable_to_non_nullable
@@ -73,8 +85,16 @@ class _$ClosureCopyWithImpl<$Res, $Val extends Closure>
       commonInfo: null == commonInfo
           ? _value.commonInfo
           : commonInfo // ignore: cast_nullable_to_non_nullable
-              as List<FieldData>,
+              as ActData,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ActDataCopyWith<$Res> get commonInfo {
+    return $ActDataCopyWith<$Res>(_value.commonInfo, (value) {
+      return _then(_value.copyWith(commonInfo: value) as $Val);
+    });
   }
 }
 
@@ -86,7 +106,14 @@ abstract class _$$_ClosureCopyWith<$Res> implements $ClosureCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id, String name, List<ActData> acts, List<FieldData> commonInfo});
+      {int id,
+      String name,
+      String path,
+      List<ActData> acts,
+      ActData commonInfo});
+
+  @override
+  $ActDataCopyWith<$Res> get commonInfo;
 }
 
 /// @nodoc
@@ -101,6 +128,7 @@ class __$$_ClosureCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? path = null,
     Object? acts = null,
     Object? commonInfo = null,
   }) {
@@ -113,14 +141,18 @@ class __$$_ClosureCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       acts: null == acts
           ? _value._acts
           : acts // ignore: cast_nullable_to_non_nullable
               as List<ActData>,
       commonInfo: null == commonInfo
-          ? _value._commonInfo
+          ? _value.commonInfo
           : commonInfo // ignore: cast_nullable_to_non_nullable
-              as List<FieldData>,
+              as ActData,
     ));
   }
 }
@@ -131,10 +163,10 @@ class _$_Closure implements _Closure {
   _$_Closure(
       {required this.id,
       required this.name,
+      required this.path,
       final List<ActData> acts = const <ActData>[],
-      final List<FieldData> commonInfo = const <FieldData>[]})
-      : _acts = acts,
-        _commonInfo = commonInfo;
+      required this.commonInfo})
+      : _acts = acts;
 
   factory _$_Closure.fromJson(Map<String, dynamic> json) =>
       _$$_ClosureFromJson(json);
@@ -143,6 +175,8 @@ class _$_Closure implements _Closure {
   final int id;
   @override
   final String name;
+  @override
+  final String path;
   final List<ActData> _acts;
   @override
   @JsonKey()
@@ -152,18 +186,12 @@ class _$_Closure implements _Closure {
     return EqualUnmodifiableListView(_acts);
   }
 
-  final List<FieldData> _commonInfo;
   @override
-  @JsonKey()
-  List<FieldData> get commonInfo {
-    if (_commonInfo is EqualUnmodifiableListView) return _commonInfo;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_commonInfo);
-  }
+  final ActData commonInfo;
 
   @override
   String toString() {
-    return 'Closure(id: $id, name: $name, acts: $acts, commonInfo: $commonInfo)';
+    return 'Closure(id: $id, name: $name, path: $path, acts: $acts, commonInfo: $commonInfo)';
   }
 
   @override
@@ -173,19 +201,16 @@ class _$_Closure implements _Closure {
             other is _$_Closure &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.path, path) || other.path == path) &&
             const DeepCollectionEquality().equals(other._acts, _acts) &&
-            const DeepCollectionEquality()
-                .equals(other._commonInfo, _commonInfo));
+            (identical(other.commonInfo, commonInfo) ||
+                other.commonInfo == commonInfo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      const DeepCollectionEquality().hash(_acts),
-      const DeepCollectionEquality().hash(_commonInfo));
+  int get hashCode => Object.hash(runtimeType, id, name, path,
+      const DeepCollectionEquality().hash(_acts), commonInfo);
 
   @JsonKey(ignore: true)
   @override
@@ -205,8 +230,9 @@ abstract class _Closure implements Closure {
   factory _Closure(
       {required final int id,
       required final String name,
+      required final String path,
       final List<ActData> acts,
-      final List<FieldData> commonInfo}) = _$_Closure;
+      required final ActData commonInfo}) = _$_Closure;
 
   factory _Closure.fromJson(Map<String, dynamic> json) = _$_Closure.fromJson;
 
@@ -215,9 +241,11 @@ abstract class _Closure implements Closure {
   @override
   String get name;
   @override
+  String get path;
+  @override
   List<ActData> get acts;
   @override
-  List<FieldData> get commonInfo;
+  ActData get commonInfo;
   @override
   @JsonKey(ignore: true)
   _$$_ClosureCopyWith<_$_Closure> get copyWith =>
