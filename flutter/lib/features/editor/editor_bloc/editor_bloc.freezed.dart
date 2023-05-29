@@ -589,49 +589,42 @@ abstract class _Save implements EditorEvent {
 
 /// @nodoc
 mixin _$EditorState {
+  ActData get act => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) error,
-    required TResult Function() loading,
     required TResult Function(ActData act) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? error,
-    TResult? Function()? loading,
     TResult? Function(ActData act)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? error,
-    TResult Function()? loading,
     TResult Function(ActData act)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditorErrorState value) error,
-    required TResult Function(EditorLoadingState value) loading,
-    required TResult Function(EditorLoadedState value) loaded,
+    required TResult Function(EditorStateLoaded value) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditorErrorState value)? error,
-    TResult? Function(EditorLoadingState value)? loading,
-    TResult? Function(EditorLoadedState value)? loaded,
+    TResult? Function(EditorStateLoaded value)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditorErrorState value)? error,
-    TResult Function(EditorLoadingState value)? loading,
-    TResult Function(EditorLoadedState value)? loaded,
+    TResult Function(EditorStateLoaded value)? loaded,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $EditorStateCopyWith<EditorState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -640,6 +633,10 @@ abstract class $EditorStateCopyWith<$Res> {
   factory $EditorStateCopyWith(
           EditorState value, $Res Function(EditorState) then) =
       _$EditorStateCopyWithImpl<$Res, EditorState>;
+  @useResult
+  $Res call({ActData act});
+
+  $ActDataCopyWith<$Res> get act;
 }
 
 /// @nodoc
@@ -651,264 +648,40 @@ class _$EditorStateCopyWithImpl<$Res, $Val extends EditorState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$EditorErrorStateCopyWith<$Res> {
-  factory _$$EditorErrorStateCopyWith(
-          _$EditorErrorState value, $Res Function(_$EditorErrorState) then) =
-      __$$EditorErrorStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String message});
-}
-
-/// @nodoc
-class __$$EditorErrorStateCopyWithImpl<$Res>
-    extends _$EditorStateCopyWithImpl<$Res, _$EditorErrorState>
-    implements _$$EditorErrorStateCopyWith<$Res> {
-  __$$EditorErrorStateCopyWithImpl(
-      _$EditorErrorState _value, $Res Function(_$EditorErrorState) _then)
-      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? act = null,
   }) {
-    return _then(_$EditorErrorState(
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$EditorErrorState implements EditorErrorState {
-  const _$EditorErrorState({required this.message});
-
-  @override
-  final String message;
-
-  @override
-  String toString() {
-    return 'EditorState.error(message: $message)';
+    return _then(_value.copyWith(
+      act: null == act
+          ? _value.act
+          : act // ignore: cast_nullable_to_non_nullable
+              as ActData,
+    ) as $Val);
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EditorErrorState &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EditorErrorStateCopyWith<_$EditorErrorState> get copyWith =>
-      __$$EditorErrorStateCopyWithImpl<_$EditorErrorState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String message) error,
-    required TResult Function() loading,
-    required TResult Function(ActData act) loaded,
-  }) {
-    return error(message);
+  $ActDataCopyWith<$Res> get act {
+    return $ActDataCopyWith<$Res>(_value.act, (value) {
+      return _then(_value.copyWith(act: value) as $Val);
+    });
   }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? error,
-    TResult? Function()? loading,
-    TResult? Function(ActData act)? loaded,
-  }) {
-    return error?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? error,
-    TResult Function()? loading,
-    TResult Function(ActData act)? loaded,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(EditorErrorState value) error,
-    required TResult Function(EditorLoadingState value) loading,
-    required TResult Function(EditorLoadedState value) loaded,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditorErrorState value)? error,
-    TResult? Function(EditorLoadingState value)? loading,
-    TResult? Function(EditorLoadedState value)? loaded,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditorErrorState value)? error,
-    TResult Function(EditorLoadingState value)? loading,
-    TResult Function(EditorLoadedState value)? loaded,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class EditorErrorState implements EditorState {
-  const factory EditorErrorState({required final String message}) =
-      _$EditorErrorState;
-
-  String get message;
-  @JsonKey(ignore: true)
-  _$$EditorErrorStateCopyWith<_$EditorErrorState> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EditorLoadingStateCopyWith<$Res> {
-  factory _$$EditorLoadingStateCopyWith(_$EditorLoadingState value,
-          $Res Function(_$EditorLoadingState) then) =
-      __$$EditorLoadingStateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$EditorLoadingStateCopyWithImpl<$Res>
-    extends _$EditorStateCopyWithImpl<$Res, _$EditorLoadingState>
-    implements _$$EditorLoadingStateCopyWith<$Res> {
-  __$$EditorLoadingStateCopyWithImpl(
-      _$EditorLoadingState _value, $Res Function(_$EditorLoadingState) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$EditorLoadingState implements EditorLoadingState {
-  const _$EditorLoadingState();
-
-  @override
-  String toString() {
-    return 'EditorState.loading()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EditorLoadingState);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String message) error,
-    required TResult Function() loading,
-    required TResult Function(ActData act) loaded,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? error,
-    TResult? Function()? loading,
-    TResult? Function(ActData act)? loaded,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? error,
-    TResult Function()? loading,
-    TResult Function(ActData act)? loaded,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(EditorErrorState value) error,
-    required TResult Function(EditorLoadingState value) loading,
-    required TResult Function(EditorLoadedState value) loaded,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditorErrorState value)? error,
-    TResult? Function(EditorLoadingState value)? loading,
-    TResult? Function(EditorLoadedState value)? loaded,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditorErrorState value)? error,
-    TResult Function(EditorLoadingState value)? loading,
-    TResult Function(EditorLoadedState value)? loaded,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class EditorLoadingState implements EditorState {
-  const factory EditorLoadingState() = _$EditorLoadingState;
-}
-
-/// @nodoc
-abstract class _$$EditorLoadedStateCopyWith<$Res> {
+abstract class _$$EditorLoadedStateCopyWith<$Res>
+    implements $EditorStateCopyWith<$Res> {
   factory _$$EditorLoadedStateCopyWith(
           _$EditorLoadedState value, $Res Function(_$EditorLoadedState) then) =
       __$$EditorLoadedStateCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({ActData act});
 
+  @override
   $ActDataCopyWith<$Res> get act;
 }
 
@@ -932,19 +705,11 @@ class __$$EditorLoadedStateCopyWithImpl<$Res>
               as ActData,
     ));
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ActDataCopyWith<$Res> get act {
-    return $ActDataCopyWith<$Res>(_value.act, (value) {
-      return _then(_value.copyWith(act: value));
-    });
-  }
 }
 
 /// @nodoc
 
-class _$EditorLoadedState implements EditorLoadedState {
+class _$EditorLoadedState implements EditorStateLoaded {
   const _$EditorLoadedState({required this.act});
 
   @override
@@ -975,8 +740,6 @@ class _$EditorLoadedState implements EditorLoadedState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message) error,
-    required TResult Function() loading,
     required TResult Function(ActData act) loaded,
   }) {
     return loaded(act);
@@ -985,8 +748,6 @@ class _$EditorLoadedState implements EditorLoadedState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message)? error,
-    TResult? Function()? loading,
     TResult? Function(ActData act)? loaded,
   }) {
     return loaded?.call(act);
@@ -995,8 +756,6 @@ class _$EditorLoadedState implements EditorLoadedState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message)? error,
-    TResult Function()? loading,
     TResult Function(ActData act)? loaded,
     required TResult orElse(),
   }) {
@@ -1009,9 +768,7 @@ class _$EditorLoadedState implements EditorLoadedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(EditorErrorState value) error,
-    required TResult Function(EditorLoadingState value) loading,
-    required TResult Function(EditorLoadedState value) loaded,
+    required TResult Function(EditorStateLoaded value) loaded,
   }) {
     return loaded(this);
   }
@@ -1019,9 +776,7 @@ class _$EditorLoadedState implements EditorLoadedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(EditorErrorState value)? error,
-    TResult? Function(EditorLoadingState value)? loading,
-    TResult? Function(EditorLoadedState value)? loaded,
+    TResult? Function(EditorStateLoaded value)? loaded,
   }) {
     return loaded?.call(this);
   }
@@ -1029,9 +784,7 @@ class _$EditorLoadedState implements EditorLoadedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(EditorErrorState value)? error,
-    TResult Function(EditorLoadingState value)? loading,
-    TResult Function(EditorLoadedState value)? loaded,
+    TResult Function(EditorStateLoaded value)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1041,11 +794,13 @@ class _$EditorLoadedState implements EditorLoadedState {
   }
 }
 
-abstract class EditorLoadedState implements EditorState {
-  const factory EditorLoadedState({required final ActData act}) =
+abstract class EditorStateLoaded implements EditorState {
+  const factory EditorStateLoaded({required final ActData act}) =
       _$EditorLoadedState;
 
+  @override
   ActData get act;
+  @override
   @JsonKey(ignore: true)
   _$$EditorLoadedStateCopyWith<_$EditorLoadedState> get copyWith =>
       throw _privateConstructorUsedError;

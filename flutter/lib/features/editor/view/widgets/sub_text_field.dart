@@ -31,6 +31,13 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
   }
 
   @override
+  void dispose() {
+    textEditingController.dispose();
+    subTextEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
@@ -70,12 +77,5 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    textEditingController.dispose();
-    subTextEditingController.dispose();
-    super.dispose();
   }
 }

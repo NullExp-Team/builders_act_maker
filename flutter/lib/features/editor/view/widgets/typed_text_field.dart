@@ -29,6 +29,12 @@ class _TypedTextFieldState extends State<TypedTextField> {
   }
 
   @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
@@ -54,11 +60,5 @@ class _TypedTextFieldState extends State<TypedTextField> {
         ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    textEditingController.dispose();
-    super.dispose();
   }
 }
