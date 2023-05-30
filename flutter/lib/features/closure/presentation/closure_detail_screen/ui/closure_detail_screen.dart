@@ -84,7 +84,7 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                       ),
                       children: [
                         for (var act in closure.acts)
-                          ActCard(key: ObjectKey(act), act: act)
+                          ActCard(key: ValueKey(act.hashCode), act: act)
                       ],
                     ),
                   )

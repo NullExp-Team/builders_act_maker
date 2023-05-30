@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:hive/hive.dart';
 
+import '../../core/utils.dart';
 import '../../features/editor/data/document_type/document_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -23,8 +24,17 @@ class ActData with _$ActData {
   factory ActData.fromJson(Map<String, dynamic> json) =>
       _$ActDataFromJson(json);
 
-  // random constructor
-  factory ActData.random() {
+  factory ActData.random() => ActDataFactory.random();
+
+  factory ActData.test() => ActDataFactory.test();
+}
+
+extension ActDataFactory on ActData {
+  // С hashCode хз, но всё на string переделывать лень
+  // Хз как ещё с id норм работать, не юзаю uuid из блоков
+  ActData newId() => copyWith(id: uuid.v4().hashCode);
+
+  static ActData random() {
     final random = Random();
     final name = 'Акт ${random.nextInt(100)}';
     final type =
@@ -42,7 +52,7 @@ class ActData with _$ActData {
     );
   }
 
-  factory ActData.test() {
+  static ActData test() {
     return ActData(
       id: 2,
       name: 'super',

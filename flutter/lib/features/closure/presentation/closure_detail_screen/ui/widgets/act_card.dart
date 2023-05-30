@@ -46,7 +46,7 @@ class ActCard extends StatelessWidget {
                             leading: const Icon(FluentIcons.edit),
                             text: const Text('Редактировать'),
                             onPressed: () {
-                              cubit.editAct(act);
+                              cubit.goToActEditor(act.id);
                               Flyout.of(context).close();
                             },
                           ),

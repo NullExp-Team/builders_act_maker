@@ -22,7 +22,11 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
   ClosureDetailStateData get loadedState => state as ClosureDetailStateData;
 
-  void editAct(ActData act) {}
+  void goToActEditor(int actId) {
+    goRouter.go(
+      ActEditorRoute(closureId: loadedState.closure.id, actId: actId).location,
+    );
+  }
 
   void duplicateAct(ActData act) {
     final closure = state.maybeWhen(
@@ -32,15 +36,15 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     if (closure == null) return;
 
     final newItems = [...closure.acts];
-    final actClone = act.copyWith(
-      name: '${act.name} (копия)',
-    );
-    final index = newItems.indexOf(act);
-    newItems.insert(index + 1, actClone);
+    final actIndex = newItems.indexOf(act);
+    final actClone = act.newId().copyWith(name: '${act.name} (копия)');
+    newItems.insert(actIndex + 1, actClone);
 
     final newClosure = closure.copyWith(acts: newItems);
 
     emit(ClosureDetailState.data(closure: newClosure));
+
+    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
   }
 
   void deleteAct(ActData act) {
@@ -51,10 +55,11 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     if (closure == null) return;
 
     final newItems = closure.acts.where((element) => element != act).toList();
-
     final newClosure = closure.copyWith(acts: newItems);
 
     emit(ClosureDetailState.data(closure: newClosure));
+
+    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
   }
 
   void reorderGrid(Iterable<({int oldIndex, int newIndex})> orderUpdates) {
@@ -62,10 +67,7 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       data: (closure) => closure,
       orElse: () => null,
     );
-
-    if (closure == null) {
-      return;
-    }
+    if (closure == null) return;
 
     final newItems = closure.acts.toList();
 
@@ -75,14 +77,6 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     }
 
     emit(ClosureDetailState.data(closure: closure.copyWith(acts: newItems)));
-  }
-
-  void goToActEditor(int actId) {
-    if (state is! ClosureDetailStateData) return;
-
-    goRouter.go(
-      ActEditorRoute(closureId: loadedState.closure.id, actId: actId).location,
-    );
   }
 
   void setClosure(int closureId) {
