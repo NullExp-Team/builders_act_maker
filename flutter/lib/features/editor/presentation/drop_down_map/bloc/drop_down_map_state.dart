@@ -5,7 +5,6 @@ sealed class DropDownMapState with _$DropDownMapState {
   const factory DropDownMapState.initial() = DropDownMapStateInitial;
   const factory DropDownMapState.loading() = DropDownMapStateLoading;
   const factory DropDownMapState.loaded({
-    @Default({}) Map<String, List<String>> dropDownValuesMap,
-    @Default({}) Map<String, Map<String, String>> dependedFieldMapsMap,
+    @Default({}) Map<String, DropDownMapData> dropDownMap,
   }) = DropDownMapStateLoaded;
 }

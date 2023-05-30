@@ -22,7 +22,8 @@ mixin _$EditorEvent {
             List<int>? dependedFields, String? textForDependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function(int? index) save,
+    required TResult Function() save,
+    required TResult Function(int closureId, int actId) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,7 +32,8 @@ mixin _$EditorEvent {
             String? textForDependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function(int? index)? save,
+    TResult? Function()? save,
+    TResult? Function(int closureId, int actId)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +42,8 @@ mixin _$EditorEvent {
             String? textForDependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function(int? index)? save,
+    TResult Function()? save,
+    TResult Function(int closureId, int actId)? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +52,7 @@ mixin _$EditorEvent {
     required TResult Function(_EditField value) editField,
     required TResult Function(_EditSubField value) editSubField,
     required TResult Function(_Save value) save,
+    required TResult Function(_Init value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +60,7 @@ mixin _$EditorEvent {
     TResult? Function(_EditField value)? editField,
     TResult? Function(_EditSubField value)? editSubField,
     TResult? Function(_Save value)? save,
+    TResult? Function(_Init value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$EditorEvent {
     TResult Function(_EditField value)? editField,
     TResult Function(_EditSubField value)? editSubField,
     TResult Function(_Save value)? save,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -203,7 +209,8 @@ class _$_EditField implements _EditField {
             List<int>? dependedFields, String? textForDependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function(int? index) save,
+    required TResult Function() save,
+    required TResult Function(int closureId, int actId) init,
   }) {
     return editField(fieldIndex, text, dependedFields, textForDependedFields);
   }
@@ -215,7 +222,8 @@ class _$_EditField implements _EditField {
             String? textForDependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function(int? index)? save,
+    TResult? Function()? save,
+    TResult? Function(int closureId, int actId)? init,
   }) {
     return editField?.call(
         fieldIndex, text, dependedFields, textForDependedFields);
@@ -228,7 +236,8 @@ class _$_EditField implements _EditField {
             String? textForDependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function(int? index)? save,
+    TResult Function()? save,
+    TResult Function(int closureId, int actId)? init,
     required TResult orElse(),
   }) {
     if (editField != null) {
@@ -243,6 +252,7 @@ class _$_EditField implements _EditField {
     required TResult Function(_EditField value) editField,
     required TResult Function(_EditSubField value) editSubField,
     required TResult Function(_Save value) save,
+    required TResult Function(_Init value) init,
   }) {
     return editField(this);
   }
@@ -253,6 +263,7 @@ class _$_EditField implements _EditField {
     TResult? Function(_EditField value)? editField,
     TResult? Function(_EditSubField value)? editSubField,
     TResult? Function(_Save value)? save,
+    TResult? Function(_Init value)? init,
   }) {
     return editField?.call(this);
   }
@@ -263,6 +274,7 @@ class _$_EditField implements _EditField {
     TResult Function(_EditField value)? editField,
     TResult Function(_EditSubField value)? editSubField,
     TResult Function(_Save value)? save,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (editField != null) {
@@ -365,7 +377,8 @@ class _$_EditSubField implements _EditSubField {
             List<int>? dependedFields, String? textForDependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function(int? index) save,
+    required TResult Function() save,
+    required TResult Function(int closureId, int actId) init,
   }) {
     return editSubField(fieldIndex, subText);
   }
@@ -377,7 +390,8 @@ class _$_EditSubField implements _EditSubField {
             String? textForDependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function(int? index)? save,
+    TResult? Function()? save,
+    TResult? Function(int closureId, int actId)? init,
   }) {
     return editSubField?.call(fieldIndex, subText);
   }
@@ -389,7 +403,8 @@ class _$_EditSubField implements _EditSubField {
             String? textForDependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function(int? index)? save,
+    TResult Function()? save,
+    TResult Function(int closureId, int actId)? init,
     required TResult orElse(),
   }) {
     if (editSubField != null) {
@@ -404,6 +419,7 @@ class _$_EditSubField implements _EditSubField {
     required TResult Function(_EditField value) editField,
     required TResult Function(_EditSubField value) editSubField,
     required TResult Function(_Save value) save,
+    required TResult Function(_Init value) init,
   }) {
     return editSubField(this);
   }
@@ -414,6 +430,7 @@ class _$_EditSubField implements _EditSubField {
     TResult? Function(_EditField value)? editField,
     TResult? Function(_EditSubField value)? editSubField,
     TResult? Function(_Save value)? save,
+    TResult? Function(_Init value)? init,
   }) {
     return editSubField?.call(this);
   }
@@ -424,6 +441,7 @@ class _$_EditSubField implements _EditSubField {
     TResult Function(_EditField value)? editField,
     TResult Function(_EditSubField value)? editSubField,
     TResult Function(_Save value)? save,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (editSubField != null) {
@@ -449,8 +467,6 @@ abstract class _EditSubField implements EditorEvent {
 abstract class _$$_SaveCopyWith<$Res> {
   factory _$$_SaveCopyWith(_$_Save value, $Res Function(_$_Save) then) =
       __$$_SaveCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int? index});
 }
 
 /// @nodoc
@@ -459,50 +475,26 @@ class __$$_SaveCopyWithImpl<$Res>
     implements _$$_SaveCopyWith<$Res> {
   __$$_SaveCopyWithImpl(_$_Save _value, $Res Function(_$_Save) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? index = freezed,
-  }) {
-    return _then(_$_Save(
-      freezed == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_Save implements _Save {
-  const _$_Save(this.index);
-
-  @override
-  final int? index;
+  const _$_Save();
 
   @override
   String toString() {
-    return 'EditorEvent.save(index: $index)';
+    return 'EditorEvent.save()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Save &&
-            (identical(other.index, index) || other.index == index));
+        (other.runtimeType == runtimeType && other is _$_Save);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_SaveCopyWith<_$_Save> get copyWith =>
-      __$$_SaveCopyWithImpl<_$_Save>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -511,9 +503,10 @@ class _$_Save implements _Save {
             List<int>? dependedFields, String? textForDependedFields)
         editField,
     required TResult Function(int fieldIndex, String subText) editSubField,
-    required TResult Function(int? index) save,
+    required TResult Function() save,
+    required TResult Function(int closureId, int actId) init,
   }) {
-    return save(index);
+    return save();
   }
 
   @override
@@ -523,9 +516,10 @@ class _$_Save implements _Save {
             String? textForDependedFields)?
         editField,
     TResult? Function(int fieldIndex, String subText)? editSubField,
-    TResult? Function(int? index)? save,
+    TResult? Function()? save,
+    TResult? Function(int closureId, int actId)? init,
   }) {
-    return save?.call(index);
+    return save?.call();
   }
 
   @override
@@ -535,11 +529,12 @@ class _$_Save implements _Save {
             String? textForDependedFields)?
         editField,
     TResult Function(int fieldIndex, String subText)? editSubField,
-    TResult Function(int? index)? save,
+    TResult Function()? save,
+    TResult Function(int closureId, int actId)? init,
     required TResult orElse(),
   }) {
     if (save != null) {
-      return save(index);
+      return save();
     }
     return orElse();
   }
@@ -550,6 +545,7 @@ class _$_Save implements _Save {
     required TResult Function(_EditField value) editField,
     required TResult Function(_EditSubField value) editSubField,
     required TResult Function(_Save value) save,
+    required TResult Function(_Init value) init,
   }) {
     return save(this);
   }
@@ -560,6 +556,7 @@ class _$_Save implements _Save {
     TResult? Function(_EditField value)? editField,
     TResult? Function(_EditSubField value)? editSubField,
     TResult? Function(_Save value)? save,
+    TResult? Function(_Init value)? init,
   }) {
     return save?.call(this);
   }
@@ -570,6 +567,7 @@ class _$_Save implements _Save {
     TResult Function(_EditField value)? editField,
     TResult Function(_EditSubField value)? editSubField,
     TResult Function(_Save value)? save,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (save != null) {
@@ -580,51 +578,206 @@ class _$_Save implements _Save {
 }
 
 abstract class _Save implements EditorEvent {
-  const factory _Save(final int? index) = _$_Save;
+  const factory _Save() = _$_Save;
+}
 
-  int? get index;
+/// @nodoc
+abstract class _$$_InitCopyWith<$Res> {
+  factory _$$_InitCopyWith(_$_Init value, $Res Function(_$_Init) then) =
+      __$$_InitCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int closureId, int actId});
+}
+
+/// @nodoc
+class __$$_InitCopyWithImpl<$Res>
+    extends _$EditorEventCopyWithImpl<$Res, _$_Init>
+    implements _$$_InitCopyWith<$Res> {
+  __$$_InitCopyWithImpl(_$_Init _value, $Res Function(_$_Init) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? closureId = null,
+    Object? actId = null,
+  }) {
+    return _then(_$_Init(
+      null == closureId
+          ? _value.closureId
+          : closureId // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == actId
+          ? _value.actId
+          : actId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Init implements _Init {
+  const _$_Init(this.closureId, this.actId);
+
+  @override
+  final int closureId;
+  @override
+  final int actId;
+
+  @override
+  String toString() {
+    return 'EditorEvent.init(closureId: $closureId, actId: $actId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Init &&
+            (identical(other.closureId, closureId) ||
+                other.closureId == closureId) &&
+            (identical(other.actId, actId) || other.actId == actId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, closureId, actId);
+
   @JsonKey(ignore: true)
-  _$$_SaveCopyWith<_$_Save> get copyWith => throw _privateConstructorUsedError;
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_InitCopyWith<_$_Init> get copyWith =>
+      __$$_InitCopyWithImpl<_$_Init>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int fieldIndex, String text,
+            List<int>? dependedFields, String? textForDependedFields)
+        editField,
+    required TResult Function(int fieldIndex, String subText) editSubField,
+    required TResult Function() save,
+    required TResult Function(int closureId, int actId) init,
+  }) {
+    return init(closureId, actId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int fieldIndex, String text, List<int>? dependedFields,
+            String? textForDependedFields)?
+        editField,
+    TResult? Function(int fieldIndex, String subText)? editSubField,
+    TResult? Function()? save,
+    TResult? Function(int closureId, int actId)? init,
+  }) {
+    return init?.call(closureId, actId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int fieldIndex, String text, List<int>? dependedFields,
+            String? textForDependedFields)?
+        editField,
+    TResult Function(int fieldIndex, String subText)? editSubField,
+    TResult Function()? save,
+    TResult Function(int closureId, int actId)? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(closureId, actId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EditField value) editField,
+    required TResult Function(_EditSubField value) editSubField,
+    required TResult Function(_Save value) save,
+    required TResult Function(_Init value) init,
+  }) {
+    return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EditField value)? editField,
+    TResult? Function(_EditSubField value)? editSubField,
+    TResult? Function(_Save value)? save,
+    TResult? Function(_Init value)? init,
+  }) {
+    return init?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EditField value)? editField,
+    TResult Function(_EditSubField value)? editSubField,
+    TResult Function(_Save value)? save,
+    TResult Function(_Init value)? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Init implements EditorEvent {
+  const factory _Init(final int closureId, final int actId) = _$_Init;
+
+  int get closureId;
+  int get actId;
+  @JsonKey(ignore: true)
+  _$$_InitCopyWith<_$_Init> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$EditorState {
-  ActData get act => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ActData act) loaded,
+    required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ActData act)? loaded,
+    TResult? Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ActData act)? loaded,
+    TResult Function()? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EditorStateLoaded value) loaded,
+    required TResult Function(EditorStateInit value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EditorStateLoaded value)? loaded,
+    TResult? Function(EditorStateInit value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EditorStateLoaded value)? loaded,
+    TResult Function(EditorStateInit value)? init,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $EditorStateCopyWith<EditorState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -633,10 +786,6 @@ abstract class $EditorStateCopyWith<$Res> {
   factory $EditorStateCopyWith(
           EditorState value, $Res Function(EditorState) then) =
       _$EditorStateCopyWithImpl<$Res, EditorState>;
-  @useResult
-  $Res call({ActData act});
-
-  $ActDataCopyWith<$Res> get act;
 }
 
 /// @nodoc
@@ -648,40 +797,16 @@ class _$EditorStateCopyWithImpl<$Res, $Val extends EditorState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? act = null,
-  }) {
-    return _then(_value.copyWith(
-      act: null == act
-          ? _value.act
-          : act // ignore: cast_nullable_to_non_nullable
-              as ActData,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ActDataCopyWith<$Res> get act {
-    return $ActDataCopyWith<$Res>(_value.act, (value) {
-      return _then(_value.copyWith(act: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$EditorStateLoadedCopyWith<$Res>
-    implements $EditorStateCopyWith<$Res> {
+abstract class _$$EditorStateLoadedCopyWith<$Res> {
   factory _$$EditorStateLoadedCopyWith(
           _$EditorStateLoaded value, $Res Function(_$EditorStateLoaded) then) =
       __$$EditorStateLoadedCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({ActData act});
 
-  @override
   $ActDataCopyWith<$Res> get act;
 }
 
@@ -704,6 +829,14 @@ class __$$EditorStateLoadedCopyWithImpl<$Res>
           : act // ignore: cast_nullable_to_non_nullable
               as ActData,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ActDataCopyWith<$Res> get act {
+    return $ActDataCopyWith<$Res>(_value.act, (value) {
+      return _then(_value.copyWith(act: value));
+    });
   }
 }
 
@@ -741,6 +874,7 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ActData act) loaded,
+    required TResult Function() init,
   }) {
     return loaded(act);
   }
@@ -749,6 +883,7 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ActData act)? loaded,
+    TResult? Function()? init,
   }) {
     return loaded?.call(act);
   }
@@ -757,6 +892,7 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ActData act)? loaded,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -769,6 +905,7 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EditorStateLoaded value) loaded,
+    required TResult Function(EditorStateInit value) init,
   }) {
     return loaded(this);
   }
@@ -777,6 +914,7 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EditorStateLoaded value)? loaded,
+    TResult? Function(EditorStateInit value)? init,
   }) {
     return loaded?.call(this);
   }
@@ -785,6 +923,7 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EditorStateLoaded value)? loaded,
+    TResult Function(EditorStateInit value)? init,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -798,10 +937,110 @@ abstract class EditorStateLoaded implements EditorState {
   const factory EditorStateLoaded({required final ActData act}) =
       _$EditorStateLoaded;
 
-  @override
   ActData get act;
-  @override
   @JsonKey(ignore: true)
   _$$EditorStateLoadedCopyWith<_$EditorStateLoaded> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EditorStateInitCopyWith<$Res> {
+  factory _$$EditorStateInitCopyWith(
+          _$EditorStateInit value, $Res Function(_$EditorStateInit) then) =
+      __$$EditorStateInitCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EditorStateInitCopyWithImpl<$Res>
+    extends _$EditorStateCopyWithImpl<$Res, _$EditorStateInit>
+    implements _$$EditorStateInitCopyWith<$Res> {
+  __$$EditorStateInitCopyWithImpl(
+      _$EditorStateInit _value, $Res Function(_$EditorStateInit) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$EditorStateInit implements EditorStateInit {
+  const _$EditorStateInit();
+
+  @override
+  String toString() {
+    return 'EditorState.init()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EditorStateInit);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ActData act) loaded,
+    required TResult Function() init,
+  }) {
+    return init();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ActData act)? loaded,
+    TResult? Function()? init,
+  }) {
+    return init?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ActData act)? loaded,
+    TResult Function()? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EditorStateLoaded value) loaded,
+    required TResult Function(EditorStateInit value) init,
+  }) {
+    return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EditorStateLoaded value)? loaded,
+    TResult? Function(EditorStateInit value)? init,
+  }) {
+    return init?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditorStateLoaded value)? loaded,
+    TResult Function(EditorStateInit value)? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EditorStateInit implements EditorState {
+  const factory EditorStateInit() = _$EditorStateInit;
 }

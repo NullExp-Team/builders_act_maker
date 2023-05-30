@@ -20,8 +20,11 @@ FieldData _$FieldDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FieldData {
+  @HiveField(0)
   String get text => throw _privateConstructorUsedError;
+  @HiveField(1)
   bool get hasSpace => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get subText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +38,10 @@ abstract class $FieldDataCopyWith<$Res> {
   factory $FieldDataCopyWith(FieldData value, $Res Function(FieldData) then) =
       _$FieldDataCopyWithImpl<$Res, FieldData>;
   @useResult
-  $Res call({String text, bool hasSpace, String? subText});
+  $Res call(
+      {@HiveField(0) String text,
+      @HiveField(1) bool hasSpace,
+      @HiveField(2) String? subText});
 }
 
 /// @nodoc
@@ -79,7 +85,10 @@ abstract class _$$_FieldDataCopyWith<$Res> implements $FieldDataCopyWith<$Res> {
       __$$_FieldDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text, bool hasSpace, String? subText});
+  $Res call(
+      {@HiveField(0) String text,
+      @HiveField(1) bool hasSpace,
+      @HiveField(2) String? subText});
 }
 
 /// @nodoc
@@ -116,18 +125,24 @@ class __$$_FieldDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: 2)
 class _$_FieldData implements _FieldData {
   _$_FieldData(
-      {required this.text, required this.hasSpace, required this.subText});
+      {@HiveField(0) required this.text,
+      @HiveField(1) required this.hasSpace,
+      @HiveField(2) required this.subText});
 
   factory _$_FieldData.fromJson(Map<String, dynamic> json) =>
       _$$_FieldDataFromJson(json);
 
   @override
+  @HiveField(0)
   final String text;
   @override
+  @HiveField(1)
   final bool hasSpace;
   @override
+  @HiveField(2)
   final String? subText;
 
   @override
@@ -166,18 +181,21 @@ class _$_FieldData implements _FieldData {
 
 abstract class _FieldData implements FieldData {
   factory _FieldData(
-      {required final String text,
-      required final bool hasSpace,
-      required final String? subText}) = _$_FieldData;
+      {@HiveField(0) required final String text,
+      @HiveField(1) required final bool hasSpace,
+      @HiveField(2) required final String? subText}) = _$_FieldData;
 
   factory _FieldData.fromJson(Map<String, dynamic> json) =
       _$_FieldData.fromJson;
 
   @override
+  @HiveField(0)
   String get text;
   @override
+  @HiveField(1)
   bool get hasSpace;
   @override
+  @HiveField(2)
   String? get subText;
   @override
   @JsonKey(ignore: true)

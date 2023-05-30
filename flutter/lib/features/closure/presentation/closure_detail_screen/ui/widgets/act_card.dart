@@ -15,6 +15,7 @@ class ActCard extends StatelessWidget {
     // TODO: cibit from di
     const dynamic cubit = null;
 
+//  cubit.goToActEditor(act.id);
     return Card(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

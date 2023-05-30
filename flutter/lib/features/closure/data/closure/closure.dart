@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
 import '../../../../models/act_data/act_data.dart';
 
@@ -9,12 +10,13 @@ part 'closure.g.dart';
 
 @freezed
 class Closure with _$Closure {
+  @HiveType(typeId: 0)
   factory Closure({
-    required int id,
-    required String name,
-    required String path,
-    @Default(<ActData>[]) List<ActData> acts,
-    required ActData commonInfo,
+    @HiveField(0) required int id,
+    @HiveField(1) required String name,
+    @HiveField(2) required String path,
+    @HiveField(3) @Default(<ActData>[]) List<ActData> acts,
+    @HiveField(4) required ActData commonInfo,
   }) = _Closure;
 
   factory Closure.fromJson(Map<String, dynamic> json) =>

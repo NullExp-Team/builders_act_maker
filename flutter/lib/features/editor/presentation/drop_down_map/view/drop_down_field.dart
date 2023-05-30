@@ -25,7 +25,7 @@ class DropDownField extends StatelessWidget {
     final state = bloc.state;
     switch (state) {
       case DropDownMapStateLoaded():
-        final values = state.dropDownValuesMap[mapKey] ?? [];
+        final values = state.dropDownMap[mapKey]?.dropDownValuesMap ?? [];
         return Align(
           alignment: Alignment.topLeft,
           child: PopupMenuButton<String>(
@@ -39,8 +39,8 @@ class DropDownField extends StatelessWidget {
                     fieldIndex: index,
                     text: item,
                     dependedFields: dependedMappedFields,
-                    textForDependedFields: state.dependedFieldMapsMap[mapKey]
-                        ?[item],
+                    textForDependedFields:
+                        state.dropDownMap[mapKey]?.dependedFieldMapsMap[item],
                   ),
                 ),
             itemBuilder: (BuildContext context) => values
@@ -69,23 +69,35 @@ class DropDownField extends StatelessWidget {
                   enabled: false,
                   child: Builder(
                     builder: (context) {
-                      final controller = TextEditingController();
+                      final firstController = TextEditingController();
+                      final secondController = TextEditingController();
                       return Row(
                         children: [
                           SizedBox(
                             width: 150,
-                            child: TextField(
-                              decoration: const InputDecoration(
-                                hintText: 'Новый параметр',
-                              ),
-                              controller: controller,
+                            child: Column(
+                              children: [
+                                TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Новый параметр',
+                                  ),
+                                  controller: firstController,
+                                ),
+                                TextField(
+                                  decoration: const InputDecoration(
+                                    hintText: 'Отображённая строка',
+                                  ),
+                                  controller: secondController,
+                                ),
+                              ],
                             ),
                           ),
                           const Spacer(),
                           IconButton(
                             onPressed: () {
-                              Navigator.pop(context, controller.text);
-                              bloc.saveNewValue(mapKey, controller.text);
+                              Navigator.pop(context, firstController.text);
+                              bloc.saveNewValue(mapKey, firstController.text,
+                                  secondController.text);
                             },
                             icon: const Icon(Icons.add),
                           )

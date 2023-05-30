@@ -9,8 +9,8 @@ import 'features/closure/data/closure/closure.dart';
 import 'features/editor/data/document_type/document_type.dart';
 import 'models/field_data/field_data.dart';
 
-void main() {
-  Di.initialize();
+void main() async {
+  await Di.initialize();
   runApp(const MainApp());
 }
 
@@ -28,6 +28,7 @@ class MainApp extends StatelessWidget {
       name: 'lol',
       path: 'kek',
       commonInfo: ActData(
+        id: 1,
         name: 'Общая информация',
         type: DocumentType.commonInfo,
         fields: [
@@ -55,6 +56,7 @@ class MainApp extends StatelessWidget {
       ),
       acts: [
         ActData(
+          id: 2,
           name: 'super',
           type: DocumentType.actOSR,
           fields: [
@@ -86,6 +88,7 @@ class MainApp extends StatelessWidget {
           ],
         ),
         ActData(
+          id: 3,
           name: 'repus',
           type: DocumentType.actOSR,
           fields: [

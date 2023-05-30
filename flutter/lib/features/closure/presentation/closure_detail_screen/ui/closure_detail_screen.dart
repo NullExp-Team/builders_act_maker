@@ -3,7 +3,6 @@ import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
-import '../../closure_list_screen/cubit/closure_list_cubit.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 // ignore: unused_import
 import 'package:flutter/material.dart' as m;
@@ -37,23 +36,13 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Кринж для теста, всё сделать нормально через репозиторий
-    final state =
-        context.read<ClosureListCubit>().state as ClosureListStateData;
-
-    final closure = state.closures.firstWhere(
-      (element) => element.id == widget.closureId,
-    );
-
+    //TODO: явно есть какая-то реализация получше
     final goRouter = Di.get<GoRouter>();
-
     final routes = goRouter.routerDelegate.currentConfiguration.matches
         .map((e) => e.route as GoRoute)
         .toList();
 
-    // TODO: в di
-    final cubit = ClosureDetailCubit(ClosureDetailState.data(closure: closure));
-
+    final cubit = Di.get<ClosureDetailCubit>()..setClosure(widget.closureId);
     return BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
       bloc: cubit,
       builder: (context, state) {
