@@ -88,7 +88,7 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                           maxCrossAxisExtent: 400,
                           crossAxisSpacing: 16,
                           mainAxisSpacing: 16,
-                          childAspectRatio: 1,
+                          childAspectRatio: 2.25,
                         ),
                         itemCount: children.length,
                         itemBuilder: (context, index) => children[index],

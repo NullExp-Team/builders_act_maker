@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
+import '../../../../../../core/theme/theme_context_extension.dart';
 import '../../../../../../models/act_data/act_data.dart';
 
 class ActCard extends StatelessWidget {
@@ -9,43 +10,88 @@ class ActCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = FlyoutController();
+
     return Card(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(act.name),
-          Text(act.type.name),
-          const SizedBox(height: 16),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Button(
-                onPressed: () {},
-                child: const Row(
-                  children: [
-                    Icon(FluentIcons.merge_duplicate, size: 16),
-                    Text('Дублировать'),
-                  ],
+              Flexible(
+                child: Text(
+                  act.name,
+                  style: context.textStyles.subtitle,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Button(
-                onPressed: () {},
-                child: const Text('Удалить'),
+              FlyoutTarget(
+                controller: controller,
+                child: IconButton(
+                  icon: const Icon(FluentIcons.more),
+                  onPressed: () => controller.showFlyout(
+                    builder: (context) {
+                      return MenuFlyout(
+                        items: [
+                          MenuFlyoutItem(
+                            leading: const Icon(FluentIcons.edit),
+                            text: const Text('Редактировать'),
+                            onPressed: Flyout.of(context).close,
+                          ),
+                          MenuFlyoutItem(
+                            leading: const Icon(FluentIcons.copy),
+                            text: const Text('Дублировать'),
+                            onPressed: Flyout.of(context).close,
+                          ),
+                          MenuFlyoutItem(
+                            leading: const Icon(FluentIcons.delete),
+                            text: const Text('Удалить'),
+                            onPressed: () {
+                              controller.showFlyout(
+                                builder: (context) {
+                                  return FlyoutContent(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Text(
+                                          'Вы уверены, что хотите удалить этот акт?',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12.0),
+                                        Button(
+                                          onPressed: () => Flyout.of(context)
+                                            ..close()
+                                            ..close(),
+                                          child: const Text('Да, удалить акт'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ),
             ],
           ),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (var field in act.fields)
-                Chip(
-                  text: Text(
-                    field.subText != null
-                        ? '${field.subText} ${field.text}'
-                        : field.text,
-                  ),
-                )
-            ],
-          )
+          Chip(
+            text: Text(
+              act.type.label,
+              overflow: TextOverflow.ellipsis,
+              style: context.textStyles.caption,
+            ),
+          ),
         ],
       ),
     );
