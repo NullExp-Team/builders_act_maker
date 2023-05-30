@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../../models/act_data/act_data.dart';
 import '../data/closure/closure.dart';
 
@@ -15,4 +17,6 @@ abstract class ClosuresRepository {
   void saveDropDownMap(Map<String, List<String>> map);
 
   Map<String, List<String>> loadDropDownMap();
+
+  ValueListenable getClosureListenable();
 }

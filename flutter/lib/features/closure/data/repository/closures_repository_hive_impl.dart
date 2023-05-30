@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:hive/hive.dart';
+import 'package:flutter/foundation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../models/act_data/act_data.dart';
@@ -80,6 +81,14 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
 
   @override
   void saveDropDownMap(Map<String, List<String>> map) {
-    Hive.box(closuresBoxName).put(closuresBoxListKey, map);
+    Hive.box(closuresBoxName).put(closuresBoxDropDownMapKey, map);
+  }
+
+  ValueListenable? valueListenable;
+  @override
+  ValueListenable getClosureListenable() {
+    valueListenable ??=
+        Hive.box(closuresBoxName).listenable(keys: [closuresBoxListKey]);
+    return valueListenable!;
   }
 }

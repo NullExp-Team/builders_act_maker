@@ -1,5 +1,6 @@
 import '../features/closure/data/repository/closures_repository_hive_impl.dart';
 import '../features/closure/domain/closures_repository.dart';
+import '../features/closure/presentation/closure_detail_screen/cubit/closure_detail_cubit.dart';
 import 'routing/routes.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +23,12 @@ abstract final class Di {
       ClosureListCubit(
         repository: get(),
         goRouter: get(),
+      ),
+    );
+
+    _getIt.registerSingleton(
+      ClosureDetailCubit(
+        repository: get(),
       ),
     );
   }
