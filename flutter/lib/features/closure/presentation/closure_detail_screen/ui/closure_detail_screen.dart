@@ -22,7 +22,7 @@ class ClosureDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: Кринж для теста, всё сделать нормально через репозиторий
     final state =
-        context.read<ClosureListCubit>().state as ClosureListLoadedState;
+        context.read<ClosureListCubit>().state as ClosureListStateData;
 
     final closure = state.closures.firstWhere(
       (element) => element.id == closureId,
@@ -35,12 +35,12 @@ class ClosureDetailScreen extends StatelessWidget {
         .toList();
 
     return BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
-      bloc: ClosureDetailCubit(ClosureDetailState.loaded(closure: closure)),
+      bloc: ClosureDetailCubit(ClosureDetailState.data(closure: closure)),
       builder: (context, state) {
         switch (state) {
-          case ClosureDetailInitialState() || ClosureDetailLoadingState():
+          case ClosureDetailStateInitial() || ClosureDetailStateLoading():
             return const Center(child: ProgressRing());
-          case ClosureDetailLoadedState(:final closure):
+          case ClosureDetailStateData(:final closure):
             return ScaffoldPage(
               header: NavigationHeader(routes: routes),
               content: Column(
@@ -95,7 +95,7 @@ class ClosureDetailScreen extends StatelessWidget {
               ),
             );
 
-          case ClosureDetailErrorState():
+          case ClosureDetailStateError():
             return const Center(child: Text('Ошибка'));
         }
       },

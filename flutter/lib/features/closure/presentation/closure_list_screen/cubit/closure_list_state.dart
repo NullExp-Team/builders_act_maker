@@ -2,16 +2,16 @@ part of 'closure_list_cubit.dart';
 
 @freezed
 sealed class ClosureListState with _$ClosureListState {
-  const factory ClosureListState.initial() = ClosureListInitialState;
+  const factory ClosureListState.initial() = ClosureListStateInitial;
 
-  const factory ClosureListState.loading() = ClosureListLoadingState;
+  const factory ClosureListState.loading() = ClosureListStateLoading;
 
-  const factory ClosureListState.loaded({
+  const factory ClosureListState.data({
     required List<Closure> closures,
-  }) = ClosureListLoadedState;
+  }) = ClosureListStateData;
 
   const factory ClosureListState.error({
     required dynamic message,
     required StackTrace stackTrace,
-  }) = ClosureListErrorState;
+  }) = ClosureListStateError;
 }

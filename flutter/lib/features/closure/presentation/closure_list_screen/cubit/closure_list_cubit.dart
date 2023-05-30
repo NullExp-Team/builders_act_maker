@@ -23,7 +23,7 @@ class ClosureListCubit extends Cubit<ClosureListState> {
       for (var i = 0; i < 100; i++) Closure.random(),
     ];
 
-    emit(ClosureListState.loaded(closures: closures));
+    emit(ClosureListState.data(closures: closures));
   }
 
   void goToClosureDetail(Closure closure) {

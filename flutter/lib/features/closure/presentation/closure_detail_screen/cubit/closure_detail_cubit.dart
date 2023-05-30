@@ -10,6 +10,6 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
   ClosureDetailCubit(super.initialState);
 
   void setClosure(Closure closure) {
-    emit(ClosureDetailState.loaded(closure: closure));
+    emit(ClosureDetailState.data(closure: closure));
   }
 }

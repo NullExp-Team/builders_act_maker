@@ -38,9 +38,9 @@ class _ClosureListScreenState extends State<ClosureListScreen> {
       content: BlocBuilder<ClosureListCubit, ClosureListState>(
         builder: (context, state) {
           switch (state) {
-            case ClosureListInitialState() || ClosureListLoadingState():
+            case ClosureListStateInitial() || ClosureListStateLoading():
               return const Center(child: ProgressRing());
-            case ClosureListLoadedState(:final closures):
+            case ClosureListStateData(:final closures):
               return DynMouseScroll(
                 durationMS: 100,
                 builder: (context, controller, physics) => ListView.separated(
@@ -64,7 +64,7 @@ class _ClosureListScreenState extends State<ClosureListScreen> {
                       const SizedBox(height: 6),
                 ),
               );
-            case ClosureListErrorState():
+            case ClosureListStateError():
               return const Center(child: Text('Ошибка'));
           }
         },
