@@ -49,7 +49,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
         newAct = _changeElement(
           newAct,
           i,
-          event.textForDependedFields ?? event.text,
+          '${event.textForDependedFields ?? event.text} ',
           true,
         );
       }

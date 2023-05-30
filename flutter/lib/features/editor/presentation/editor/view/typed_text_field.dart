@@ -39,8 +39,11 @@ class _TypedTextFieldState extends State<TypedTextField> {
     return Row(
       children: [
         if (widget.field.subText != null)
-          Text(
-            widget.field.subText!,
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(
+              widget.field.subText!,
+            ),
           ),
         Expanded(
           child: Focus(

@@ -29,11 +29,14 @@ class FieldsList extends StatelessWidget {
         return Column(
           children: [
             if (fieldsTypes[index] is! DuplicateFieldType)
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  fieldsNames[index],
-                  style: const TextStyle(fontSize: 24),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    fieldsNames[index],
+                    style: const TextStyle(fontSize: 24),
+                  ),
                 ),
               ),
             switch (fieldsTypes[index]) {
