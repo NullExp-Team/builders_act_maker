@@ -1,7 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
+import '../../../../../../core/di.dart';
 import '../../../../../../core/theme/theme_context_extension.dart';
 import '../../../../../../models/act_data/act_data.dart';
+import '../../cubit/closure_detail_cubit.dart';
 
 class ActCard extends StatelessWidget {
   final ActData act;
@@ -12,11 +14,10 @@ class ActCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = FlyoutController();
 
-    // TODO: cibit from di
-    const dynamic cubit = null;
+    final cubit = Di.get<ClosureDetailCubit>();
 
-//  cubit.goToActEditor(act.id);
-    return Card(
+    return Button(
+      onPressed: () => cubit.goToActEditor(act.id),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
