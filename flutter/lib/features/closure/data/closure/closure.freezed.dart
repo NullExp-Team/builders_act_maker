@@ -20,10 +20,15 @@ Closure _$ClosureFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Closure {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get path => throw _privateConstructorUsedError;
+  @HiveField(3)
   List<ActData> get acts => throw _privateConstructorUsedError;
+  @HiveField(4)
   ActData get commonInfo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,11 +42,11 @@ abstract class $ClosureCopyWith<$Res> {
       _$ClosureCopyWithImpl<$Res, Closure>;
   @useResult
   $Res call(
-      {int id,
-      String name,
-      String path,
-      List<ActData> acts,
-      ActData commonInfo});
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String path,
+      @HiveField(3) List<ActData> acts,
+      @HiveField(4) ActData commonInfo});
 
   $ActDataCopyWith<$Res> get commonInfo;
 }
@@ -106,11 +111,11 @@ abstract class _$$_ClosureCopyWith<$Res> implements $ClosureCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
-      String name,
-      String path,
-      List<ActData> acts,
-      ActData commonInfo});
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) String path,
+      @HiveField(3) List<ActData> acts,
+      @HiveField(4) ActData commonInfo});
 
   @override
   $ActDataCopyWith<$Res> get commonInfo;
@@ -159,27 +164,32 @@ class __$$_ClosureCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: 0)
 class _$_Closure implements _Closure {
   _$_Closure(
-      {required this.id,
-      required this.name,
-      required this.path,
-      final List<ActData> acts = const <ActData>[],
-      required this.commonInfo})
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.path,
+      @HiveField(3) final List<ActData> acts = const <ActData>[],
+      @HiveField(4) required this.commonInfo})
       : _acts = acts;
 
   factory _$_Closure.fromJson(Map<String, dynamic> json) =>
       _$$_ClosureFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String name;
   @override
+  @HiveField(2)
   final String path;
   final List<ActData> _acts;
   @override
   @JsonKey()
+  @HiveField(3)
   List<ActData> get acts {
     if (_acts is EqualUnmodifiableListView) return _acts;
     // ignore: implicit_dynamic_type
@@ -187,6 +197,7 @@ class _$_Closure implements _Closure {
   }
 
   @override
+  @HiveField(4)
   final ActData commonInfo;
 
   @override
@@ -228,23 +239,28 @@ class _$_Closure implements _Closure {
 
 abstract class _Closure implements Closure {
   factory _Closure(
-      {required final int id,
-      required final String name,
-      required final String path,
-      final List<ActData> acts,
-      required final ActData commonInfo}) = _$_Closure;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final String path,
+      @HiveField(3) final List<ActData> acts,
+      @HiveField(4) required final ActData commonInfo}) = _$_Closure;
 
   factory _Closure.fromJson(Map<String, dynamic> json) = _$_Closure.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   String get path;
   @override
+  @HiveField(3)
   List<ActData> get acts;
   @override
+  @HiveField(4)
   ActData get commonInfo;
   @override
   @JsonKey(ignore: true)

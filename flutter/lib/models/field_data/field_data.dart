@@ -1,16 +1,18 @@
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
 part 'field_data.freezed.dart';
 part 'field_data.g.dart';
 
 @freezed
 class FieldData with _$FieldData {
+  @HiveType(typeId: 2)
   factory FieldData({
-    required String text,
-    required bool hasSpace,
-    required String? subText,
+    @HiveField(0) required String text,
+    @HiveField(1) required bool hasSpace,
+    @HiveField(2) required String? subText,
   }) = _FieldData;
 
   factory FieldData.fromJson(Map<String, dynamic> json) =>

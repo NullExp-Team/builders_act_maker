@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:hive/hive.dart';
+
 import '../../features/editor/data/document_type/document_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,11 +12,12 @@ part 'act_data.g.dart';
 
 @freezed
 class ActData with _$ActData {
+  @HiveType(typeId: 1)
   const factory ActData({
-    required int id,
-    required String name,
-    required DocumentType type,
-    @Default([]) List<FieldData> fields,
+    @HiveField(0) required int id,
+    @HiveField(1) required String name,
+    @HiveField(2) required DocumentType type,
+    @HiveField(3) @Default([]) List<FieldData> fields,
   }) = _ActData;
 
   factory ActData.fromJson(Map<String, dynamic> json) =>

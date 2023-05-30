@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../models/act_data/act_data.dart';
+import '../../../../models/field_data/field_data.dart';
 import '../../domain/closures_repository.dart';
 import '../closure/closure.dart';
 
