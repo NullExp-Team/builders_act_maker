@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,8 +25,18 @@ class DropDownField extends StatelessWidget {
     final bloc = context.read<DropDownMapCubit>();
     final state = bloc.state;
     const width = 250.0;
+
     switch (state) {
       case DropDownMapStateLoaded():
+        saveFunction(text) => context.read<EditorBloc>().add(
+              EditorEvent.editField(
+                fieldIndex: index,
+                text: text,
+                dependedFields: dependedMappedFields,
+                textForDependedFields:
+                    state.dropDownMap[mapKey]?.dependedFieldMapsMap[text],
+              ),
+            );
         final values = state.dropDownMap[mapKey]?.dropDownValuesMap ?? [];
         return Align(
           alignment: Alignment.topLeft,
@@ -42,15 +51,7 @@ class DropDownField extends StatelessWidget {
             items: values
                 .map(
                   (e) => MenuFlyoutItem(
-                    onPressed: () => context.read<EditorBloc>().add(
-                          EditorEvent.editField(
-                            fieldIndex: index,
-                            text: e,
-                            dependedFields: dependedMappedFields,
-                            textForDependedFields: state
-                                .dropDownMap[mapKey]?.dependedFieldMapsMap[e],
-                          ),
-                        ),
+                    onPressed: () => saveFunction(e),
                     text: SizedBox(
                       width: width,
                       child: Row(
@@ -99,9 +100,13 @@ class DropDownField extends StatelessWidget {
                             const Spacer(),
                             IconButton(
                               onPressed: () {
-                                Navigator.pop(context, firstController.text);
-                                bloc.saveNewValue(mapKey, firstController.text,
-                                    secondController.text);
+                                bloc.saveNewValue(
+                                  mapKey,
+                                  firstController.text,
+                                  secondController.text,
+                                );
+                                saveFunction(firstController.text);
+                                Navigator.pop(context);
                               },
                               icon: const Icon(m.Icons.add),
                             )
