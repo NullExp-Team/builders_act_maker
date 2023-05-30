@@ -25,8 +25,9 @@ class ClosureDetailScreen extends StatelessWidget {
         .map((e) => e.route as GoRoute)
         .toList();
 
+    final cubit = Di.get<ClosureDetailCubit>()..setClosure(closureId);
     return BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
-      bloc: Di.get()..setClosure(closureId),
+      bloc: cubit,
       builder: (context, state) {
         switch (state) {
           case ClosureDetailInitialState() || ClosureDetailLoadingState():
@@ -55,7 +56,8 @@ class ClosureDetailScreen extends StatelessWidget {
                       itemCount: closure.acts.length,
                       itemBuilder: (context, index) {
                         final act = closure.acts[index];
-                        return Card(
+                        return Button(
+                          onPressed: () => cubit.goToActEditor(act.id),
                           child: Column(
                             children: [
                               Text(act.name),

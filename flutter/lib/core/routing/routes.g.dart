@@ -40,6 +40,13 @@ RouteBase get $closureListRoute => GoRouteData.$route(
           path: ':closureId',
           name: 'Закрытие',
           factory: $ClosureDetailRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: ':actId',
+              name: 'Акт',
+              factory: $ActEditorRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     );
@@ -68,6 +75,24 @@ extension $ClosureDetailRouteExtension on ClosureDetailRoute {
 
   String get location => GoRouteData.$location(
         '/closures/${Uri.encodeComponent(closureId.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+}
+
+extension $ActEditorRouteExtension on ActEditorRoute {
+  static ActEditorRoute _fromState(GoRouterState state) => ActEditorRoute(
+        closureId: int.parse(state.pathParameters['closureId']!),
+        actId: int.parse(state.pathParameters['actId']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/closures/${Uri.encodeComponent(closureId.toString())}/${Uri.encodeComponent(actId.toString())}',
       );
 
   void go(BuildContext context) => context.go(location);

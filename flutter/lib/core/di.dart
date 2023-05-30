@@ -22,13 +22,14 @@ abstract final class Di {
 
     _getIt.registerSingleton(
       ClosureListCubit(
-        repository: get(),
         goRouter: get(),
+        repository: get(),
       ),
     );
 
     _getIt.registerSingleton(
       ClosureDetailCubit(
+        goRouter: get(),
         repository: get(),
       ),
     );

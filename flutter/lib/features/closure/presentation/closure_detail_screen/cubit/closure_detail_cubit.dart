@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
+import '../../../../../core/routing/routes.dart';
 import '../../../../../models/act_data/act_data.dart';
 import '../../../../editor/data/document_type/document_type.dart';
 import '../../../data/closure/closure.dart';
@@ -12,11 +14,21 @@ part 'closure_detail_state.dart';
 part 'closure_detail_cubit.freezed.dart';
 
 class ClosureDetailCubit extends Cubit<ClosureDetailState> {
+  final GoRouter goRouter;
   final ClosuresRepository repository;
-  ClosureDetailCubit({required this.repository})
+
+  ClosureDetailCubit({required this.goRouter, required this.repository})
       : super(const ClosureDetailInitialState());
 
   ClosureDetailLoadedState get loadedState => state as ClosureDetailLoadedState;
+
+  void goToActEditor(int actId) {
+    if (state is! ClosureDetailLoadedState) return;
+
+    goRouter.go(
+      ActEditorRoute(closureId: loadedState.closure.id, actId: actId).location,
+    );
+  }
 
   void setClosure(int closureId) {
     final a = repository.getClosureListenable();

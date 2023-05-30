@@ -7,20 +7,21 @@ import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
 import '../bloc/editor_bloc.dart';
 import 'fields_list_widget.dart';
 
-class EditorPage extends StatefulWidget {
+class ActEditorScreen extends StatefulWidget {
   final int actId;
   final int closureId;
-  const EditorPage({
+
+  const ActEditorScreen({
     super.key,
     required this.closureId,
     required this.actId,
   });
 
   @override
-  State<EditorPage> createState() => _EditorPageState();
+  State<ActEditorScreen> createState() => _ActEditorScreenState();
 }
 
-class _EditorPageState extends State<EditorPage> {
+class _ActEditorScreenState extends State<ActEditorScreen> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

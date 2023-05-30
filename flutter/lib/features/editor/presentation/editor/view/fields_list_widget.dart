@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/field_types/field_types.dart';
-import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
 import '../bloc/editor_bloc.dart';
 import '../../drop_down_map/view/drop_down_field.dart';
 import 'sub_text_field.dart';
