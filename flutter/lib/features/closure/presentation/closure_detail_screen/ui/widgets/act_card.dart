@@ -12,6 +12,9 @@ class ActCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = FlyoutController();
 
+    // TODO: cibit from di
+    const dynamic cubit = null;
+
     return Card(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,12 +43,18 @@ class ActCard extends StatelessWidget {
                           MenuFlyoutItem(
                             leading: const Icon(FluentIcons.edit),
                             text: const Text('Редактировать'),
-                            onPressed: Flyout.of(context).close,
+                            onPressed: () {
+                              cubit.editAct(act);
+                              Flyout.of(context).close();
+                            },
                           ),
                           MenuFlyoutItem(
                             leading: const Icon(FluentIcons.copy),
                             text: const Text('Дублировать'),
-                            onPressed: Flyout.of(context).close,
+                            onPressed: () {
+                              cubit.duplicateAct(act);
+                              Flyout.of(context).close();
+                            },
                           ),
                           MenuFlyoutItem(
                             leading: const Icon(FluentIcons.delete),
@@ -65,9 +74,12 @@ class ActCard extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 12.0),
                                         Button(
-                                          onPressed: () => Flyout.of(context)
-                                            ..close()
-                                            ..close(),
+                                          onPressed: () {
+                                            cubit.deleteAct(act);
+                                            Flyout.of(context)
+                                              ..close()
+                                              ..close();
+                                          },
                                           child: const Text('Да, удалить акт'),
                                         ),
                                       ],

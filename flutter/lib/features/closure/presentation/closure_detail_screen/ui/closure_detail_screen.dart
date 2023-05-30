@@ -60,7 +60,7 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
         switch (state) {
           case ClosureDetailStateInitial() || ClosureDetailStateLoading():
             return const Center(child: ProgressRing());
-          case ClosureDetailStateData(:final closure):
+          case ClosureDetailStateData(:var closure):
             return ScaffoldPage(
               header: NavigationHeader(routes: routes),
               content: Column(
@@ -95,7 +95,7 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                       ),
                       children: [
                         for (var act in closure.acts)
-                          ActCard(key: ValueKey(act.hashCode), act: act)
+                          ActCard(key: ObjectKey(act), act: act)
                       ],
                     ),
                   )
