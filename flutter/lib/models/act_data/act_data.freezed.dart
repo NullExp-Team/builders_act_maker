@@ -20,8 +20,13 @@ ActData _$ActDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ActData {
+  @HiveField(0)
+  int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   DocumentType get type => throw _privateConstructorUsedError;
+  @HiveField(3)
   List<FieldData> get fields => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +39,11 @@ abstract class $ActDataCopyWith<$Res> {
   factory $ActDataCopyWith(ActData value, $Res Function(ActData) then) =
       _$ActDataCopyWithImpl<$Res, ActData>;
   @useResult
-  $Res call({String name, DocumentType type, List<FieldData> fields});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) DocumentType type,
+      @HiveField(3) List<FieldData> fields});
 }
 
 /// @nodoc
@@ -50,11 +59,16 @@ class _$ActDataCopyWithImpl<$Res, $Val extends ActData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? type = null,
     Object? fields = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -78,7 +92,11 @@ abstract class _$$_ActDataCopyWith<$Res> implements $ActDataCopyWith<$Res> {
       __$$_ActDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, DocumentType type, List<FieldData> fields});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) DocumentType type,
+      @HiveField(3) List<FieldData> fields});
 }
 
 /// @nodoc
@@ -91,11 +109,16 @@ class __$$_ActDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? type = null,
     Object? fields = null,
   }) {
     return _then(_$_ActData(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -114,23 +137,31 @@ class __$$_ActDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: 1)
 class _$_ActData implements _ActData {
   const _$_ActData(
-      {required this.name,
-      required this.type,
-      final List<FieldData> fields = const []})
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.type,
+      @HiveField(3) final List<FieldData> fields = const []})
       : _fields = fields;
 
   factory _$_ActData.fromJson(Map<String, dynamic> json) =>
       _$$_ActDataFromJson(json);
 
   @override
+  @HiveField(0)
+  final int id;
+  @override
+  @HiveField(1)
   final String name;
   @override
+  @HiveField(2)
   final DocumentType type;
   final List<FieldData> _fields;
   @override
   @JsonKey()
+  @HiveField(3)
   List<FieldData> get fields {
     if (_fields is EqualUnmodifiableListView) return _fields;
     // ignore: implicit_dynamic_type
@@ -139,7 +170,7 @@ class _$_ActData implements _ActData {
 
   @override
   String toString() {
-    return 'ActData(name: $name, type: $type, fields: $fields)';
+    return 'ActData(id: $id, name: $name, type: $type, fields: $fields)';
   }
 
   @override
@@ -147,6 +178,7 @@ class _$_ActData implements _ActData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ActData &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality().equals(other._fields, _fields));
@@ -154,8 +186,8 @@ class _$_ActData implements _ActData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, type, const DeepCollectionEquality().hash(_fields));
+  int get hashCode => Object.hash(runtimeType, id, name, type,
+      const DeepCollectionEquality().hash(_fields));
 
   @JsonKey(ignore: true)
   @override
@@ -173,17 +205,24 @@ class _$_ActData implements _ActData {
 
 abstract class _ActData implements ActData {
   const factory _ActData(
-      {required final String name,
-      required final DocumentType type,
-      final List<FieldData> fields}) = _$_ActData;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final DocumentType type,
+      @HiveField(3) final List<FieldData> fields}) = _$_ActData;
 
   factory _ActData.fromJson(Map<String, dynamic> json) = _$_ActData.fromJson;
 
   @override
+  @HiveField(0)
+  int get id;
+  @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   DocumentType get type;
   @override
+  @HiveField(3)
   List<FieldData> get fields;
   @override
   @JsonKey(ignore: true)

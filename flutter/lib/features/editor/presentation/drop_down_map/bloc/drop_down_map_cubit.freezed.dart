@@ -20,27 +20,21 @@ mixin _$DropDownMapState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)
-        loaded,
+    required TResult Function(Map<String, DropDownMapData> dropDownMap) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult? Function(Map<String, DropDownMapData> dropDownMap)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult Function(Map<String, DropDownMapData> dropDownMap)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,9 +121,7 @@ class _$DropDownMapStateInitial implements DropDownMapStateInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)
-        loaded,
+    required TResult Function(Map<String, DropDownMapData> dropDownMap) loaded,
   }) {
     return initial();
   }
@@ -139,9 +131,7 @@ class _$DropDownMapStateInitial implements DropDownMapStateInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult? Function(Map<String, DropDownMapData> dropDownMap)? loaded,
   }) {
     return initial?.call();
   }
@@ -151,9 +141,7 @@ class _$DropDownMapStateInitial implements DropDownMapStateInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult Function(Map<String, DropDownMapData> dropDownMap)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -242,9 +230,7 @@ class _$DropDownMapStateLoading implements DropDownMapStateLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)
-        loaded,
+    required TResult Function(Map<String, DropDownMapData> dropDownMap) loaded,
   }) {
     return loading();
   }
@@ -254,9 +240,7 @@ class _$DropDownMapStateLoading implements DropDownMapStateLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult? Function(Map<String, DropDownMapData> dropDownMap)? loaded,
   }) {
     return loading?.call();
   }
@@ -266,9 +250,7 @@ class _$DropDownMapStateLoading implements DropDownMapStateLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult Function(Map<String, DropDownMapData> dropDownMap)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -322,9 +304,7 @@ abstract class _$$DropDownMapStateLoadedCopyWith<$Res> {
           $Res Function(_$DropDownMapStateLoaded) then) =
       __$$DropDownMapStateLoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {Map<String, List<String>> dropDownValuesMap,
-      Map<String, Map<String, String>> dependedFieldMapsMap});
+  $Res call({Map<String, DropDownMapData> dropDownMap});
 }
 
 /// @nodoc
@@ -338,18 +318,13 @@ class __$$DropDownMapStateLoadedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? dropDownValuesMap = null,
-    Object? dependedFieldMapsMap = null,
+    Object? dropDownMap = null,
   }) {
     return _then(_$DropDownMapStateLoaded(
-      dropDownValuesMap: null == dropDownValuesMap
-          ? _value._dropDownValuesMap
-          : dropDownValuesMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<String>>,
-      dependedFieldMapsMap: null == dependedFieldMapsMap
-          ? _value._dependedFieldMapsMap
-          : dependedFieldMapsMap // ignore: cast_nullable_to_non_nullable
-              as Map<String, Map<String, String>>,
+      dropDownMap: null == dropDownMap
+          ? _value._dropDownMap
+          : dropDownMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, DropDownMapData>,
     ));
   }
 }
@@ -358,34 +333,21 @@ class __$$DropDownMapStateLoadedCopyWithImpl<$Res>
 
 class _$DropDownMapStateLoaded implements DropDownMapStateLoaded {
   const _$DropDownMapStateLoaded(
-      {final Map<String, List<String>> dropDownValuesMap = const {},
-      final Map<String, Map<String, String>> dependedFieldMapsMap = const {}})
-      : _dropDownValuesMap = dropDownValuesMap,
-        _dependedFieldMapsMap = dependedFieldMapsMap;
+      {final Map<String, DropDownMapData> dropDownMap = const {}})
+      : _dropDownMap = dropDownMap;
 
-  final Map<String, List<String>> _dropDownValuesMap;
+  final Map<String, DropDownMapData> _dropDownMap;
   @override
   @JsonKey()
-  Map<String, List<String>> get dropDownValuesMap {
-    if (_dropDownValuesMap is EqualUnmodifiableMapView)
-      return _dropDownValuesMap;
+  Map<String, DropDownMapData> get dropDownMap {
+    if (_dropDownMap is EqualUnmodifiableMapView) return _dropDownMap;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_dropDownValuesMap);
-  }
-
-  final Map<String, Map<String, String>> _dependedFieldMapsMap;
-  @override
-  @JsonKey()
-  Map<String, Map<String, String>> get dependedFieldMapsMap {
-    if (_dependedFieldMapsMap is EqualUnmodifiableMapView)
-      return _dependedFieldMapsMap;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_dependedFieldMapsMap);
+    return EqualUnmodifiableMapView(_dropDownMap);
   }
 
   @override
   String toString() {
-    return 'DropDownMapState.loaded(dropDownValuesMap: $dropDownValuesMap, dependedFieldMapsMap: $dependedFieldMapsMap)';
+    return 'DropDownMapState.loaded(dropDownMap: $dropDownMap)';
   }
 
   @override
@@ -394,16 +356,12 @@ class _$DropDownMapStateLoaded implements DropDownMapStateLoaded {
         (other.runtimeType == runtimeType &&
             other is _$DropDownMapStateLoaded &&
             const DeepCollectionEquality()
-                .equals(other._dropDownValuesMap, _dropDownValuesMap) &&
-            const DeepCollectionEquality()
-                .equals(other._dependedFieldMapsMap, _dependedFieldMapsMap));
+                .equals(other._dropDownMap, _dropDownMap));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_dropDownValuesMap),
-      const DeepCollectionEquality().hash(_dependedFieldMapsMap));
+      runtimeType, const DeepCollectionEquality().hash(_dropDownMap));
 
   @JsonKey(ignore: true)
   @override
@@ -417,11 +375,9 @@ class _$DropDownMapStateLoaded implements DropDownMapStateLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)
-        loaded,
+    required TResult Function(Map<String, DropDownMapData> dropDownMap) loaded,
   }) {
-    return loaded(dropDownValuesMap, dependedFieldMapsMap);
+    return loaded(dropDownMap);
   }
 
   @override
@@ -429,11 +385,9 @@ class _$DropDownMapStateLoaded implements DropDownMapStateLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult? Function(Map<String, DropDownMapData> dropDownMap)? loaded,
   }) {
-    return loaded?.call(dropDownValuesMap, dependedFieldMapsMap);
+    return loaded?.call(dropDownMap);
   }
 
   @override
@@ -441,13 +395,11 @@ class _$DropDownMapStateLoaded implements DropDownMapStateLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Map<String, List<String>> dropDownValuesMap,
-            Map<String, Map<String, String>> dependedFieldMapsMap)?
-        loaded,
+    TResult Function(Map<String, DropDownMapData> dropDownMap)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(dropDownValuesMap, dependedFieldMapsMap);
+      return loaded(dropDownMap);
     }
     return orElse();
   }
@@ -489,12 +441,10 @@ class _$DropDownMapStateLoaded implements DropDownMapStateLoaded {
 
 abstract class DropDownMapStateLoaded implements DropDownMapState {
   const factory DropDownMapStateLoaded(
-          {final Map<String, List<String>> dropDownValuesMap,
-          final Map<String, Map<String, String>> dependedFieldMapsMap}) =
+          {final Map<String, DropDownMapData> dropDownMap}) =
       _$DropDownMapStateLoaded;
 
-  Map<String, List<String>> get dropDownValuesMap;
-  Map<String, Map<String, String>> get dependedFieldMapsMap;
+  Map<String, DropDownMapData> get dropDownMap;
   @JsonKey(ignore: true)
   _$$DropDownMapStateLoadedCopyWith<_$DropDownMapStateLoaded> get copyWith =>
       throw _privateConstructorUsedError;

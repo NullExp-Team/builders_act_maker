@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:hive/hive.dart';
+
 import '../../features/editor/data/document_type/document_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,10 +12,12 @@ part 'act_data.g.dart';
 
 @freezed
 class ActData with _$ActData {
+  @HiveType(typeId: 1)
   const factory ActData({
-    required String name,
-    required DocumentType type,
-    @Default([]) List<FieldData> fields,
+    @HiveField(0) required int id,
+    @HiveField(1) required String name,
+    @HiveField(2) required DocumentType type,
+    @HiveField(3) @Default([]) List<FieldData> fields,
   }) = _ActData;
 
   factory ActData.fromJson(Map<String, dynamic> json) =>
@@ -31,9 +35,45 @@ class ActData with _$ActData {
     );
 
     return ActData(
+      id: random.nextInt(1000),
       name: name,
       type: type,
       fields: fields,
+    );
+  }
+
+  factory ActData.test() {
+    return ActData(
+      id: 2,
+      name: 'super',
+      type: DocumentType.actOSR,
+      fields: [
+        FieldData(
+          text: 'rar',
+          hasSpace: false,
+          subText: null,
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: true,
+          subText: 'hah',
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: false,
+          subText: 'hah',
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: false,
+          subText: 'hah',
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: true,
+          subText: 'hah',
+        ),
+      ],
     );
   }
 }

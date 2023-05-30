@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
-import '../../closure_list_screen/cubit/closure_list_cubit.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 // ignore: unused_import
 import 'package:flutter/material.dart' as m;
@@ -20,22 +19,15 @@ class ClosureDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Кринж для теста, всё сделать нормально через репозиторий
-    final state =
-        context.read<ClosureListCubit>().state as ClosureListLoadedState;
-
-    final closure = state.closures.firstWhere(
-      (element) => element.id == closureId,
-    );
-
+    //TODO: явно есть какая-то реализация получше
     final goRouter = Di.get<GoRouter>();
-
     final routes = goRouter.routerDelegate.currentConfiguration.matches
         .map((e) => e.route as GoRoute)
         .toList();
 
+    final cubit = Di.get<ClosureDetailCubit>()..setClosure(closureId);
     return BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
-      bloc: ClosureDetailCubit(ClosureDetailState.loaded(closure: closure)),
+      bloc: cubit,
       builder: (context, state) {
         switch (state) {
           case ClosureDetailInitialState() || ClosureDetailLoadingState():
@@ -64,7 +56,8 @@ class ClosureDetailScreen extends StatelessWidget {
                       itemCount: closure.acts.length,
                       itemBuilder: (context, index) {
                         final act = closure.acts[index];
-                        return Card(
+                        return Button(
+                          onPressed: () => cubit.goToActEditor(act.id),
                           child: Column(
                             children: [
                               Text(act.name),
