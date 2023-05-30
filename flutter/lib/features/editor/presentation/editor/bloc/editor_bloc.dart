@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/di.dart';
 import '../../../../../models/act_data/act_data.dart';
+import '../../../../closure/domain/closures_repository.dart';
 import '../../../../closure/presentation/closure_detail_screen/cubit/closure_detail_cubit.dart';
 
 part 'editor_event.dart';
@@ -10,15 +11,26 @@ part 'editor_state.dart';
 part 'editor_bloc.freezed.dart';
 
 class EditorBloc extends Bloc<EditorEvent, EditorState> {
-  EditorBloc({
-    required ActData initAct,
-  }) : super(EditorStateLoaded(act: initAct)) {
+  final ClosuresRepository repository;
+  EditorBloc({required this.repository}) : super(const EditorStateInit()) {
     on<_EditField>(_onFieldChanged);
     on<_EditSubField>(_onSubFieldChanged);
     on<_Save>(_onSave);
+    on<_Init>(_onInit);
   }
 
   EditorStateLoaded get loadedState => state as EditorStateLoaded;
+
+  void _onInit(
+    _Init event,
+    Emitter<EditorState> emit,
+  ) {
+    emit(
+      EditorState.loaded(
+        act: repository.loadAct(event.closureId, event.actId),
+      ),
+    );
+  }
 
   void _onFieldChanged(
     _EditField event,

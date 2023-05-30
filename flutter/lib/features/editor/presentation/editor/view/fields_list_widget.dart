@@ -26,53 +26,57 @@ class FieldsList extends StatelessWidget {
       builder: (context, state) {
         return BlocBuilder<EditorBloc, EditorState>(
           builder: (context, state) {
-            return ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemBuilder: (context, index) {
-                final field = state.act.fields[index];
-                return Column(
-                  children: [
-                    if (fieldsTypes[index] is! DuplicateFieldType)
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          fieldsNames[index],
-                          style: const TextStyle(fontSize: 24),
+            if (state is EditorStateLoaded) {
+              return ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemBuilder: (context, index) {
+                  final field = state.act.fields[index];
+                  return Column(
+                    children: [
+                      if (fieldsTypes[index] is! DuplicateFieldType)
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            fieldsNames[index],
+                            style: const TextStyle(fontSize: 24),
+                          ),
                         ),
-                      ),
-                    switch (fieldsTypes[index]) {
-                      TextFieldType(:final dependedFields) => TypedTextField(
-                          index: index,
-                          field: field,
-                          dependedFields: dependedFields,
-                        ),
-                      DropDownFieldType(
-                        :final name,
-                        :final dependedMappedFields,
-                      ) =>
-                        DropDownField(
-                          index: index,
-                          field: field,
-                          dependedMappedFields: dependedMappedFields,
-                          mapKey: name,
-                        ),
-                      SpaceTextFieldType() => SpaceTextField(
-                          index: index,
-                          field: field,
-                        ),
-                      DuplicateFieldType() => const SizedBox(),
-                    }
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) =>
-                  fieldsTypes[index] is DuplicateFieldType
-                      ? const SizedBox()
-                      : const SizedBox(
-                          height: 15,
-                        ),
-              itemCount: fieldsTypes.length,
-            );
+                      switch (fieldsTypes[index]) {
+                        TextFieldType(:final dependedFields) => TypedTextField(
+                            index: index,
+                            field: field,
+                            dependedFields: dependedFields,
+                          ),
+                        DropDownFieldType(
+                          :final name,
+                          :final dependedMappedFields,
+                        ) =>
+                          DropDownField(
+                            index: index,
+                            field: field,
+                            dependedMappedFields: dependedMappedFields,
+                            mapKey: name,
+                          ),
+                        SpaceTextFieldType() => SpaceTextField(
+                            index: index,
+                            field: field,
+                          ),
+                        DuplicateFieldType() => const SizedBox(),
+                      }
+                    ],
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    fieldsTypes[index] is DuplicateFieldType
+                        ? const SizedBox()
+                        : const SizedBox(
+                            height: 15,
+                          ),
+                itemCount: fieldsTypes.length,
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
           },
         );
       },

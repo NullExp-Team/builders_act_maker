@@ -15,4 +15,8 @@ class EditorEvent with _$EditorEvent {
   const factory EditorEvent.save(
     int? index,
   ) = _Save;
+  const factory EditorEvent.init(
+    int closureId,
+    int actId,
+  ) = _Init;
 }
