@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
+import '../../../../../core/widgets/navigation_header.dart';
 import '../../../data/field_type_container/document_types_fields_info_container.dart';
 import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
 import '../bloc/editor_bloc.dart';
@@ -49,44 +51,40 @@ class EditorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.red,
-            ),
+    final goRouter = Di.get<GoRouter>();
+    final routes = goRouter.routerDelegate.currentConfiguration.matches
+        .map((e) => e.route as GoRoute)
+        .toList();
+
+    return ScaffoldPage(
+      header: NavigationHeader(routes: routes),
+      content: Column(
+        children: [
+          Button(
+            child: const Text('Сохранить'),
+            onPressed: () =>
+                context.read<EditorBloc>().add(const EditorEvent.save()),
           ),
-          const Spacer(),
-          TextButton(
-            onPressed: () {
-              context.read<EditorBloc>().add(const EditorEvent.save());
+          BlocBuilder<DropDownMapCubit, DropDownMapState>(
+            builder: (context, state) {
+              return BlocBuilder<EditorBloc, EditorState>(
+                builder: (context, state) {
+                  if (state is EditorStateLoaded) {
+                    final actData = state.act;
+                    return FieldsList(
+                      fieldsTypes:
+                          FieldTypeContainer.getFieldsTypes(actData.type),
+                      fieldsNames:
+                          FieldTypeContainer.getFieldsNames(actData.type),
+                    );
+                  } else {
+                    return const ProgressRing();
+                  }
+                },
+              );
             },
-            child: const Icon(
-              Icons.check,
-              color: Colors.red,
-            ),
           ),
         ],
-      ),
-      body: BlocBuilder<DropDownMapCubit, DropDownMapState>(
-        builder: (context, state) {
-          return BlocBuilder<EditorBloc, EditorState>(
-            builder: (context, state) {
-              if (state is EditorStateLoaded) {
-                final actData = state.act;
-                return FieldsList(
-                  fieldsTypes: FieldTypeContainer.getFieldsTypes(actData.type),
-                  fieldsNames: FieldTypeContainer.getFieldsNames(actData.type),
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            },
-          );
-        },
       ),
     );
   }

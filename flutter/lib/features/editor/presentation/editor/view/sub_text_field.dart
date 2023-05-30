@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../models/field_data/field_data.dart';
@@ -51,7 +51,7 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
                       ),
                     )
                 : (),
-            child: TextField(
+            child: TextBox(
               controller: textEditingController,
             ),
           ),
@@ -69,7 +69,7 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
                       ),
                     )
                 : (),
-            child: TextField(
+            child: TextBox(
               textAlign: TextAlign.right,
               controller: subTextEditingController,
             ),

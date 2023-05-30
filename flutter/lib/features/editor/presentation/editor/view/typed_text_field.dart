@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../models/field_data/field_data.dart';
@@ -53,7 +53,7 @@ class _TypedTextFieldState extends State<TypedTextField> {
                       ),
                     )
                 : (),
-            child: TextField(
+            child: TextBox(
               controller: textEditingController,
             ),
           ),

@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' as m;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../models/field_data/field_data.dart';
@@ -23,94 +25,97 @@ class DropDownField extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<DropDownMapCubit>();
     final state = bloc.state;
+    const width = 250.0;
     switch (state) {
       case DropDownMapStateLoaded():
         final values = state.dropDownMap[mapKey]?.dropDownValuesMap ?? [];
         return Align(
           alignment: Alignment.topLeft,
-          child: PopupMenuButton<String>(
-            tooltip: '',
-            child: SizedBox(
-              width: Size.infinite.width,
-              child: Text(field.text),
+          child: DropDownButton(
+            title: SizedBox(
+              width: width,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(field.text),
+              ),
             ),
-            onSelected: (item) => context.read<EditorBloc>().add(
-                  EditorEvent.editField(
-                    fieldIndex: index,
-                    text: item,
-                    dependedFields: dependedMappedFields,
-                    textForDependedFields:
-                        state.dropDownMap[mapKey]?.dependedFieldMapsMap[item],
-                  ),
-                ),
-            itemBuilder: (BuildContext context) => values
+            items: values
                 .map(
-                  (e) => PopupMenuItem<String>(
-                    value: e,
-                    child: Row(
-                      children: [
-                        Text(e),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context, field.text);
-                            bloc.deleteValue(mapKey, e);
-                          },
-                          icon: const Icon(Icons.delete),
-                        )
-                      ],
+                  (e) => MenuFlyoutItem(
+                    onPressed: () => context.read<EditorBloc>().add(
+                          EditorEvent.editField(
+                            fieldIndex: index,
+                            text: e,
+                            dependedFields: dependedMappedFields,
+                            textForDependedFields: state
+                                .dropDownMap[mapKey]?.dependedFieldMapsMap[e],
+                          ),
+                        ),
+                    text: SizedBox(
+                      width: width,
+                      child: Row(
+                        children: [
+                          Text(e),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context, field.text);
+                              bloc.deleteValue(mapKey, e);
+                            },
+                            icon: const Icon(m.Icons.delete),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )
                 .toList()
               ..add(
-                PopupMenuItem<String>(
-                  value: '',
-                  enabled: false,
-                  child: Builder(
-                    builder: (context) {
-                      final firstController = TextEditingController();
-                      final secondController = TextEditingController();
-                      return Row(
-                        children: [
-                          SizedBox(
-                            width: 150,
-                            child: Column(
-                              children: [
-                                TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Новый параметр',
+                MenuFlyoutItem(
+                  onPressed: () {},
+                  text: SizedBox(
+                    width: width,
+                    child: Builder(
+                      builder: (context) {
+                        final firstController = TextEditingController();
+                        final secondController = TextEditingController();
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: 210,
+                              child: Column(
+                                children: [
+                                  TextBox(
+                                    placeholder: 'Новое значение',
+                                    controller: firstController,
                                   ),
-                                  controller: firstController,
-                                ),
-                                TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Отображённая строка',
+                                  TextBox(
+                                    placeholder: 'Соответствующее',
+                                    controller: secondController,
                                   ),
-                                  controller: secondController,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context, firstController.text);
-                              bloc.saveNewValue(mapKey, firstController.text,
-                                  secondController.text);
-                            },
-                            icon: const Icon(Icons.add),
-                          )
-                        ],
-                      );
-                    },
+                            const Spacer(),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pop(context, firstController.text);
+                                bloc.saveNewValue(mapKey, firstController.text,
+                                    secondController.text);
+                              },
+                              icon: const Icon(m.Icons.add),
+                            )
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
           ),
         );
       default:
-        return const CircularProgressIndicator();
+        return const ProgressRing();
     }
   }
 }

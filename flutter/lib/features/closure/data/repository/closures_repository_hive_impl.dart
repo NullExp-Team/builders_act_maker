@@ -72,16 +72,12 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
 
   @override
   ActData loadAct(int idClosure, int idAct) {
-    //TODO: убрать нужно try-catch, когда соединятся экраны, пока что это дебаг код
-    try {
-      return (Hive.box(closuresBoxName).get(closuresBoxListKey) as Iterable)
-          .map((e) => e as Closure)
-          .firstWhere((element) => element.id == idClosure)
-          .acts
-          .firstWhere((element) => element.id == idAct);
-    } catch (e) {
-      return ActData.test();
-    }
+    return ActData.test();
+    return (Hive.box(closuresBoxName).get(closuresBoxListKey) as Iterable)
+        .map((e) => e as Closure)
+        .firstWhere((element) => element.id == idClosure)
+        .acts
+        .firstWhere((element) => element.id == idAct);
   }
 
   @override
