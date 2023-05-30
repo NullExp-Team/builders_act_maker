@@ -9,8 +9,8 @@ import 'features/closure/data/closure/closure.dart';
 import 'features/editor/data/document_type/document_type.dart';
 import 'models/field_data/field_data.dart';
 
-void main() {
-  Di.initialize();
+void main() async {
+  await Di.initialize();
   runApp(const MainApp());
 }
 

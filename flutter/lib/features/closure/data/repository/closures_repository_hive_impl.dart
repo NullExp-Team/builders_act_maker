@@ -5,10 +5,11 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../../models/act_data/act_data.dart';
 import '../../../../models/field_data/field_data.dart';
+import '../../../editor/data/document_type/document_type.dart';
 import '../../domain/closures_repository.dart';
 import '../closure/closure.dart';
 
-class ClousuresRepositoryHiveImpl implements ClosuresRepository {
+class ClosuresRepositoryHiveImpl implements ClosuresRepository {
   static const String closuresBoxName = 'closures';
   static const String closuresBoxListKey = 'closures';
   static const String closuresBoxDropDownMapKey = 'dropDownMap';
@@ -28,6 +29,7 @@ class ClousuresRepositoryHiveImpl implements ClosuresRepository {
     Hive.registerAdapter(ClosureAdapter());
     Hive.registerAdapter(ActDataAdapter());
     Hive.registerAdapter(FieldDataAdapter());
+    Hive.registerAdapter(DocumentTypeAdapter());
 
     await Hive.openBox(closuresBoxName);
     var closures = Hive.box(closuresBoxName).get(closuresBoxListKey);

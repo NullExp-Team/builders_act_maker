@@ -1,3 +1,5 @@
+import '../features/closure/data/repository/closures_repository_hive_impl.dart';
+import '../features/closure/domain/closures_repository.dart';
 import 'routing/routes.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -9,11 +11,16 @@ abstract final class Di {
 
   static T get<T extends Object>() => _getIt.get<T>();
 
-  static void initialize() {
+  static Future<void> initialize() async {
     _getIt.registerSingleton(GoRouter(routes: $appRoutes));
+
+    ClosuresRepository localRepo = ClosuresRepositoryHiveImpl();
+    await localRepo.initRepository();
+    _getIt.registerSingleton<ClosuresRepository>(localRepo);
 
     _getIt.registerSingleton(
       ClosureListCubit(
+        repository: get(),
         goRouter: get(),
       ),
     );
