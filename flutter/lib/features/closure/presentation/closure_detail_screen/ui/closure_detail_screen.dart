@@ -1,3 +1,4 @@
+import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/widgets/navigation_header.dart';
 import '../cubit/closure_detail_cubit.dart';
 
-class ClosureDetailScreen extends StatelessWidget {
+class ClosureDetailScreen extends StatefulWidget {
   final int closureId;
 
   const ClosureDetailScreen({
@@ -19,13 +20,28 @@ class ClosureDetailScreen extends StatelessWidget {
   });
 
   @override
+  State<ClosureDetailScreen> createState() => _ClosureDetailScreenState();
+}
+
+class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
+  final scrollController = ScrollController();
+
+  final gridKey = GlobalKey();
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: Кринж для теста, всё сделать нормально через репозиторий
     final state =
         context.read<ClosureListCubit>().state as ClosureListStateData;
 
     final closure = state.closures.firstWhere(
-      (element) => element.id == closureId,
+      (element) => element.id == widget.closureId,
     );
 
     final goRouter = Di.get<GoRouter>();
@@ -34,8 +50,11 @@ class ClosureDetailScreen extends StatelessWidget {
         .map((e) => e.route as GoRoute)
         .toList();
 
+    // TODO: в di
+    final cubit = ClosureDetailCubit(ClosureDetailState.data(closure: closure));
+
     return BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
-      bloc: ClosureDetailCubit(ClosureDetailState.data(closure: closure)),
+      bloc: cubit,
       builder: (context, state) {
         switch (state) {
           case ClosureDetailStateInitial() || ClosureDetailStateLoading():
@@ -49,46 +68,58 @@ class ClosureDetailScreen extends StatelessWidget {
                   Text(closure.path),
                   const SizedBox(height: 16),
                   Expanded(
-                    child: GridView.builder(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16,
+                    child: ReorderableBuilder(
+                      scrollController: scrollController,
+                      onReorder: (orderUpdateEntities) => cubit.reorderGrid(
+                        orderUpdateEntities.map(
+                          (e) => (oldIndex: e.oldIndex, newIndex: e.newIndex),
+                        ),
                       ),
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 400,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                        childAspectRatio: 1,
+                      builder: (children) => GridView.builder(
+                        key: gridKey,
+                        controller: scrollController,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 16,
+                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 400,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 1,
+                        ),
+                        itemCount: children.length,
+                        itemBuilder: (context, index) => children[index],
                       ),
-                      itemCount: closure.acts.length,
-                      itemBuilder: (context, index) {
-                        final act = closure.acts[index];
-                        return Card(
-                          child: Column(
-                            children: [
-                              Text(act.name),
-                              Text(act.type.name),
-                              const SizedBox(height: 16),
-                              Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: act.fields
-                                    .map(
-                                      (e) => Chip(
-                                        text: Text(
-                                          e.subText != null
-                                              ? '${e.subText} ${e.text}'
-                                              : e.text,
+                      children: [
+                        for (var act in closure.acts)
+                          Card(
+                            key: ValueKey(act.hashCode),
+                            child: Column(
+                              children: [
+                                Text(act.name),
+                                Text(act.type.name),
+                                const SizedBox(height: 16),
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: act.fields
+                                      .map(
+                                        (e) => Chip(
+                                          text: Text(
+                                            e.subText != null
+                                                ? '${e.subText} ${e.text}'
+                                                : e.text,
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                    .toList(),
-                              )
-                            ],
-                          ),
-                        );
-                      },
+                                      )
+                                      .toList(),
+                                )
+                              ],
+                            ),
+                          )
+                      ],
                     ),
                   )
                 ],

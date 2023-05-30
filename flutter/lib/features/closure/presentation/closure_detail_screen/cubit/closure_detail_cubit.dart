@@ -12,4 +12,24 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
   void setClosure(Closure closure) {
     emit(ClosureDetailState.data(closure: closure));
   }
+
+  void reorderGrid(Iterable<({int oldIndex, int newIndex})> orderUpdates) {
+    final closure = state.maybeWhen(
+      data: (closure) => closure,
+      orElse: () => null,
+    );
+
+    if (closure == null) {
+      return;
+    }
+
+    final newItems = closure.acts.toList();
+
+    for (final update in orderUpdates) {
+      final item = newItems.removeAt(update.oldIndex);
+      newItems.insert(update.newIndex, item);
+    }
+
+    emit(ClosureDetailState.data(closure: closure.copyWith(acts: newItems)));
+  }
 }
