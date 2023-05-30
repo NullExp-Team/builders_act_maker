@@ -7,6 +7,7 @@ part of 'act_data.dart';
 // **************************************************************************
 
 _$_ActData _$$_ActDataFromJson(Map<String, dynamic> json) => _$_ActData(
+      id: json['id'] as int,
       name: json['name'] as String,
       type: $enumDecode(_$DocumentTypeEnumMap, json['type']),
       fields: (json['fields'] as List<dynamic>?)
@@ -17,6 +18,7 @@ _$_ActData _$$_ActDataFromJson(Map<String, dynamic> json) => _$_ActData(
 
 Map<String, dynamic> _$$_ActDataToJson(_$_ActData instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'type': _$DocumentTypeEnumMap[instance.type]!,
       'fields': instance.fields.map((e) => e.toJson()).toList(),

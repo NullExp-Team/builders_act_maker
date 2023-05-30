@@ -28,6 +28,7 @@ class MainApp extends StatelessWidget {
       name: 'lol',
       path: 'kek',
       commonInfo: ActData(
+        id: 1,
         name: 'Общая информация',
         type: DocumentType.commonInfo,
         fields: [
@@ -55,6 +56,7 @@ class MainApp extends StatelessWidget {
       ),
       acts: [
         ActData(
+          id: 2,
           name: 'super',
           type: DocumentType.actOSR,
           fields: [
@@ -86,6 +88,7 @@ class MainApp extends StatelessWidget {
           ],
         ),
         ActData(
+          id: 3,
           name: 'repus',
           type: DocumentType.actOSR,
           fields: [

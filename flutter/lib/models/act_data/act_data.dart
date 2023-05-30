@@ -11,6 +11,7 @@ part 'act_data.g.dart';
 @freezed
 class ActData with _$ActData {
   const factory ActData({
+    required int id,
     required String name,
     required DocumentType type,
     @Default([]) List<FieldData> fields,
@@ -31,6 +32,7 @@ class ActData with _$ActData {
     );
 
     return ActData(
+      id: random.nextInt(1000),
       name: name,
       type: type,
       fields: fields,
