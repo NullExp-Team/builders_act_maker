@@ -1,3 +1,4 @@
+import 'widgets/act_card.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:go_router/go_router.dart';
 
@@ -94,31 +95,7 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                       ),
                       children: [
                         for (var act in closure.acts)
-                          Card(
-                            key: ValueKey(act.hashCode),
-                            child: Column(
-                              children: [
-                                Text(act.name),
-                                Text(act.type.name),
-                                const SizedBox(height: 16),
-                                Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  children: act.fields
-                                      .map(
-                                        (e) => Chip(
-                                          text: Text(
-                                            e.subText != null
-                                                ? '${e.subText} ${e.text}'
-                                                : e.text,
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                )
-                              ],
-                            ),
-                          )
+                          ActCard(key: ValueKey(act.hashCode), act: act)
                       ],
                     ),
                   )
