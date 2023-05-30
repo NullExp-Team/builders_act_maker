@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../../../models/act_data/act_data.dart';
 import '../../../../models/field_data/field_data.dart';
@@ -18,16 +15,6 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
 
   @override
   Future<void> initRepository() async {
-    Directory? dir;
-    if (Platform.isAndroid) {
-      dir = await getExternalStorageDirectory();
-    } else if (Platform.isIOS) {
-      dir = await getApplicationSupportDirectory();
-    } else {
-      dir = await getTemporaryDirectory();
-    }
-    Hive.init(dir!.path);
-
     Hive.registerAdapter(ClosureAdapter());
     Hive.registerAdapter(ActDataAdapter());
     Hive.registerAdapter(FieldDataAdapter());
