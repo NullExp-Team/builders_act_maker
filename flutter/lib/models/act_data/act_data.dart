@@ -41,4 +41,39 @@ class ActData with _$ActData {
       fields: fields,
     );
   }
+
+  factory ActData.test() {
+    return ActData(
+      id: 2,
+      name: 'super',
+      type: DocumentType.actOSR,
+      fields: [
+        FieldData(
+          text: 'rar',
+          hasSpace: false,
+          subText: null,
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: true,
+          subText: 'hah',
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: false,
+          subText: 'hah',
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: false,
+          subText: 'hah',
+        ),
+        FieldData(
+          text: 'tat',
+          hasSpace: true,
+          subText: 'hah',
+        ),
+      ],
+    );
+  }
 }

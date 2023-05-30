@@ -35,12 +35,14 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
     Hive.registerAdapter(DropDownMapDataAdapter());
 
     await Hive.openBox(closuresBoxName);
-    var closures = Hive.box(closuresBoxName).get(closuresBoxListKey);
+
+    final closures = Hive.box(closuresBoxName).get(closuresBoxListKey);
     if (closures == null) {
       Hive.box(closuresBoxName).put(closuresBoxListKey, []);
     }
 
-    var dropDownMap = Hive.box(closuresBoxName).get(closuresBoxDropDownMapKey);
+    final dropDownMap =
+        Hive.box(closuresBoxName).get(closuresBoxDropDownMapKey);
     if (dropDownMap == null) {
       Hive.box(closuresBoxName).put(
         closuresBoxDropDownMapKey,
@@ -83,11 +85,16 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
 
   @override
   ActData loadAct(int idClosure, int idAct) {
-    return (Hive.box(closuresBoxName).get(closuresBoxListKey) as Iterable)
-        .map((e) => e as Closure)
-        .firstWhere((element) => element.id == idClosure)
-        .acts
-        .firstWhere((element) => element.id == idAct);
+    //TODO: убрать нужно try-catch, когда соединятся экраны, пока что это дебаг код
+    try {
+      return (Hive.box(closuresBoxName).get(closuresBoxListKey) as Iterable)
+          .map((e) => e as Closure)
+          .firstWhere((element) => element.id == idClosure)
+          .acts
+          .firstWhere((element) => element.id == idAct);
+    } catch (e) {
+      return ActData.test();
+    }
   }
 
   @override

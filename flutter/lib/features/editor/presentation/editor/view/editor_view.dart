@@ -23,14 +23,20 @@ class EditorPage extends StatefulWidget {
 class _EditorPageState extends State<EditorPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DropDownMapCubit(repository: Di.get())..loadMap(),
-      child: BlocProvider(
-        lazy: false,
-        create: (context) => Di.get<EditorBloc>()
-          ..add(EditorEvent.init(widget.closureId, widget.actId)),
-        child: const EditorView(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          lazy: false,
+          create: (context) =>
+              DropDownMapCubit(repository: Di.get())..loadMap(),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => Di.get<EditorBloc>()
+            ..add(EditorEvent.init(widget.closureId, widget.actId)),
+        ),
+      ],
+      child: const EditorView(),
     );
   }
 }
@@ -42,17 +48,8 @@ class EditorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final actData = (context.read<EditorBloc>().state as EditorStateLoaded).act;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          actData
-              .name, // TODO Вообще не понимаю почему title тупо не появляется
-          style: const TextStyle(
-            fontSize: 32,
-            color: Colors.black,
-          ),
-        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -64,7 +61,7 @@ class EditorView extends StatelessWidget {
           const Spacer(),
           TextButton(
             onPressed: () {
-              context.read<EditorBloc>().add(EditorEvent.save(actData.id));
+              context.read<EditorBloc>().add(const EditorEvent.save());
             },
             child: const Icon(
               Icons.check,
@@ -73,9 +70,22 @@ class EditorView extends StatelessWidget {
           ),
         ],
       ),
-      body: FieldsList(
-        fieldsTypes: FieldTypeContainer.getFieldsTypes(actData.type),
-        fieldsNames: FieldTypeContainer.getFieldsNames(actData.type),
+      body: BlocBuilder<DropDownMapCubit, DropDownMapState>(
+        builder: (context, state) {
+          return BlocBuilder<EditorBloc, EditorState>(
+            builder: (context, state) {
+              if (state is EditorStateLoaded) {
+                final actData = state.act;
+                return FieldsList(
+                  fieldsTypes: FieldTypeContainer.getFieldsTypes(actData.type),
+                  fieldsNames: FieldTypeContainer.getFieldsNames(actData.type),
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          );
+        },
       ),
     );
   }

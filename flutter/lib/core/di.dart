@@ -32,5 +32,11 @@ abstract final class Di {
         repository: get(),
       ),
     );
+
+    _getIt.registerSingleton(
+      EditorBloc(
+        repository: get(),
+      ),
+    );
   }
 }

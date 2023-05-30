@@ -106,12 +106,8 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     final newFieldData = isSubText
         ? act.fields[index].copyWith(subText: text, hasSpace: hasSpace)
         : act.fields[index].copyWith(text: text, hasSpace: hasSpace);
-
     return act.copyWith(
-      fields: List.generate(
-        act.fields.length,
-        (i) => i != index ? act.fields[i] : newFieldData,
-      ),
+      fields: List.from(act.fields)..[index] = newFieldData,
     );
   }
 }

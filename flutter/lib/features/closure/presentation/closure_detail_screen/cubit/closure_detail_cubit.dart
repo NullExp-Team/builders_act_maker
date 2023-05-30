@@ -39,6 +39,9 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       );
 
   void saveChanges(ActData? act) {
+    if (state is! ClosureDetailLoadedState) {
+      return;
+    }
     if (act != null) {
       if (act.type == DocumentType.commonInfo) {
         emit(

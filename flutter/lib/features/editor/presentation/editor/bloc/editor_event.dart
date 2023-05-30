@@ -12,9 +12,7 @@ class EditorEvent with _$EditorEvent {
     required int fieldIndex,
     required String subText,
   }) = _EditSubField;
-  const factory EditorEvent.save(
-    int? index,
-  ) = _Save;
+  const factory EditorEvent.save() = _Save;
   const factory EditorEvent.init(
     int closureId,
     int actId,
