@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../../../models/act_data/act_data.dart';
 import '../../../../models/field_data/field_data.dart';
 import '../../../editor/data/document_type/document_type.dart';
+import '../../../editor/data/drop_down_map_data/drop_down_map_data.dart';
 import '../../domain/closures_repository.dart';
 import '../closure/closure.dart';
 
@@ -31,6 +32,7 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
     Hive.registerAdapter(ActDataAdapter());
     Hive.registerAdapter(FieldDataAdapter());
     Hive.registerAdapter(DocumentTypeAdapter());
+    Hive.registerAdapter(DropDownMapDataAdapter());
 
     await Hive.openBox(closuresBoxName);
     var closures = Hive.box(closuresBoxName).get(closuresBoxListKey);
@@ -40,7 +42,23 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
 
     var dropDownMap = Hive.box(closuresBoxName).get(closuresBoxDropDownMapKey);
     if (dropDownMap == null) {
-      Hive.box(closuresBoxName).put(closuresBoxDropDownMapKey, {});
+      Hive.box(closuresBoxName).put(
+        closuresBoxDropDownMapKey,
+        {
+          'testName': const DropDownMapData(
+            dependedFieldMapsMap: {
+              'Первый': 'Хуервый',
+              'Второй': 'Хуйрой',
+              'Следующий': 'Хуедущий',
+            },
+            dropDownValuesMap: [
+              'Первый',
+              'Второй',
+              'Следующий',
+            ],
+          )
+        },
+      );
     }
   }
 
@@ -73,14 +91,14 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
   }
 
   @override
-  Map<String, List<String>> loadDropDownMap() {
+  Map<String, DropDownMapData> loadDropDownMap() {
     return (Hive.box(closuresBoxName).get(closuresBoxDropDownMapKey)
             as Map<dynamic, dynamic>)
         .map((key, value) => MapEntry(key, value));
   }
 
   @override
-  void saveDropDownMap(Map<String, List<String>> map) {
+  void saveDropDownMap(Map<String, DropDownMapData> map) {
     Hive.box(closuresBoxName).put(closuresBoxDropDownMapKey, map);
   }
 

@@ -24,7 +24,7 @@ class _EditorPageState extends State<EditorPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => DropDownMapCubit()..loadMap(),
+      create: (context) => DropDownMapCubit(repository: Di.get())..loadMap(),
       child: BlocProvider(
         lazy: false,
         create: (context) => Di.get<EditorBloc>()
