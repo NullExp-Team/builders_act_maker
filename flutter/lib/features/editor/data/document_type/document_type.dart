@@ -14,7 +14,10 @@ enum DocumentType {
 
   const DocumentType(this.label);
 
-  bool get isActOSR => this == DocumentType.actOSR;
-  bool get isClouseAct => this == DocumentType.clouseAct;
-  bool get isCommonInfo => this == DocumentType.commonInfo;
+  static final List<DocumentType> availableValues =
+      values.where((e) => e != commonInfo).toList();
+
+  bool get isActOSR => this == actOSR;
+  bool get isClouseAct => this == clouseAct;
+  bool get isCommonInfo => this == commonInfo;
 }

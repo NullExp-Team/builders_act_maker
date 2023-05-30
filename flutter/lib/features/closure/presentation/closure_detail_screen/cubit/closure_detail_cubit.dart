@@ -28,6 +28,38 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     );
   }
 
+  void createAct(DocumentType type) {
+    final closure = state.maybeWhen(
+      data: (closure) => closure,
+      orElse: () => null,
+    );
+    if (closure == null) return;
+
+    final newItems = [...closure.acts];
+    final newAct = ActData.create(type);
+    newItems.add(newAct);
+
+    final newClosure = closure.copyWith(acts: newItems);
+    Di.get<ClosureListCubit>().changeClosure(newClosure);
+    emit(ClosureDetailState.data(closure: newClosure));
+  }
+
+  void createRandomAct() {
+    final closure = state.maybeWhen(
+      data: (closure) => closure,
+      orElse: () => null,
+    );
+    if (closure == null) return;
+
+    final newItems = [...closure.acts];
+    final newAct = ActData.random();
+    newItems.add(newAct);
+
+    final newClosure = closure.copyWith(acts: newItems);
+    Di.get<ClosureListCubit>().changeClosure(newClosure);
+    emit(ClosureDetailState.data(closure: newClosure));
+  }
+
   void duplicateAct(ActData act) {
     final closure = state.maybeWhen(
       data: (closure) => closure,
@@ -41,10 +73,8 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     newItems.insert(actIndex + 1, actClone);
 
     final newClosure = closure.copyWith(acts: newItems);
-
+    Di.get<ClosureListCubit>().changeClosure(newClosure);
     emit(ClosureDetailState.data(closure: newClosure));
-
-    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
   }
 
   void deleteAct(ActData act) {
@@ -55,11 +85,10 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     if (closure == null) return;
 
     final newItems = closure.acts.where((element) => element != act).toList();
+
     final newClosure = closure.copyWith(acts: newItems);
-
+    Di.get<ClosureListCubit>().changeClosure(newClosure);
     emit(ClosureDetailState.data(closure: newClosure));
-
-    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
   }
 
   void reorderGrid(Iterable<({int oldIndex, int newIndex})> orderUpdates) {
@@ -76,7 +105,9 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       newItems.insert(update.newIndex, item);
     }
 
-    emit(ClosureDetailState.data(closure: closure.copyWith(acts: newItems)));
+    final newClosure = closure.copyWith(acts: newItems);
+    Di.get<ClosureListCubit>().changeClosure(newClosure);
+    emit(ClosureDetailState.data(closure: newClosure));
   }
 
   void setClosure(int closureId) {

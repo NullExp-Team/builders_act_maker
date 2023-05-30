@@ -12,7 +12,7 @@ class ActCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = FlyoutController();
+    final flyoutController = FlyoutController();
 
     final cubit = Di.get<ClosureDetailCubit>();
 
@@ -35,10 +35,10 @@ class ActCard extends StatelessWidget {
                 ),
               ),
               FlyoutTarget(
-                controller: controller,
+                controller: flyoutController,
                 child: IconButton(
                   icon: const Icon(FluentIcons.more),
-                  onPressed: () => controller.showFlyout(
+                  onPressed: () => flyoutController.showFlyout(
                     builder: (context) {
                       return MenuFlyout(
                         items: [
@@ -62,7 +62,7 @@ class ActCard extends StatelessWidget {
                             leading: const Icon(FluentIcons.delete),
                             text: const Text('Удалить'),
                             onPressed: () {
-                              controller.showFlyout(
+                              flyoutController.showFlyout(
                                 builder: (context) {
                                   return FlyoutContent(
                                     child: Column(
