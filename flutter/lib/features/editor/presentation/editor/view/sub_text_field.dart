@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../models/field_data/field_data.dart';
-import '../../editor_bloc/editor_bloc.dart';
+import '../../../../../models/field_data/field_data.dart';
+import '../bloc/editor_bloc.dart';
 
-class TypedTextField extends StatefulWidget {
-  const TypedTextField({
+class SpaceTextField extends StatefulWidget {
+  const SpaceTextField({
     super.key,
     required this.index,
     required this.field,
-    required this.dependedFields,
   });
 
   final int index;
   final FieldData field;
-  final List<int>? dependedFields;
 
   @override
-  State<TypedTextField> createState() => _TypedTextFieldState();
+  State<SpaceTextField> createState() => _SpaceTextFieldState();
 }
 
-class _TypedTextFieldState extends State<TypedTextField> {
+class _SpaceTextFieldState extends State<SpaceTextField> {
   late TextEditingController textEditingController;
+  late TextEditingController subTextEditingController;
   @override
   void initState() {
     textEditingController = TextEditingController(text: widget.field.text);
+    subTextEditingController = TextEditingController(
+      text: widget.field.subText,
+    );
     super.initState();
   }
 
   @override
   void dispose() {
     textEditingController.dispose();
+    subTextEditingController.dispose();
     super.dispose();
   }
 
@@ -38,10 +41,6 @@ class _TypedTextFieldState extends State<TypedTextField> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (widget.field.subText != null)
-          Text(
-            widget.field.subText!,
-          ),
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
@@ -49,12 +48,30 @@ class _TypedTextFieldState extends State<TypedTextField> {
                       EditorEvent.editField(
                         fieldIndex: widget.index,
                         text: textEditingController.text,
-                        dependedFields: widget.dependedFields,
                       ),
                     )
                 : (),
             child: TextField(
               controller: textEditingController,
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 30,
+        ),
+        Expanded(
+          child: Focus(
+            onFocusChange: (focus) => !focus
+                ? context.read<EditorBloc>().add(
+                      EditorEvent.editSubField(
+                        fieldIndex: widget.index,
+                        subText: textEditingController.text,
+                      ),
+                    )
+                : (),
+            child: TextField(
+              textAlign: TextAlign.right,
+              controller: subTextEditingController,
             ),
           ),
         ),

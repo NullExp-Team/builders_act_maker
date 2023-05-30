@@ -6,7 +6,7 @@ import 'core/di.dart';
 import 'features/closure/presentation/closure_list_screen/cubit/closure_list_cubit.dart';
 import 'models/act_data/act_data.dart';
 import 'features/closure/data/closure/closure.dart';
-import 'models/document_type/document_type.dart';
+import 'features/editor/data/document_type/document_type.dart';
 import 'models/field_data/field_data.dart';
 
 void main() {

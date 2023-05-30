@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../document_type/document_type.dart';
+import '../../features/editor/data/document_type/document_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../field_data/field_data.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../models/field_data/field_data.dart';
-import '../../drop_down_map_cubit/drop_down_map_cubit.dart';
-import '../../editor_bloc/editor_bloc.dart';
+import '../../../../../models/field_data/field_data.dart';
+import '../bloc/drop_down_map_cubit.dart';
+import '../../editor/bloc/editor_bloc.dart';
 
 class DropDownField extends StatelessWidget {
   const DropDownField({

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../models/act_data/act_data.dart';
+import '../../../../../models/act_data/act_data.dart';
 
 part 'editor_event.dart';
 part 'editor_state.dart';

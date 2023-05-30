@@ -1,5 +1,5 @@
-import '../models/document_type/document_type.dart';
-import '../models/field_types/field_types.dart';
+import '../document_type/document_type.dart';
+import '../field_types/field_types.dart';
 
 class _TypeMetaData {
   final List<String> names;

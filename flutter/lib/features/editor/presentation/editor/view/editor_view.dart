@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/document_types_fields_info_container.dart';
-import '../../../models/act_data/act_data.dart';
-import '../drop_down_map_cubit/drop_down_map_cubit.dart';
-import '../editor_bloc/editor_bloc.dart';
-import 'widgets/fields_list_widget.dart';
+import '../../../data/field_type_container/document_types_fields_info_container.dart';
+import '../../../../../models/act_data/act_data.dart';
+import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
+import '../bloc/editor_bloc.dart';
+import 'fields_list_widget.dart';
 
 class EditorView extends StatefulWidget {
   final ActData actData;
