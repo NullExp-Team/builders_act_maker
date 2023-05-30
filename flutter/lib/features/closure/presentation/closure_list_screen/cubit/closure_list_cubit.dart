@@ -43,4 +43,32 @@ class ClosureListCubit extends Cubit<ClosureListState> {
     );
     repository.saveClosures(loadedState.closures);
   }
+
+  void deleteClosure(int index) {
+    if (state is! ClosureListLoadedState) {
+      return;
+    }
+    emit(
+      ClosureListState.loaded(
+        closures: List.from(loadedState.closures)..removeAt(index),
+      ),
+    );
+    repository.saveClosures(loadedState.closures);
+  }
+
+  void changeClosure(Closure closure) {
+    if (state is! ClosureListLoadedState) {
+      return;
+    }
+    int indexOfChanged =
+        loadedState.closures.indexWhere((element) => element.id == closure.id);
+    if (indexOfChanged != -1) {
+      emit(
+        ClosureListState.loaded(
+          closures: List.from(loadedState.closures)..[indexOfChanged] = closure,
+        ),
+      );
+      repository.saveClosures(loadedState.closures);
+    }
+  }
 }

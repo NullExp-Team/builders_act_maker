@@ -52,15 +52,15 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
   }
 
   @override
+  void saveClosures(List<Closure> taskList) {
+    Hive.box(closuresBoxName).put(closuresBoxListKey, taskList);
+  }
+
+  @override
   Closure loadClosure(int id) {
     return (Hive.box(closuresBoxName).get(closuresBoxListKey) as Iterable)
         .map((e) => e as Closure)
         .firstWhere((element) => element.id == id);
-  }
-
-  @override
-  void saveClosures(List<Closure> taskList) {
-    Hive.box(closuresBoxName).put(closuresBoxListKey, taskList);
   }
 
   @override

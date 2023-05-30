@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../core/di.dart';
 import '../../../../../models/act_data/act_data.dart';
+import '../../../../closure/presentation/closure_detail_screen/cubit/closure_detail_cubit.dart';
 
 part 'editor_event.dart';
 part 'editor_state.dart';
@@ -52,29 +54,34 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     _EditSubField event,
     Emitter<EditorState> emit,
   ) {
-    if (state is EditorStateLoaded) {
-      // меняем доп текст
-      ActData newAct = _changeElement(
-        loadedState.act,
-        event.fieldIndex,
-        event.subText,
-        true,
-        true,
-      );
-
-      emit(
-        loadedState.copyWith(
-          act: newAct,
-        ),
-      );
+    if (state is! EditorStateLoaded) {
+      return;
     }
+    // меняем доп текст
+    ActData newAct = _changeElement(
+      loadedState.act,
+      event.fieldIndex,
+      event.subText,
+      true,
+      true,
+    );
+
+    emit(
+      loadedState.copyWith(
+        act: newAct,
+      ),
+    );
   }
 
   void _onSave(
     _Save event,
     Emitter<EditorState> emit,
   ) {
-    // TODO потом это всё надо бы к репозиторию привязать, когда экраны будут готовы
+    if (state is! EditorStateLoaded) {
+      return;
+    }
+
+    Di.get<ClosureDetailCubit>().saveChanges(loadedState.act);
   }
 
   ActData _changeElement(
