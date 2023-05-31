@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/di.dart';
 import '../../../data/field_types/field_types.dart';
 import '../bloc/editor_bloc.dart';
 import '../../drop_down_map/view/drop_down_field.dart';
@@ -25,7 +26,7 @@ class FieldsList extends StatelessWidget {
       shrinkWrap: true,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       itemBuilder: (context, index) {
-        final field = context.read<EditorBloc>().loadedState.act.fields[index];
+        final field = Di.get<EditorBloc>().loadedState.act.fields[index];
         return Column(
           children: [
             if (fieldsTypes[index] is! DuplicateFieldType)

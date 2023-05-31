@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as m;
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/di.dart';
 import '../../../../../models/field_data/field_data.dart';
 import '../bloc/drop_down_map_cubit.dart';
 import '../../editor/bloc/editor_bloc.dart';
@@ -22,13 +22,13 @@ class DropDownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<DropDownMapCubit>();
+    final bloc = Di.get<DropDownMapCubit>();
     final state = bloc.state;
     const width = 250.0;
 
     switch (state) {
       case DropDownMapStateLoaded():
-        saveFunction(text) => context.read<EditorBloc>().add(
+        saveFunction(text) => Di.get<EditorBloc>().add(
               EditorEvent.editField(
                 fieldIndex: index,
                 text: text,

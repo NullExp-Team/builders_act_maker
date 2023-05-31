@@ -26,21 +26,7 @@ class ActEditorScreen extends StatefulWidget {
 class _ActEditorScreenState extends State<ActEditorScreen> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          lazy: false,
-          create: (context) =>
-              DropDownMapCubit(repository: Di.get())..loadMap(),
-        ),
-        BlocProvider(
-          lazy: false,
-          create: (context) => Di.get<EditorBloc>()
-            ..add(EditorEvent.init(widget.closureId, widget.actId)),
-        ),
-      ],
-      child: const EditorView(),
-    );
+    return const EditorView();
   }
 }
 
@@ -56,18 +42,21 @@ class EditorView extends StatelessWidget {
         .map((e) => e.route as GoRoute)
         .toList();
 
+    final dropDownCubit = Di.get<DropDownMapCubit>()..loadMap();
+    final editorCubit = Di.get<EditorBloc>()..add(EditorEvent.init(1, 2));
     return ScaffoldPage(
       header: NavigationHeader(routes: routes),
       content: Column(
         children: [
           Button(
             child: const Text('Сохранить'),
-            onPressed: () =>
-                context.read<EditorBloc>().add(const EditorEvent.save()),
+            onPressed: () => Di.get<EditorBloc>().add(const EditorEvent.save()),
           ),
           BlocBuilder<DropDownMapCubit, DropDownMapState>(
+            bloc: dropDownCubit,
             builder: (context, state) {
               return BlocBuilder<EditorBloc, EditorState>(
+                bloc: editorCubit,
                 builder: (context, state) {
                   if (state is EditorStateLoaded) {
                     final actData = state.act;
