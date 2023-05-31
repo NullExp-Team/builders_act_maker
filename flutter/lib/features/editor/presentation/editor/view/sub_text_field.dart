@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/di.dart';
 import '../../../../../models/field_data/field_data.dart';
 import '../bloc/editor_bloc.dart';
 
@@ -44,14 +45,14 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? context.read<EditorBloc>().add(
-                      EditorEvent.editField(
-                        fieldIndex: widget.index,
-                        text: textEditingController.text,
-                      ),
-                    )
+                ? Di.get<EditorBloc>().add(
+                    EditorEvent.editField(
+                      fieldIndex: widget.index,
+                      text: textEditingController.text,
+                    ),
+                  )
                 : (),
-            child: TextField(
+            child: TextBox(
               controller: textEditingController,
             ),
           ),
@@ -62,14 +63,14 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? context.read<EditorBloc>().add(
-                      EditorEvent.editSubField(
-                        fieldIndex: widget.index,
-                        subText: textEditingController.text,
-                      ),
-                    )
+                ? Di.get<EditorBloc>().add(
+                    EditorEvent.editSubField(
+                      fieldIndex: widget.index,
+                      subText: textEditingController.text,
+                    ),
+                  )
                 : (),
-            child: TextField(
+            child: TextBox(
               textAlign: TextAlign.right,
               controller: subTextEditingController,
             ),

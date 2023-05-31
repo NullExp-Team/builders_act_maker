@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/di.dart';
 import '../../../../../models/field_data/field_data.dart';
 import '../bloc/editor_bloc.dart';
 
@@ -39,21 +40,24 @@ class _TypedTextFieldState extends State<TypedTextField> {
     return Row(
       children: [
         if (widget.field.subText != null)
-          Text(
-            widget.field.subText!,
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(
+              widget.field.subText!,
+            ),
           ),
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? context.read<EditorBloc>().add(
-                      EditorEvent.editField(
-                        fieldIndex: widget.index,
-                        text: textEditingController.text,
-                        dependedFields: widget.dependedFields,
-                      ),
-                    )
+                ? Di.get<EditorBloc>().add(
+                    EditorEvent.editField(
+                      fieldIndex: widget.index,
+                      text: textEditingController.text,
+                      dependedFields: widget.dependedFields,
+                    ),
+                  )
                 : (),
-            child: TextField(
+            child: TextBox(
               controller: textEditingController,
             ),
           ),
