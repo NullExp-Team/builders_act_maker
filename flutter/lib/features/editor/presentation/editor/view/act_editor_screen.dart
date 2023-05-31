@@ -26,31 +26,24 @@ class ActEditorScreen extends StatefulWidget {
 class _ActEditorScreenState extends State<ActEditorScreen> {
   @override
   Widget build(BuildContext context) {
-    return const EditorView();
-  }
-}
-
-class EditorView extends StatelessWidget {
-  const EditorView({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
     final goRouter = Di.get<GoRouter>();
     final routes = goRouter.routerDelegate.currentConfiguration.matches
         .map((e) => e.route as GoRoute)
         .toList();
 
     final dropDownCubit = Di.get<DropDownMapCubit>()..loadMap();
-    final editorCubit = Di.get<EditorBloc>()..add(EditorEvent.init(1, 2));
+    final editorCubit = Di.get<EditorBloc>()
+      ..add(EditorEvent.init(widget.closureId, widget.actId));
     return ScaffoldPage(
       header: NavigationHeader(routes: routes),
       content: Column(
         children: [
           Button(
             child: const Text('Сохранить'),
-            onPressed: () => Di.get<EditorBloc>().add(const EditorEvent.save()),
+            onPressed: () {
+              Di.get<EditorBloc>().add(const EditorEvent.save());
+              goRouter.pop();
+            },
           ),
           BlocBuilder<DropDownMapCubit, DropDownMapState>(
             bloc: dropDownCubit,

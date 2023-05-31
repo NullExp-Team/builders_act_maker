@@ -72,7 +72,6 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
 
   @override
   ActData loadAct(int idClosure, int idAct) {
-    return ActData.test();
     return (Hive.box(closuresBoxName).get(closuresBoxListKey) as Iterable)
         .map((e) => e as Closure)
         .firstWhere((element) => element.id == idClosure)

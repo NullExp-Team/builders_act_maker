@@ -39,8 +39,11 @@ class ClosureListCubit extends Cubit<ClosureListState> {
       return;
     }
 
-    int newIndex = loadedState.closures
-        .fold(0, ((previousValue, element) => max(previousValue, element.id)));
+    int newIndex = 1 +
+        loadedState.closures.fold(
+          0,
+          ((previousValue, element) => max(previousValue, element.id)),
+        );
 
     emit(
       ClosureListState.data(

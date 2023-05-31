@@ -25,7 +25,8 @@ class ActData with _$ActData {
   factory ActData.fromJson(Map<String, dynamic> json) =>
       _$ActDataFromJson(json);
 
-  factory ActData.create(DocumentType type) => ActDataFactory.create(type);
+  factory ActData.create(DocumentType type, int newIndex) =>
+      ActDataFactory.create(type, newIndex);
 
   factory ActData.random() => ActDataFactory.random();
 
@@ -33,10 +34,6 @@ class ActData with _$ActData {
 }
 
 extension ActDataFactory on ActData {
-  // С hashCode хз, но всё на string переделывать лень
-  // Хз как ещё с id норм работать, не юзаю uuid из блоков
-  ActData newId() => copyWith(id: uuid.v4().hashCode);
-
   static ActData commonInfo() => ActData(
         id: 0,
         name: 'Общая информация',
@@ -47,10 +44,14 @@ extension ActDataFactory on ActData {
         ),
       );
 
-  static ActData create(DocumentType type) => ActData(
-        id: uuid.v4().hashCode,
+  static ActData create(DocumentType type, int newIndex) => ActData(
+        id: newIndex,
         name: 'Новый ${type.label.decapitalize()}',
         type: type,
+        fields: List.filled(
+          FieldTypeContainer.getFieldsTypes(type).length,
+          FieldData.empty(),
+        ),
       );
 
   static ActData random() {

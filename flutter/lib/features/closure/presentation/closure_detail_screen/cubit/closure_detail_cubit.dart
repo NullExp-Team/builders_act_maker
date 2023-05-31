@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
@@ -35,8 +37,14 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     );
     if (closure == null) return;
 
+    int newIndex = 1 +
+        loadedState.closure.acts.fold(
+          0,
+          ((previousValue, element) => max(previousValue, element.id)),
+        );
+    final newAct = ActData.create(type, newIndex);
+
     final newItems = [...closure.acts];
-    final newAct = ActData.create(type);
     newItems.add(newAct);
 
     final newClosure = closure.copyWith(acts: newItems);
@@ -67,10 +75,16 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     );
     if (closure == null) return;
 
+    int newIndex = 1 +
+        loadedState.closure.acts.fold(
+          0,
+          ((previousValue, element) => max(previousValue, element.id)),
+        );
+    final actClone = act.copyWith(name: '${act.name} (копия)', id: newIndex);
+
     final newItems = [...closure.acts];
-    final actIndex = newItems.indexOf(act);
-    final actClone = act.newId().copyWith(name: '${act.name} (копия)');
-    newItems.insert(actIndex + 1, actClone);
+    final indexForInsert = newItems.indexOf(act);
+    newItems.insert(indexForInsert, actClone);
 
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
