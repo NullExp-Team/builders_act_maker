@@ -30,7 +30,6 @@ class ClosureListCubit extends Cubit<ClosureListState> {
 
   void goToClosureDetail(Closure closure) {
     final location = ClosureDetailRoute(closureId: closure.id).location;
-    print(location);
     goRouter.go(location);
   }
 

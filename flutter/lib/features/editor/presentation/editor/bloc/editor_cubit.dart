@@ -22,6 +22,7 @@ class EditorCubit extends Cubit<EditorState> {
     emit(
       EditorState.loaded(
         act: repository.loadAct(closureId, actId),
+        isNameChanging: false,
       ),
     );
   }
@@ -40,7 +41,7 @@ class EditorCubit extends Cubit<EditorState> {
 
     // меняем зависимые текста
     if (dependedFields != null) {
-      for (int i in dependedFields!) {
+      for (int i in dependedFields) {
         newAct = _changeElement(
           newAct,
           i,
@@ -101,5 +102,22 @@ class EditorCubit extends Cubit<EditorState> {
     return act.copyWith(
       fields: List.from(act.fields)..[index] = newFieldData,
     );
+  }
+
+  void onNameEdit(String? newName) {
+    if (state is! EditorStateLoaded) {
+      return;
+    }
+
+    if (loadedState.isNameChanging) {
+      emit(
+        loadedState.copyWith(
+          isNameChanging: !loadedState.isNameChanging,
+          act: loadedState.act.copyWith(name: newName ?? loadedState.act.name),
+        ),
+      );
+    } else {
+      emit(loadedState.copyWith(isNameChanging: !loadedState.isNameChanging));
+    }
   }
 }

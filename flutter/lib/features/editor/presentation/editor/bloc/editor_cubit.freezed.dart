@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EditorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ActData act) loaded,
+    required TResult Function(ActData act, bool isNameChanging) loaded,
     required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ActData act)? loaded,
+    TResult? Function(ActData act, bool isNameChanging)? loaded,
     TResult? Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ActData act)? loaded,
+    TResult Function(ActData act, bool isNameChanging)? loaded,
     TResult Function()? init,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,7 @@ abstract class _$$EditorStateLoadedCopyWith<$Res> {
           _$EditorStateLoaded value, $Res Function(_$EditorStateLoaded) then) =
       __$$EditorStateLoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({ActData act});
+  $Res call({ActData act, bool isNameChanging});
 
   $ActDataCopyWith<$Res> get act;
 }
@@ -97,12 +97,17 @@ class __$$EditorStateLoadedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? act = null,
+    Object? isNameChanging = null,
   }) {
     return _then(_$EditorStateLoaded(
       act: null == act
           ? _value.act
           : act // ignore: cast_nullable_to_non_nullable
               as ActData,
+      isNameChanging: null == isNameChanging
+          ? _value.isNameChanging
+          : isNameChanging // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -118,14 +123,16 @@ class __$$EditorStateLoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$EditorStateLoaded implements EditorStateLoaded {
-  const _$EditorStateLoaded({required this.act});
+  const _$EditorStateLoaded({required this.act, required this.isNameChanging});
 
   @override
   final ActData act;
+  @override
+  final bool isNameChanging;
 
   @override
   String toString() {
-    return 'EditorState.loaded(act: $act)';
+    return 'EditorState.loaded(act: $act, isNameChanging: $isNameChanging)';
   }
 
   @override
@@ -133,11 +140,13 @@ class _$EditorStateLoaded implements EditorStateLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EditorStateLoaded &&
-            (identical(other.act, act) || other.act == act));
+            (identical(other.act, act) || other.act == act) &&
+            (identical(other.isNameChanging, isNameChanging) ||
+                other.isNameChanging == isNameChanging));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, act);
+  int get hashCode => Object.hash(runtimeType, act, isNameChanging);
 
   @JsonKey(ignore: true)
   @override
@@ -148,30 +157,30 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ActData act) loaded,
+    required TResult Function(ActData act, bool isNameChanging) loaded,
     required TResult Function() init,
   }) {
-    return loaded(act);
+    return loaded(act, isNameChanging);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ActData act)? loaded,
+    TResult? Function(ActData act, bool isNameChanging)? loaded,
     TResult? Function()? init,
   }) {
-    return loaded?.call(act);
+    return loaded?.call(act, isNameChanging);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ActData act)? loaded,
+    TResult Function(ActData act, bool isNameChanging)? loaded,
     TResult Function()? init,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(act);
+      return loaded(act, isNameChanging);
     }
     return orElse();
   }
@@ -209,10 +218,12 @@ class _$EditorStateLoaded implements EditorStateLoaded {
 }
 
 abstract class EditorStateLoaded implements EditorState {
-  const factory EditorStateLoaded({required final ActData act}) =
-      _$EditorStateLoaded;
+  const factory EditorStateLoaded(
+      {required final ActData act,
+      required final bool isNameChanging}) = _$EditorStateLoaded;
 
   ActData get act;
+  bool get isNameChanging;
   @JsonKey(ignore: true)
   _$$EditorStateLoadedCopyWith<_$EditorStateLoaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -256,7 +267,7 @@ class _$EditorStateInit implements EditorStateInit {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ActData act) loaded,
+    required TResult Function(ActData act, bool isNameChanging) loaded,
     required TResult Function() init,
   }) {
     return init();
@@ -265,7 +276,7 @@ class _$EditorStateInit implements EditorStateInit {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ActData act)? loaded,
+    TResult? Function(ActData act, bool isNameChanging)? loaded,
     TResult? Function()? init,
   }) {
     return init?.call();
@@ -274,7 +285,7 @@ class _$EditorStateInit implements EditorStateInit {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ActData act)? loaded,
+    TResult Function(ActData act, bool isNameChanging)? loaded,
     TResult Function()? init,
     required TResult orElse(),
   }) {
