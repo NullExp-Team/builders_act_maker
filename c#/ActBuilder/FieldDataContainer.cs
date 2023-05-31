@@ -60,8 +60,10 @@ namespace ActBuilder
                 (87, 1),
             };
 
-            coordsContainer = new Dictionary<string, (int, int)[]>();
-            coordsContainer.Add("actOSR", listOfCoordsOSR);
+            coordsContainer = new Dictionary<string, (int, int)[]>
+            {
+                { "actOSR", listOfCoordsOSR }
+            };
         }
     }
 }

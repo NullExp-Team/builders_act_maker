@@ -7,24 +7,32 @@ namespace ActBuilder
     /// </summary>
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             string json = @"{
+  ""id"" : 1,
   ""name"": ""qwerty"",
   ""path"": ""C:\\Users\\danek\\Desktop"",
-  ""commonInfo"": [
-    {
-        ""text"" : ""lol"",
-        ""hasSpace"" : true,
-        ""subText"" : ""kek""
-    },
-    {
-        ""text"" : ""lolkek"",
-        ""hasSpace"" : false
-    }
-  ],
+  ""commonInfo"": {
+        ""id"" : 0,
+        ""name"" : ""Общая информация"",
+        ""type"" : ""commonInfo"",
+        ""fields"" : [
+            {
+                ""text"" : ""lol"",
+                ""hasSpace"" : true,
+                ""subText"" : ""kek""
+            },
+            {
+                ""text"" : ""lolkek"",
+                ""hasSpace"" : false
+            } 
+        ]
+    
+  },
   ""acts"": [
     {
+        ""id"" : 1,
         ""name"" : ""first"",
         ""type"" : ""actOSR"",
         ""fields"" : [
@@ -40,6 +48,7 @@ namespace ActBuilder
         ]
     },
     {
+        ""id"" : 2,
         ""name"" : ""second"",
         ""type"" : ""actOSR"",
         ""fields"" : [
@@ -58,7 +67,9 @@ namespace ActBuilder
 }
 ";
             var a = Marshal.StringToHGlobalAnsi(json);
-            Console.WriteLine(FlutterAdapter.СreateFile(a));
+            Console.WriteLine(FlutterAdapter.MakeFile(a));
+
+            Console.WriteLine(FlutterAdapter.OpenFile(Marshal.StringToHGlobalAnsi(@"C:\Users\danek\Desktop\qwerty.xlsx")));
         }
     }
 }

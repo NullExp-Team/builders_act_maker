@@ -10,7 +10,7 @@ namespace ActBuilder
     {
         public string name { get; set; }
         public string path { get; set; }
-        public List<FieldData> commonInfo { get; set; }
+        public ActData commonInfo { get; set; }
         public List<ActData> acts { get; set; }
     }
     class ActData

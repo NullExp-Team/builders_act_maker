@@ -16,7 +16,7 @@ typedef Dartfunc = int Function(Pointer<Utf8>);
 class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
   FileFfiManagerCubit() : super(const FileFfiManagerState.loaded());
   static const String _pathToDll =
-      '../bin/debug/net6.0/win-x64/publish/NativeLibrary.dll';
+      'C:\\Users\\danek\\Documents\\GitHub\\builders_act_maker\\c#\\ActBuilder\\bin\\Debug\\net6.0\\ActBuilder.dll';
 
   Future<String?> choosePath() async {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();

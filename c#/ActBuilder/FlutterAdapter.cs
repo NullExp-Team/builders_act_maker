@@ -14,8 +14,8 @@ namespace ActBuilder
     class FlutterAdapter
     {
         // основная функция создания файла. На время тестов отключаем атрибут
-        // [UnmanagedCallersOnly(EntryPoint = "createFile")]
-        public static int СreateFile(IntPtr pointerInput)
+        // [UnmanagedCallersOnly(EntryPoint = "makeFile")]
+        public static int MakeFile(IntPtr pointerInput)
         {
             try
             {
@@ -25,6 +25,24 @@ namespace ActBuilder
 
                 ActMaker.CreateAct(closure);
 
+                // ошибки нет, возвращаем 0
+                return 0;
+            }
+            catch
+            {
+                // если есть ошибка на стороне С, то возвращаем её код в дарт
+                return -1;
+            }
+        }
+
+        // основная функция создания файла. На время тестов отключаем атрибут
+        // [UnmanagedCallersOnly(EntryPoint = "openFile")]
+        public static int OpenFile(IntPtr pointerInput)
+        {
+            try
+            {
+                string stringInput = Marshal.PtrToStringAnsi(pointerInput)!;
+                ActMaker.OpenFileByPath(stringInput);
                 // ошибки нет, возвращаем 0
                 return 0;
             }

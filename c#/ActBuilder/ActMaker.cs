@@ -2,6 +2,7 @@
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,17 +17,33 @@ namespace ActBuilder
         static Bitmap? bitmap;
         static Graphics? graphics;
 
+        public static void OpenFileByPath(string path)
+        {
+            if (File.Exists(path))
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo(path)
+                {
+                    UseShellExecute = true
+                };
+                p.Start();
+            }
+            else
+                Console.WriteLine("Файл не найден");
+
+        }
+
         // создаём файл и начинаем обрабатывать листы
         public static void CreateAct(Сlosure clouser)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            ExcelPackage packages = new ExcelPackage();
+            ExcelPackage packages = new();
             bitmap = new Bitmap(1, 1);
             graphics = Graphics.FromImage(bitmap);
 
             for (int i = 0; i < clouser.acts.Count; i++)
             {
-                MakeSheet(packages, clouser.acts[i] ,clouser.commonInfo);
+                MakeSheet(packages, clouser.acts[i], clouser.commonInfo.fields);
             }
 
             File.WriteAllBytes(clouser.path +"\\"+ clouser.name + ".xlsx", packages.GetAsByteArray());
@@ -38,11 +55,11 @@ namespace ActBuilder
         // создаём листы
         static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
-            ExcelPackage typeTemplate = new ExcelPackage(act.type + ".xlsx");
+            ExcelPackage typeTemplate = new(act.type + ".xlsx");
             ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.name, typeTemplate.Workbook.Worksheets.First());
             typeTemplate.Dispose();
 
-            List<FieldData> fullFields = new List<FieldData>();
+            List<FieldData> fullFields = new();
             fullFields.AddRange(act.fields);
             fullFields.AddRange(commonInfo);
 
