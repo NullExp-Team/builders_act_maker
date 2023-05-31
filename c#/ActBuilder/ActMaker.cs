@@ -1,12 +1,7 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActBuilder
 {
@@ -21,10 +16,12 @@ namespace ActBuilder
         {
             if (File.Exists(path))
             {
-                Process p = new Process();
-                p.StartInfo = new ProcessStartInfo(path)
+                Process p = new()
                 {
-                    UseShellExecute = true
+                    StartInfo = new ProcessStartInfo(path)
+                    {
+                        UseShellExecute = true
+                    }
                 };
                 p.Start();
             }
@@ -55,7 +52,11 @@ namespace ActBuilder
         // создаём листы
         static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
-            ExcelPackage typeTemplate = new(act.type + ".xlsx");
+            ExcelPackage typeTemplate = new("C:\\Users\\danek\\Documents\\GitHub\\builders_act_maker\\c#\\ActBuilder\\bin\\Debug\\net6.0\\win-x64\\publish\\" + act.type + ".xlsx");
+            if (typeTemplate.Workbook.Worksheets.Count == 0)
+            {
+                throw new Exception("Потеряны шаблоны");
+            }
             ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.name, typeTemplate.Workbook.Worksheets.First());
             typeTemplate.Dispose();
 
@@ -94,7 +95,10 @@ namespace ActBuilder
                     sheet.Cells[x, y + mergeCount].Value = field.subText ?? "";
                     sheet.Cells[x, y + mergeCount].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
                     widthOfSubPart = Math.Max(CalculateTextWidth(field.subText ?? "", sheet.Cells[x, y + mergeCount].Style.Font), sheet.Columns[y + mergeCount].Width);
-                } 
+                } else if (field.subText != null)
+                {
+                    field.text = field.subText + field.text;
+                }
 
                 double widthOfText = CalculateTextWidth(field.text, sheet.Cells[x, y].Style.Font);
                 

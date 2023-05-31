@@ -22,15 +22,8 @@ abstract final class Di {
   static Future<void> initialize() async {
     _getIt.registerSingleton(GoRouter(routes: $appRoutes));
 
-    Directory? dir;
-    if (Platform.isAndroid) {
-      dir = await getExternalStorageDirectory();
-    } else if (Platform.isIOS) {
-      dir = await getApplicationSupportDirectory();
-    } else {
-      dir = await getTemporaryDirectory();
-    }
-    Hive.init(dir!.path);
+    Directory dir = await getTemporaryDirectory();
+    Hive.init(dir.path);
 
     ClosuresRepository localRepo = ClosuresRepositoryHiveImpl();
     await localRepo.initRepository();
