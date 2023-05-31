@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EditorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ActData act, bool isNameChanging) loaded,
+    required TResult Function(ActData act, bool isNameEditing) loaded,
     required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ActData act, bool isNameChanging)? loaded,
+    TResult? Function(ActData act, bool isNameEditing)? loaded,
     TResult? Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ActData act, bool isNameChanging)? loaded,
+    TResult Function(ActData act, bool isNameEditing)? loaded,
     TResult Function()? init,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,7 @@ abstract class _$$EditorStateLoadedCopyWith<$Res> {
           _$EditorStateLoaded value, $Res Function(_$EditorStateLoaded) then) =
       __$$EditorStateLoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({ActData act, bool isNameChanging});
+  $Res call({ActData act, bool isNameEditing});
 
   $ActDataCopyWith<$Res> get act;
 }
@@ -97,16 +97,16 @@ class __$$EditorStateLoadedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? act = null,
-    Object? isNameChanging = null,
+    Object? isNameEditing = null,
   }) {
     return _then(_$EditorStateLoaded(
       act: null == act
           ? _value.act
           : act // ignore: cast_nullable_to_non_nullable
               as ActData,
-      isNameChanging: null == isNameChanging
-          ? _value.isNameChanging
-          : isNameChanging // ignore: cast_nullable_to_non_nullable
+      isNameEditing: null == isNameEditing
+          ? _value.isNameEditing
+          : isNameEditing // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -123,16 +123,16 @@ class __$$EditorStateLoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$EditorStateLoaded implements EditorStateLoaded {
-  const _$EditorStateLoaded({required this.act, required this.isNameChanging});
+  const _$EditorStateLoaded({required this.act, required this.isNameEditing});
 
   @override
   final ActData act;
   @override
-  final bool isNameChanging;
+  final bool isNameEditing;
 
   @override
   String toString() {
-    return 'EditorState.loaded(act: $act, isNameChanging: $isNameChanging)';
+    return 'EditorState.loaded(act: $act, isNameEditing: $isNameEditing)';
   }
 
   @override
@@ -141,12 +141,12 @@ class _$EditorStateLoaded implements EditorStateLoaded {
         (other.runtimeType == runtimeType &&
             other is _$EditorStateLoaded &&
             (identical(other.act, act) || other.act == act) &&
-            (identical(other.isNameChanging, isNameChanging) ||
-                other.isNameChanging == isNameChanging));
+            (identical(other.isNameEditing, isNameEditing) ||
+                other.isNameEditing == isNameEditing));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, act, isNameChanging);
+  int get hashCode => Object.hash(runtimeType, act, isNameEditing);
 
   @JsonKey(ignore: true)
   @override
@@ -157,30 +157,30 @@ class _$EditorStateLoaded implements EditorStateLoaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ActData act, bool isNameChanging) loaded,
+    required TResult Function(ActData act, bool isNameEditing) loaded,
     required TResult Function() init,
   }) {
-    return loaded(act, isNameChanging);
+    return loaded(act, isNameEditing);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ActData act, bool isNameChanging)? loaded,
+    TResult? Function(ActData act, bool isNameEditing)? loaded,
     TResult? Function()? init,
   }) {
-    return loaded?.call(act, isNameChanging);
+    return loaded?.call(act, isNameEditing);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ActData act, bool isNameChanging)? loaded,
+    TResult Function(ActData act, bool isNameEditing)? loaded,
     TResult Function()? init,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(act, isNameChanging);
+      return loaded(act, isNameEditing);
     }
     return orElse();
   }
@@ -220,10 +220,10 @@ class _$EditorStateLoaded implements EditorStateLoaded {
 abstract class EditorStateLoaded implements EditorState {
   const factory EditorStateLoaded(
       {required final ActData act,
-      required final bool isNameChanging}) = _$EditorStateLoaded;
+      required final bool isNameEditing}) = _$EditorStateLoaded;
 
   ActData get act;
-  bool get isNameChanging;
+  bool get isNameEditing;
   @JsonKey(ignore: true)
   _$$EditorStateLoadedCopyWith<_$EditorStateLoaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -267,7 +267,7 @@ class _$EditorStateInit implements EditorStateInit {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ActData act, bool isNameChanging) loaded,
+    required TResult Function(ActData act, bool isNameEditing) loaded,
     required TResult Function() init,
   }) {
     return init();
@@ -276,7 +276,7 @@ class _$EditorStateInit implements EditorStateInit {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ActData act, bool isNameChanging)? loaded,
+    TResult? Function(ActData act, bool isNameEditing)? loaded,
     TResult? Function()? init,
   }) {
     return init?.call();
@@ -285,7 +285,7 @@ class _$EditorStateInit implements EditorStateInit {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ActData act, bool isNameChanging)? loaded,
+    TResult Function(ActData act, bool isNameEditing)? loaded,
     TResult Function()? init,
     required TResult orElse(),
   }) {

@@ -4,7 +4,7 @@ part of 'editor_cubit.dart';
 class EditorState with _$EditorState {
   const factory EditorState.loaded({
     required ActData act,
-    required bool isNameChanging,
+    required bool isNameEditing,
   }) = EditorStateLoaded;
   const factory EditorState.init() = EditorStateInit;
 }

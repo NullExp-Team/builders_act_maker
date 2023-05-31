@@ -7,7 +7,7 @@ import '../../../../../core/widgets/navigation_header.dart';
 import '../../../data/field_type_container/document_types_fields_info_container.dart';
 import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
 import '../bloc/editor_cubit.dart';
-import 'widgets/act_name_widget.dart';
+import '../../../../../core/widgets/editable_value_widget.dart';
 import 'widgets/fields_list_widget.dart';
 
 class ActEditorScreen extends StatefulWidget {
@@ -43,19 +43,42 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
           return BlocBuilder<EditorCubit, EditorState>(
             bloc: editorCubit,
             builder: (context, state) {
-              final actData = state is EditorStateLoaded ? state.act : null;
-              return Column(
-                children: [
-                  const ActName(),
-                  if (actData != null)
+              if (state is EditorStateLoaded) {
+                final actData = state.act;
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          EditableValueWidget(
+                            value: actData.name,
+                            isEditing: state.isNameEditing,
+                            onEditButtonPress: editorCubit.onNameEdit,
+                            textSize: 32,
+                          ),
+                          const Spacer(),
+                          Button(
+                            child: const Text('Сохранить изменения'),
+                            onPressed: () {
+                              Di.get<EditorCubit>().onSave();
+                              goRouter.pop();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                     FieldsList(
                       fieldsTypes:
                           FieldTypeContainer.getFieldsTypes(actData.type),
                       fieldsNames:
                           FieldTypeContainer.getFieldsNames(actData.type),
                     ),
-                ],
-              );
+                  ],
+                );
+              } else {
+                return const ProgressRing();
+              }
             },
           );
         },

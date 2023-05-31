@@ -1,6 +1,7 @@
 import 'package:dyn_mouse_scroll/dyn_mouse_scroll.dart';
 
 import '../../../../../core/theme/theme_context_extension.dart';
+import '../../../../../core/widgets/editable_value_widget.dart';
 import 'widgets/act_card.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:go_router/go_router.dart';
@@ -62,9 +63,13 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  closure.name,
-                                  style: context.textStyles.titleLarge,
+                                EditableValueWidget(
+                                  value: closure.name,
+                                  onEditButtonPress: cubit.onNameEdit,
+                                  isEditing: state.isNameEditing,
+                                  textSize:
+                                      context.textStyles.titleLarge?.fontSize ??
+                                          32,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(

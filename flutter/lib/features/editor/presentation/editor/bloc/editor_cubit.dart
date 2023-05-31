@@ -22,7 +22,7 @@ class EditorCubit extends Cubit<EditorState> {
     emit(
       EditorState.loaded(
         act: repository.loadAct(closureId, actId),
-        isNameChanging: false,
+        isNameEditing: false,
       ),
     );
   }
@@ -109,15 +109,15 @@ class EditorCubit extends Cubit<EditorState> {
       return;
     }
 
-    if (loadedState.isNameChanging) {
+    if (loadedState.isNameEditing) {
       emit(
         loadedState.copyWith(
-          isNameChanging: !loadedState.isNameChanging,
+          isNameEditing: !loadedState.isNameEditing,
           act: loadedState.act.copyWith(name: newName ?? loadedState.act.name),
         ),
       );
     } else {
-      emit(loadedState.copyWith(isNameChanging: !loadedState.isNameChanging));
+      emit(loadedState.copyWith(isNameEditing: !loadedState.isNameEditing));
     }
   }
 }
