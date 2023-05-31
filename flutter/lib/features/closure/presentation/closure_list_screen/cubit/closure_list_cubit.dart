@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
@@ -36,9 +38,14 @@ class ClosureListCubit extends Cubit<ClosureListState> {
     if (state is! ClosureListStateData) {
       return;
     }
+
+    int newIndex = loadedState.closures
+        .fold(0, ((previousValue, element) => max(previousValue, element.id)));
+
     emit(
       ClosureListState.data(
-        closures: List.from((loadedState).closures)..add(Closure.random()),
+        closures: List.from(loadedState.closures)
+          ..add(Closure.newClosure(newIndex)),
       ),
     );
     repository.saveClosures(loadedState.closures);

@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/di.dart';
 import '../../../../../models/field_data/field_data.dart';

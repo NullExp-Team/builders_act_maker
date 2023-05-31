@@ -24,6 +24,8 @@ class Closure with _$Closure {
       _$ClosureFromJson(json);
 
   factory Closure.random() => ClosureFactory.random();
+
+  factory Closure.newClosure(int id) => ClosureFactory.newClosure(id);
 }
 
 extension ClosureFactory on Closure {
@@ -34,6 +36,16 @@ extension ClosureFactory on Closure {
         acts: acts.map((e) => e.newId()).toList(),
         commonInfo: commonInfo.newId(),
       );
+
+  static Closure newClosure(int id) {
+    return Closure(
+      id: id,
+      name: 'Закрытие $id',
+      path: 'path',
+      commonInfo: ActData.random(),
+      acts: [],
+    );
+  }
 
   static Closure random() {
     final random = Random();

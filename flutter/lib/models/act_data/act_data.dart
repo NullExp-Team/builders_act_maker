@@ -6,6 +6,7 @@ import '../../core/utils.dart';
 import '../../features/editor/data/document_type/document_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../features/editor/data/field_type_container/document_types_fields_info_container.dart';
 import '../field_data/field_data.dart';
 
 part 'act_data.freezed.dart';
@@ -35,6 +36,16 @@ extension ActDataFactory on ActData {
   // С hashCode хз, но всё на string переделывать лень
   // Хз как ещё с id норм работать, не юзаю uuid из блоков
   ActData newId() => copyWith(id: uuid.v4().hashCode);
+
+  static ActData commonInfo() => ActData(
+        id: 0,
+        name: 'Общая информация',
+        type: DocumentType.commonInfo,
+        fields: List.filled(
+          FieldTypeContainer.getFieldsTypes(DocumentType.commonInfo).length,
+          FieldData.empty(),
+        ),
+      );
 
   static ActData create(DocumentType type) => ActData(
         id: uuid.v4().hashCode,
