@@ -1,6 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart' as m;
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
@@ -8,7 +7,8 @@ import '../../../../../core/widgets/navigation_header.dart';
 import '../../../data/field_type_container/document_types_fields_info_container.dart';
 import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
 import '../bloc/editor_cubit.dart';
-import 'fields_list_widget.dart';
+import 'widgets/act_name_widget.dart';
+import 'widgets/fields_list_widget.dart';
 
 class ActEditorScreen extends StatefulWidget {
   final int actId;
@@ -46,7 +46,7 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
               final actData = state is EditorStateLoaded ? state.act : null;
               return Column(
                 children: [
-                  ActName(),
+                  const ActName(),
                   if (actData != null)
                     FieldsList(
                       fieldsTypes:
@@ -61,57 +61,5 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
         },
       ),
     );
-  }
-}
-
-class ActName extends StatelessWidget {
-  const ActName({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final goRouter = Di.get<GoRouter>();
-    final cubit = Di.get<EditorCubit>();
-    if (cubit.state is EditorStateLoaded) {
-      final actData = cubit.loadedState.act;
-      final controller = TextEditingController(text: actData.name);
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Row(
-          children: [
-            cubit.loadedState.isNameChanging
-                ? SizedBox(
-                    width: 400,
-                    child: TextBox(
-                      controller: controller,
-                      style: const TextStyle(fontSize: 32),
-                    ),
-                  )
-                : Text(
-                    actData.name,
-                    style: const TextStyle(fontSize: 32),
-                  ),
-            const SizedBox(width: 30),
-            Button(
-              onPressed: () => cubit.onNameEdit(controller.text),
-              child: Icon(
-                cubit.loadedState.isNameChanging ? m.Icons.save : m.Icons.edit,
-              ),
-            ),
-            const Spacer(),
-            Button(
-              child: const Text('Сохранить изменения'),
-              onPressed: () {
-                Di.get<EditorCubit>().onSave();
-                goRouter.pop();
-              },
-            ),
-          ],
-        ),
-      );
-    } else {
-      return const Text('Загрузка...');
-    }
   }
 }

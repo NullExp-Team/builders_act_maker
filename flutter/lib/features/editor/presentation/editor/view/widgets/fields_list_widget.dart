@@ -1,9 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
-import '../../../../../core/di.dart';
-import '../../../data/field_types/field_types.dart';
-import '../bloc/editor_cubit.dart';
-import '../../drop_down_map/view/drop_down_field.dart';
+import '../../../../../../core/di.dart';
+import '../../../../data/field_types/field_types.dart';
+import '../../bloc/editor_cubit.dart';
+import '../../../drop_down_map/view/drop_down_field.dart';
 import 'sub_text_field.dart';
 import 'typed_text_field.dart';
 
