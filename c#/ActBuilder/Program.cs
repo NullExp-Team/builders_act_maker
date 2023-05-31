@@ -69,9 +69,9 @@ namespace ActBuilder
             ;
             string jsonFromApp = @"{""id"":608,""name"":""qwerty"",""path"":""C:\\Users\\danek\\Desktop"",""acts"":[{""id"":1,""name"":""grsfgdfdsfs"",""type"":""actOSR"",""fields"":[{""text"":"""",""hasSpace"":false,""subText"":null},{""text"":""123"",""hasSpace"":false,""subText"":""456""},{""text"":"""",""hasSpace"":false,""subText"":null},{""text"":"""",""hasSpace"":false,""subText"":null},{""text"":""Следующий"",""hasSpace"":false,""subText"":null}]}],""commonInfo"":{""id"":705,""name"":""Акт 32"",""type"":""clouseAct"",""fields"":[{""text"":""Поле 61"",""hasSpace"":true,""subText"":""Подполе 58""},{""text"":""Поле 47"",""hasSpace"":false,""subText"":null},{""text"":""Поле 90"",""hasSpace"":true,""subText"":""Подполе 58""},{""text"":""Поле 12"",""hasSpace"":false,""subText"":null}]}}";
             var a = Marshal.StringToHGlobalUni(jsonFromApp);
-            Console.WriteLine(FlutterAdapter.MakeFile(a));
+            //Console.WriteLine(FlutterAdapter.MakeFile(a));
 
-            Console.WriteLine(FlutterAdapter.OpenFile(Marshal.StringToHGlobalUni(@"C:\Users\danek\Desktop\qwerty.xlsx")));
+            //Console.WriteLine(FlutterAdapter.OpenFile(Marshal.StringToHGlobalUni(@"C:\Users\danek\Desktop\qwerty.xlsx")));
         }
     }
 }

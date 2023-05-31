@@ -11,7 +11,7 @@ namespace ActBuilder
     class FlutterAdapter
     {
         // основная функция создания файла. На время тестов отключаем атрибут
-        //[UnmanagedCallersOnly(EntryPoint = "makeFile")]
+        [UnmanagedCallersOnly(EntryPoint = "makeFile")]
         public static IntPtr MakeFile(IntPtr pointerInput)
         {
             try
@@ -35,7 +35,7 @@ namespace ActBuilder
         }
 
         // основная функция создания файла. На время тестов отключаем атрибут
-        //[UnmanagedCallersOnly(EntryPoint = "openFile")]
+        [UnmanagedCallersOnly(EntryPoint = "openFile")]
         public static IntPtr OpenFile(IntPtr pointerInput)
         {
             try
