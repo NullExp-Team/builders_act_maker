@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
+import '../../../../core/utils.dart';
 import '../../../../models/act_data/act_data.dart';
 
 part 'closure.freezed.dart';
@@ -22,10 +23,21 @@ class Closure with _$Closure {
   factory Closure.fromJson(Map<String, dynamic> json) =>
       _$ClosureFromJson(json);
 
-  // great random constructor
-  factory Closure.random() {
+  factory Closure.random() => ClosureFactory.random();
+}
+
+extension ClosureFactory on Closure {
+  // С hashCode хз, но всё на string переделывать лень
+  // Хз как ещё с id норм работать, не юзаю uuid из блоков
+  Closure newId() => copyWith(
+        id: uuid.v4().hashCode,
+        acts: acts.map((e) => e.newId()).toList(),
+        commonInfo: commonInfo.newId(),
+      );
+
+  static Closure random() {
     final random = Random();
-    final id = random.nextInt(1000);
+    final id = uuid.v4().hashCode;
     final name = 'Closure $id';
     final path = 'Path $id';
     final acts = List.generate(

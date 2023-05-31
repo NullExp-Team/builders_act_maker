@@ -16,14 +16,14 @@ class ClosureListCubit extends Cubit<ClosureListState> {
   ClosureListCubit({required this.goRouter, required this.repository})
       : super(const ClosureListState.initial());
 
-  ClosureListLoadedState get loadedState => state as ClosureListLoadedState;
+  ClosureListStateData get loadedState => state as ClosureListStateData;
 
   Future<void> loadClosures() async {
     emit(const ClosureListState.loading());
 
     final closures = repository.loadClosures();
 
-    emit(ClosureListState.loaded(closures: closures));
+    emit(ClosureListState.data(closures: closures));
   }
 
   void goToClosureDetail(Closure closure) {
@@ -33,11 +33,11 @@ class ClosureListCubit extends Cubit<ClosureListState> {
   }
 
   void addNewClosure() {
-    if (state is! ClosureListLoadedState) {
+    if (state is! ClosureListStateData) {
       return;
     }
     emit(
-      ClosureListState.loaded(
+      ClosureListState.data(
         closures: List.from((loadedState).closures)..add(Closure.random()),
       ),
     );
@@ -45,11 +45,11 @@ class ClosureListCubit extends Cubit<ClosureListState> {
   }
 
   void deleteClosure(int index) {
-    if (state is! ClosureListLoadedState) {
+    if (state is! ClosureListStateData) {
       return;
     }
     emit(
-      ClosureListState.loaded(
+      ClosureListState.data(
         closures: List.from(loadedState.closures)..removeAt(index),
       ),
     );
@@ -57,14 +57,14 @@ class ClosureListCubit extends Cubit<ClosureListState> {
   }
 
   void changeClosure(Closure closure) {
-    if (state is! ClosureListLoadedState) {
+    if (state is! ClosureListStateData) {
       return;
     }
     int indexOfChanged =
         loadedState.closures.indexWhere((element) => element.id == closure.id);
     if (indexOfChanged != -1) {
       emit(
-        ClosureListState.loaded(
+        ClosureListState.data(
           closures: List.from(loadedState.closures)..[indexOfChanged] = closure,
         ),
       );
