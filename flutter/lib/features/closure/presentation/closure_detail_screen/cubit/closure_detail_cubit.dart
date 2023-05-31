@@ -191,4 +191,17 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       emit(loadedState.copyWith(isNameEditing: !loadedState.isNameEditing));
     }
   }
+
+  void changePath(String? newPath) {
+    if (state is! ClosureDetailStateData || newPath == null) {
+      return;
+    }
+
+    emit(
+      loadedState.copyWith(
+        closure: loadedState.closure.copyWith(path: newPath),
+      ),
+    );
+    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
+  }
 }
