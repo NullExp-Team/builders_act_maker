@@ -7,7 +7,7 @@ import '../features/closure/data/repository/closures_repository_hive_impl.dart';
 import '../features/closure/domain/closures_repository.dart';
 import '../features/closure/presentation/closure_detail_screen/cubit/closure_detail_cubit.dart';
 import '../features/editor/presentation/drop_down_map/bloc/drop_down_map_cubit.dart';
-import '../features/editor/presentation/editor/bloc/editor_bloc.dart';
+import '../features/editor/presentation/editor/bloc/editor_cubit.dart';
 import 'routing/routes.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -51,7 +51,7 @@ abstract final class Di {
     );
 
     _getIt.registerSingleton(
-      EditorBloc(
+      EditorCubit(
         repository: get(),
       ),
     );

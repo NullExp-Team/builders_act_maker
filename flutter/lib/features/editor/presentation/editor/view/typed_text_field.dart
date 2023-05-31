@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../../core/di.dart';
 import '../../../../../models/field_data/field_data.dart';
-import '../bloc/editor_bloc.dart';
+import '../bloc/editor_cubit.dart';
 
 class TypedTextField extends StatefulWidget {
   const TypedTextField({
@@ -36,6 +36,8 @@ class _TypedTextFieldState extends State<TypedTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Di.get<EditorCubit>();
+    textEditingController.text = bloc.loadedState.act.fields[widget.index].text;
     return Row(
       children: [
         if (widget.field.subText != null)
@@ -48,12 +50,10 @@ class _TypedTextFieldState extends State<TypedTextField> {
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? Di.get<EditorBloc>().add(
-                    EditorEvent.editField(
-                      fieldIndex: widget.index,
-                      text: textEditingController.text,
-                      dependedFields: widget.dependedFields,
-                    ),
+                ? bloc.onFieldChanged(
+                    fieldIndex: widget.index,
+                    text: textEditingController.text,
+                    dependedFields: widget.dependedFields,
                   )
                 : (),
             child: TextBox(

@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../../core/di.dart';
 import '../../../data/field_types/field_types.dart';
-import '../bloc/editor_bloc.dart';
+import '../bloc/editor_cubit.dart';
 import '../../drop_down_map/view/drop_down_field.dart';
 import 'sub_text_field.dart';
 import 'typed_text_field.dart';
@@ -25,7 +25,7 @@ class FieldsList extends StatelessWidget {
       shrinkWrap: true,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       itemBuilder: (context, index) {
-        final field = Di.get<EditorBloc>().loadedState.act.fields[index];
+        final field = Di.get<EditorCubit>().loadedState.act.fields[index];
         return Column(
           children: [
             if (fieldsTypes[index] is! DuplicateFieldType)

@@ -6,50 +6,45 @@ import '../../../../../models/act_data/act_data.dart';
 import '../../../../closure/domain/closures_repository.dart';
 import '../../../../closure/presentation/closure_detail_screen/cubit/closure_detail_cubit.dart';
 
-part 'editor_event.dart';
 part 'editor_state.dart';
-part 'editor_bloc.freezed.dart';
+part 'editor_cubit.freezed.dart';
 
-class EditorBloc extends Bloc<EditorEvent, EditorState> {
+class EditorCubit extends Cubit<EditorState> {
   final ClosuresRepository repository;
-  EditorBloc({required this.repository}) : super(const EditorStateInit()) {
-    on<_EditField>(_onFieldChanged);
-    on<_EditSubField>(_onSubFieldChanged);
-    on<_Save>(_onSave);
-    on<_Init>(_onInit);
-  }
+  EditorCubit({required this.repository}) : super(const EditorStateInit());
 
   EditorStateLoaded get loadedState => state as EditorStateLoaded;
 
-  void _onInit(
-    _Init event,
-    Emitter<EditorState> emit,
+  void onInit(
+    int closureId,
+    int actId,
   ) {
     emit(
       EditorState.loaded(
-        act: repository.loadAct(event.closureId, event.actId),
+        act: repository.loadAct(closureId, actId),
       ),
     );
   }
 
-  void _onFieldChanged(
-    _EditField event,
-    Emitter<EditorState> emit,
-  ) {
+  void onFieldChanged({
+    required int fieldIndex,
+    required String text,
+    List<int>? dependedFields,
+    String? textForDependedFields,
+  }) {
     if (state is! EditorStateLoaded) {
       return;
     }
     // меняем сам текст
-    ActData newAct =
-        _changeElement(loadedState.act, event.fieldIndex, event.text, false);
+    ActData newAct = _changeElement(loadedState.act, fieldIndex, text, false);
 
     // меняем зависимые текста
-    if (event.dependedFields != null) {
-      for (int i in event.dependedFields!) {
+    if (dependedFields != null) {
+      for (int i in dependedFields!) {
         newAct = _changeElement(
           newAct,
           i,
-          '${event.textForDependedFields ?? event.text} ',
+          '${textForDependedFields ?? text} ',
           true,
         );
       }
@@ -62,18 +57,18 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     );
   }
 
-  void _onSubFieldChanged(
-    _EditSubField event,
-    Emitter<EditorState> emit,
-  ) {
+  void onSubFieldChanged({
+    required int fieldIndex,
+    required String subText,
+  }) {
     if (state is! EditorStateLoaded) {
       return;
     }
     // меняем доп текст
     ActData newAct = _changeElement(
       loadedState.act,
-      event.fieldIndex,
-      event.subText,
+      fieldIndex,
+      subText,
       true,
       true,
     );
@@ -85,10 +80,7 @@ class EditorBloc extends Bloc<EditorEvent, EditorState> {
     );
   }
 
-  void _onSave(
-    _Save event,
-    Emitter<EditorState> emit,
-  ) {
+  void onSave() {
     if (state is! EditorStateLoaded) {
       return;
     }

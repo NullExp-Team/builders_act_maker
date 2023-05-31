@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../../core/di.dart';
 import '../../../../../models/field_data/field_data.dart';
-import '../bloc/editor_bloc.dart';
+import '../bloc/editor_cubit.dart';
 
 class SpaceTextField extends StatefulWidget {
   const SpaceTextField({
@@ -39,16 +39,18 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Di.get<EditorCubit>();
+    textEditingController.text = bloc.loadedState.act.fields[widget.index].text;
+    subTextEditingController.text =
+        bloc.loadedState.act.fields[widget.index].subText ?? '';
     return Row(
       children: [
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? Di.get<EditorBloc>().add(
-                    EditorEvent.editField(
-                      fieldIndex: widget.index,
-                      text: textEditingController.text,
-                    ),
+                ? bloc.onFieldChanged(
+                    fieldIndex: widget.index,
+                    text: textEditingController.text,
                   )
                 : (),
             child: TextBox(
@@ -62,11 +64,9 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? Di.get<EditorBloc>().add(
-                    EditorEvent.editSubField(
-                      fieldIndex: widget.index,
-                      subText: textEditingController.text,
-                    ),
+                ? bloc.onSubFieldChanged(
+                    fieldIndex: widget.index,
+                    subText: textEditingController.text,
                   )
                 : (),
             child: TextBox(

@@ -6,7 +6,7 @@ import '../../../../../core/di.dart';
 import '../../../../../core/widgets/navigation_header.dart';
 import '../../../data/field_type_container/document_types_fields_info_container.dart';
 import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
-import '../bloc/editor_bloc.dart';
+import '../bloc/editor_cubit.dart';
 import 'fields_list_widget.dart';
 
 class ActEditorScreen extends StatefulWidget {
@@ -32,8 +32,8 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
         .toList();
 
     final dropDownCubit = Di.get<DropDownMapCubit>()..loadMap();
-    final editorCubit = Di.get<EditorBloc>()
-      ..add(EditorEvent.init(widget.closureId, widget.actId));
+    final editorCubit = Di.get<EditorCubit>()
+      ..onInit(widget.closureId, widget.actId);
     return ScaffoldPage(
       header: NavigationHeader(routes: routes),
       content: Column(
@@ -41,14 +41,14 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
           Button(
             child: const Text('Сохранить'),
             onPressed: () {
-              Di.get<EditorBloc>().add(const EditorEvent.save());
+              Di.get<EditorCubit>().onSave();
               goRouter.pop();
             },
           ),
           BlocBuilder<DropDownMapCubit, DropDownMapState>(
             bloc: dropDownCubit,
             builder: (context, state) {
-              return BlocBuilder<EditorBloc, EditorState>(
+              return BlocBuilder<EditorCubit, EditorState>(
                 bloc: editorCubit,
                 builder: (context, state) {
                   if (state is EditorStateLoaded) {

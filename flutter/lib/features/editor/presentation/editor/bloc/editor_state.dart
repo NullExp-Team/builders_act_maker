@@ -1,4 +1,4 @@
-part of 'editor_bloc.dart';
+part of 'editor_cubit.dart';
 
 @freezed
 class EditorState with _$EditorState {
