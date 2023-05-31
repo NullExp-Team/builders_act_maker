@@ -84,13 +84,15 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                                     ),
                                     const SizedBox(width: 10),
                                     Button(
-                                      child: const Text('Открыь файл'),
-                                      onPressed: () {},
+                                      child: const Text('Открыть файл'),
+                                      onPressed: () => fileCubit
+                                          .openFile(cubit.loadedState.closure),
                                     ),
                                     const SizedBox(width: 10),
                                     Button(
                                       child: const Text('Сформировать файл'),
-                                      onPressed: () {},
+                                      onPressed: () => fileCubit
+                                          .makeFile(cubit.loadedState.closure),
                                     ),
                                   ],
                                 ),
