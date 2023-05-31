@@ -58,60 +58,50 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: Row(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                EditableValueWidget(
-                                  value: closure.name,
-                                  onEditButtonPress: cubit.onNameEdit,
-                                  isEditing: state.isNameEditing,
-                                  textSize:
-                                      context.textStyles.titleLarge?.fontSize ??
-                                          32,
-                                ),
-                                const SizedBox(height: 4),
-                                Row(
-                                  children: [
-                                    Button(
-                                      child: const Text('Изменить путь'),
-                                      onPressed: () async => cubit.changePath(
-                                        await fileCubit.choosePath(),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Button(
-                                      child: const Text('Открыть файл'),
-                                      onPressed: () => fileCubit
-                                          .openFile(cubit.loadedState.closure),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Button(
-                                      child: const Text('Сформировать файл'),
-                                      onPressed: () => fileCubit
-                                          .makeFile(cubit.loadedState.closure),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                          EditableValueWidget(
+                            value: closure.name,
+                            onEditButtonPress: cubit.onNameEdit,
+                            isEditing: state.isNameEditing,
+                            textSize:
+                                context.textStyles.titleLarge?.fontSize ?? 32,
                           ),
-                          const SizedBox(width: 32),
-                          const Flexible(
-                            child: InfoBar(
-                              title: Text('Справка'),
-                              content: Padding(
-                                padding: EdgeInsets.only(right: 6),
-                                child: Text(
-                                  'Можно менять порядок элементов, зажимая и перетаскивая их.',
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Button(
+                                child: const Text('Изменить путь'),
+                                onPressed: () async => cubit.changePath(
+                                  await fileCubit.choosePath(),
                                 ),
                               ),
-                              severity: InfoBarSeverity.info,
-                              isLong: true,
+                              const SizedBox(width: 10),
+                              Button(
+                                child: const Text('Открыть файл'),
+                                onPressed: () => fileCubit
+                                    .openFile(cubit.loadedState.closure),
+                              ),
+                              const SizedBox(width: 10),
+                              Button(
+                                child: const Text('Сформировать файл'),
+                                onPressed: () => fileCubit
+                                    .makeFile(cubit.loadedState.closure),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 32),
+                          const InfoBar(
+                            title: Text('Справка'),
+                            content: Padding(
+                              padding: EdgeInsets.only(right: 6),
+                              child: Text(
+                                'Можно менять порядок элементов, зажимая и перетаскивая их.',
+                              ),
                             ),
+                            severity: InfoBarSeverity.info,
+                            isLong: true,
                           ),
                         ],
                       ),
