@@ -11,7 +11,7 @@ abstract class ClosuresRepository {
 
   List<Closure> loadClosures();
 
-  Closure loadClosure(int id);
+  Closure? loadClosure(int id);
 
   ActData loadAct(int idClosure, int idAct);
 

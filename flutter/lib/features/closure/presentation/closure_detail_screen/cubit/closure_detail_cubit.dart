@@ -80,10 +80,11 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
           0,
           ((previousValue, element) => max(previousValue, element.id)),
         );
+
     final actClone = act.copyWith(name: '${act.name} (копия)', id: newIndex);
 
     final newItems = [...closure.acts];
-    final indexForInsert = newItems.indexOf(act);
+    final indexForInsert = newItems.indexOf(act) + 1;
     newItems.insert(indexForInsert, actClone);
 
     final newClosure = closure.copyWith(acts: newItems);
@@ -129,10 +130,24 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     if (state is ClosureDetailStateData) {
       endSub();
     }
-    emit(ClosureDetailState.data(
-      closure: repository.loadClosure(closureId),
-      isNameEditing: false,
-    ));
+    final closure = repository.loadClosure(closureId);
+
+    if (closure == null) {
+      emit(
+        ClosureDetailState.error(
+          message: 'Закрытие не найдено',
+          stackTrace: StackTrace.current,
+        ),
+      );
+    } else {
+      emit(
+        ClosureDetailState.data(
+          closure: closure,
+          isNameEditing: false,
+        ),
+      );
+    }
+
     a.addListener(_onChanges);
   }
 
@@ -141,11 +156,30 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     a.removeListener(_onChanges);
   }
 
-  void _onChanges() => emit(
-        loadedState.copyWith(
-          closure: repository.loadClosure(loadedState.closure.id),
+  void _onChanges() {
+    final closure = state.maybeWhen(
+      data: (closure, isNameChanging) => closure,
+      orElse: () => null,
+    );
+    if (closure == null) return;
+
+    final newClosure = repository.loadClosure(loadedState.closure.id);
+    if (newClosure == null) {
+      emit(
+        ClosureDetailState.error(
+          message: 'Закрытие не найдено',
+          stackTrace: StackTrace.current,
         ),
       );
+      return;
+    }
+
+    emit(
+      loadedState.copyWith(
+        closure: closure,
+      ),
+    );
+  }
 
   //TODO: функция для вызова её из кубита редактора. Временное решение
   void saveChanges(ActData act) {

@@ -53,13 +53,13 @@ class ClosureListCubit extends Cubit<ClosureListState> {
     repository.saveClosures(loadedState.closures);
   }
 
-  void deleteClosure(int index) {
+  void deleteClosure(Closure closure) {
     if (state is! ClosureListStateData) {
       return;
     }
     emit(
       ClosureListState.data(
-        closures: List.from(loadedState.closures)..removeAt(index),
+        closures: List.from(loadedState.closures)..remove(closure),
       ),
     );
     repository.saveClosures(loadedState.closures);
