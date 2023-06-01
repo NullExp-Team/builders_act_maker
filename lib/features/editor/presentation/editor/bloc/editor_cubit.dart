@@ -42,10 +42,13 @@ class EditorCubit extends Cubit<EditorState> {
     // меняем зависимые текста
     if (dependedFields != null) {
       for (int i in dependedFields) {
+        String dependedText = newAct.fields[i].text != ''
+            ? ' ${textForDependedFields ?? text}'
+            : textForDependedFields ?? text;
         newAct = _changeElement(
           newAct,
           i,
-          '${textForDependedFields ?? text} ',
+          dependedText,
           true,
         );
       }

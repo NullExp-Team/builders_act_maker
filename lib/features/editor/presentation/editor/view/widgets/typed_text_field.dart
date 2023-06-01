@@ -38,29 +38,30 @@ class _TypedTextFieldState extends State<TypedTextField> {
   Widget build(BuildContext context) {
     final bloc = Di.get<EditorCubit>();
     textEditingController.text = bloc.loadedState.act.fields[widget.index].text;
-    return Row(
+    return Column(
       children: [
-        if (widget.field.subText != null)
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Text(
-              widget.field.subText!,
-            ),
-          ),
-        Expanded(
-          child: Focus(
-            onFocusChange: (focus) => !focus
-                ? bloc.changeField(
-                    fieldIndex: widget.index,
-                    text: textEditingController.text,
-                    dependedFields: widget.dependedFields,
-                  )
-                : (),
-            child: TextBox(
-              controller: textEditingController,
-            ),
+        Focus(
+          onFocusChange: (focus) => !focus
+              ? bloc.changeField(
+                  fieldIndex: widget.index,
+                  text: textEditingController.text,
+                  dependedFields: widget.dependedFields,
+                )
+              : (),
+          child: TextBox(
+            controller: textEditingController,
           ),
         ),
+        if (widget.field.subText != null)
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Text(
+                widget.field.subText!,
+              ),
+            ),
+          ),
       ],
     );
   }

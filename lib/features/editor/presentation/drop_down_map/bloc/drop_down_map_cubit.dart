@@ -25,14 +25,23 @@ class DropDownMapCubit extends Cubit<DropDownMapState> {
   }
 
   void saveNewValue(String key, String value, String mapedValue) {
-    final data = loadedState.dropDownMap[key]!.copyWith(
-      dependedFieldMapsMap:
-          Map.from(loadedState.dropDownMap[key]!.dependedFieldMapsMap)
-            ..[value] = mapedValue,
-      dropDownValuesMap:
-          List.from(loadedState.dropDownMap[key]!.dropDownValuesMap)
-            ..add(value),
-    );
+    DropDownMapData data;
+    if (!loadedState.dropDownMap.containsKey(key)) {
+      data = DropDownMapData(
+        dropDownValuesMap: [value],
+        dependedFieldMapsMap: {value: mapedValue},
+      );
+    } else {
+      data = loadedState.dropDownMap[key]!.copyWith(
+        dependedFieldMapsMap:
+            Map.from(loadedState.dropDownMap[key]!.dependedFieldMapsMap)
+              ..[value] = mapedValue,
+        dropDownValuesMap:
+            List.from(loadedState.dropDownMap[key]!.dropDownValuesMap)
+              ..add(value),
+      );
+    }
+
     emit(
       loadedState.copyWith(
         dropDownMap: Map.from(loadedState.dropDownMap)..[key] = data,

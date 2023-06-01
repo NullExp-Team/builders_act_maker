@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace ActBuilder
 {
-    
+
     static class ActMaker
     {
         const double maxFieldsWidth = 107;
@@ -43,12 +43,12 @@ namespace ActBuilder
                 MakeSheet(packages, clouser.acts[i], clouser.commonInfo.fields);
             }
 
-            File.WriteAllBytes(clouser.path +"\\"+ clouser.name + ".xlsx", packages.GetAsByteArray());
+            File.WriteAllBytes(clouser.path + "\\" + clouser.name + ".xlsx", packages.GetAsByteArray());
             packages.Dispose();
             bitmap?.Dispose();
             graphics?.Dispose();
         }
-        
+
         // создаём листы
         static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
@@ -97,11 +97,11 @@ namespace ActBuilder
                     widthOfSubPart = Math.Max(CalculateTextWidth(field.subText ?? "", sheet.Cells[x, y + mergeCount].Style.Font), sheet.Columns[y + mergeCount].Width);
                 } else if (field.subText != null)
                 {
-                    field.text = field.subText + field.text;
+                    field.text = field.text + field.subText;
                 }
 
                 double widthOfText = CalculateTextWidth(field.text, sheet.Cells[x, y].Style.Font);
-                
+
                 if (widthOfText + widthOfSubPart <= maxFieldsWidth)
                 {
                     sheet.Cells[x, y].Value = field.text;
@@ -112,7 +112,7 @@ namespace ActBuilder
 
                     // считаем сколько клеток смержено
                     int mergeCount = 0;
-                    while (sheet.Cells[x, y+1 + mergeCount].Merge)
+                    while (sheet.Cells[x, y + 1 + mergeCount].Merge)
                     {
                         mergeCount++;
                     }
@@ -132,10 +132,10 @@ namespace ActBuilder
                             sheet.InsertRow(x, y);
                             sheet.Cells[x, y, x, y + mergeCount].Merge = true;
                             sheet.Cells[x, y].Value = nowText;
-                            sheet.Cells[x, y].Style.Font.Italic = sheet.Cells[x+1, y].Style.Font.Italic;
+                            sheet.Cells[x, y].Style.Font.Italic = sheet.Cells[x + 1, y].Style.Font.Italic;
                             for (int k = 0; k <= mergeCount; k++)
                             {
-                                sheet.Cells[x, y+k].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                sheet.Cells[x, y + k].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                             }
 
                             nowText = partOfText[j];

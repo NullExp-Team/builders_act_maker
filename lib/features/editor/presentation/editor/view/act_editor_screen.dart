@@ -68,11 +68,13 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
                         ],
                       ),
                     ),
-                    FieldsList(
-                      fieldsTypes:
-                          FieldTypeContainer.getFieldsTypes(actData.type),
-                      fieldsNames:
-                          FieldTypeContainer.getFieldsNames(actData.type),
+                    Expanded(
+                      child: FieldsList(
+                        fieldsTypes:
+                            FieldTypeContainer.getFieldsTypes(actData.type),
+                        fieldsNames:
+                            FieldTypeContainer.getFieldsNames(actData.type),
+                      ),
                     ),
                   ],
                 );

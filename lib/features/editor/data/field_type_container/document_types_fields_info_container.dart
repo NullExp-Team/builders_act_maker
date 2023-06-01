@@ -59,7 +59,7 @@ class FieldTypeContainer {
         TextFieldType(),
         //лист2
         TextFieldType(),
-        DropDownFieldType(name: 'workTypeFromAOSR', dependedMappedFields: [20]),
+        DropDownFieldType(name: 'workTypeFromAOSR', dependedMappedFields: [19]),
         TextFieldType(),
         TextFieldType(),
         TextFieldType(),

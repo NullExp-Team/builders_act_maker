@@ -39,32 +39,26 @@ class DropDownField extends StatelessWidget {
         return Align(
           alignment: Alignment.topLeft,
           child: DropDownButton(
-            title: SizedBox(
-              width: width,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(field.text),
-              ),
+            title: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(field.text),
             ),
             items: values
                 .map(
                   (e) => MenuFlyoutItem(
                     onPressed: () => saveFunction(e),
-                    text: SizedBox(
-                      width: width,
-                      child: Row(
-                        children: [
-                          Text(e),
-                          const Spacer(),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context, field.text);
-                              bloc.deleteValue(mapKey, e);
-                            },
-                            icon: const Icon(m.Icons.delete),
-                          )
-                        ],
-                      ),
+                    text: Row(
+                      children: [
+                        Text(e),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context, field.text);
+                            bloc.deleteValue(mapKey, e);
+                          },
+                          icon: const Icon(m.Icons.delete),
+                        )
+                      ],
                     ),
                   ),
                 )
@@ -81,7 +75,12 @@ class DropDownField extends StatelessWidget {
                         return Row(
                           children: [
                             SizedBox(
-                              width: 210,
+                              width: MediaQuery.of(context).size.width -
+                                          width / 2 <
+                                      200
+                                  ? 200
+                                  : MediaQuery.of(context).size.width -
+                                      width / 2,
                               child: Column(
                                 children: [
                                   TextBox(
@@ -107,7 +106,7 @@ class DropDownField extends StatelessWidget {
                                 Navigator.pop(context);
                               },
                               icon: const Icon(m.Icons.add),
-                            )
+                            ),
                           ],
                         );
                       },

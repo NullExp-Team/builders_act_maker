@@ -22,11 +22,11 @@ class FieldsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
       itemBuilder: (context, index) {
         final field = Di.get<EditorCubit>().loadedState.act.fields[index];
         return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             if (fieldsTypes[index] is! DuplicateFieldType)
               Padding(
@@ -35,7 +35,7 @@ class FieldsList extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text(
                     fieldsNames[index],
-                    style: const TextStyle(fontSize: 24),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               ),
