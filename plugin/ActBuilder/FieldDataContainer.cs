@@ -6,7 +6,7 @@
     static class FieldDataContainer
     {
         static Dictionary<string, (int, int)[]>? coordsContainer;
-        
+
         public static (int, int)[] GetCoordsContainer(string type)
         {
             if (coordsContainer == null)
@@ -45,12 +45,6 @@
                 (62, 1),
                 (64, 2),
                 (68, 1),
-                (72, 1),
-                (75, 1),
-                (78, 1),
-                (81, 1),
-                (84, 1),
-                (87, 1),
             };
 
             coordsContainer = new Dictionary<string, (int, int)[]>
