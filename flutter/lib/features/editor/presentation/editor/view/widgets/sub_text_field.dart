@@ -48,7 +48,7 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? bloc.onFieldChanged(
+                ? bloc.changeField(
                     fieldIndex: widget.index,
                     text: textEditingController.text,
                   )
@@ -64,7 +64,7 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? bloc.onSubFieldChanged(
+                ? bloc.changeSubField(
                     fieldIndex: widget.index,
                     subText: textEditingController.text,
                   )

@@ -34,7 +34,7 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
 
     final dropDownCubit = Di.get<DropDownMapCubit>()..loadMap();
     final editorCubit = Di.get<EditorCubit>()
-      ..onInit(widget.closureId, widget.actId);
+      ..init(widget.closureId, widget.actId);
     return ScaffoldPage(
       header: NavigationHeader(routes: routes),
       content: BlocBuilder<DropDownMapCubit, DropDownMapState>(
@@ -61,7 +61,7 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
                           Button(
                             child: const Text('Сохранить изменения'),
                             onPressed: () {
-                              Di.get<EditorCubit>().onSave();
+                              Di.get<EditorCubit>().save();
                               goRouter.pop();
                             },
                           ),

@@ -50,7 +50,7 @@ class _TypedTextFieldState extends State<TypedTextField> {
         Expanded(
           child: Focus(
             onFocusChange: (focus) => !focus
-                ? bloc.onFieldChanged(
+                ? bloc.changeField(
                     fieldIndex: widget.index,
                     text: textEditingController.text,
                     dependedFields: widget.dependedFields,

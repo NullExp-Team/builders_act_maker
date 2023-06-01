@@ -28,7 +28,7 @@ class DropDownField extends StatelessWidget {
 
     switch (state) {
       case DropDownMapStateLoaded():
-        saveFunction(text) => Di.get<EditorCubit>().onFieldChanged(
+        saveFunction(text) => Di.get<EditorCubit>().changeField(
               fieldIndex: index,
               text: text,
               dependedFields: dependedMappedFields,

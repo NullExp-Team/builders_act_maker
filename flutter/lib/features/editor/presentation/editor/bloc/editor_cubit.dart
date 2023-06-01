@@ -15,7 +15,7 @@ class EditorCubit extends Cubit<EditorState> {
 
   EditorStateLoaded get loadedState => state as EditorStateLoaded;
 
-  void onInit(
+  void init(
     int closureId,
     int actId,
   ) {
@@ -27,7 +27,7 @@ class EditorCubit extends Cubit<EditorState> {
     );
   }
 
-  void onFieldChanged({
+  void changeField({
     required int fieldIndex,
     required String text,
     List<int>? dependedFields,
@@ -58,7 +58,7 @@ class EditorCubit extends Cubit<EditorState> {
     );
   }
 
-  void onSubFieldChanged({
+  void changeSubField({
     required int fieldIndex,
     required String subText,
   }) {
@@ -81,7 +81,7 @@ class EditorCubit extends Cubit<EditorState> {
     );
   }
 
-  void onSave() {
+  void save() {
     if (state is! EditorStateLoaded) {
       return;
     }
