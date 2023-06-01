@@ -23,7 +23,6 @@ namespace ActBuilder
                 ActMaker.CreateAct(closure);
 
                 // ошибки нет, возвращаем 0
-                
                 return Marshal.StringToHGlobalUni("0");
             }
             catch (Exception e)

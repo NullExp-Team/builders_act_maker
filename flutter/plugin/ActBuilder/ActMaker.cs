@@ -52,7 +52,7 @@ namespace ActBuilder
         // создаём листы
         static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
-            ExcelPackage typeTemplate = new("C:\\Users\\danek\\Documents\\GitHub\\builders_act_maker\\c#\\ActBuilder\\bin\\Debug\\net6.0\\win-x64\\publish\\" + act.type + ".xlsx");
+            ExcelPackage typeTemplate = new("plugin\\act_builder_lib\\" + act.type + ".xlsx");
             if (typeTemplate.Workbook.Worksheets.Count == 0)
             {
                 throw new Exception("Потеряны шаблоны");
