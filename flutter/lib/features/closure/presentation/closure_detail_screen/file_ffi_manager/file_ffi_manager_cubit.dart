@@ -17,8 +17,7 @@ typedef Dartfunc = Pointer<Utf16> Function(Pointer<Utf16>);
 
 class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
   FileFfiManagerCubit() : super(const FileFfiManagerState.loaded());
-  static const String _pathToDll =
-      'C:\\Users\\danek\\Documents\\GitHub\\builders_act_maker\\flutter\\plugin\\act_maker\\ActBuilder.dll';
+  static const String _pathToDll = 'plugin\\act_builder_lib\\ActBuilder.dll';
 
   Future<String?> choosePath() async {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
