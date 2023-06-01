@@ -64,7 +64,7 @@ class FieldTypeContainer {
         TextFieldType(),
         TextFieldType(),
         TextFieldType(),
-        TextFieldType(),
+        TextFieldType(dependedFields: [5]),
         TextFieldType(),
         TextFieldType(),
         TextFieldType(),

@@ -39,6 +39,7 @@ class _TypedTextFieldState extends State<TypedTextField> {
     final bloc = Di.get<EditorCubit>();
     textEditingController.text = bloc.loadedState.act.fields[widget.index].text;
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Focus(
           onFocusChange: (focus) => !focus

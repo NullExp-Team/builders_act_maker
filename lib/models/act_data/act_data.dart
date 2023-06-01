@@ -28,6 +28,8 @@ class ActData with _$ActData {
   factory ActData.create(DocumentType type, int newIndex) =>
       ActDataFactory.create(type, newIndex);
 
+  factory ActData.commonInfo() => ActDataFactory.commonInfo();
+
   factory ActData.random() => ActDataFactory.random();
 
   factory ActData.test() => ActDataFactory.test();
@@ -35,7 +37,7 @@ class ActData with _$ActData {
 
 extension ActDataFactory on ActData {
   static ActData commonInfo() => ActData(
-        id: 0,
+        id: -1,
         name: 'Общая информация',
         type: DocumentType.commonInfo,
         fields: List.filled(

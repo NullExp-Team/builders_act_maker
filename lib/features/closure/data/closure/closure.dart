@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 
 import '../../../../core/utils.dart';
 import '../../../../models/act_data/act_data.dart';
+import '../../../editor/data/document_type/document_type.dart';
 
 part 'closure.freezed.dart';
 part 'closure.g.dart';
@@ -33,7 +34,7 @@ extension ClosureFactory on Closure {
       id: id,
       name: 'Закрытие $id',
       path: 'path',
-      commonInfo: ActData.random(),
+      commonInfo: ActData.commonInfo(),
       acts: [],
     );
   }

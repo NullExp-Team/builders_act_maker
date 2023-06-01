@@ -4,7 +4,7 @@ import '../../../../../../core/di.dart';
 import '../../../../data/field_types/field_types.dart';
 import '../../bloc/editor_cubit.dart';
 import '../../../drop_down_map/view/drop_down_field.dart';
-import 'sub_text_field.dart';
+import 'space_text_field.dart';
 import 'typed_text_field.dart';
 
 class FieldsList extends StatelessWidget {

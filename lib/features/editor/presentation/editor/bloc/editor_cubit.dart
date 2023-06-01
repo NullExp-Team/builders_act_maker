@@ -19,12 +19,22 @@ class EditorCubit extends Cubit<EditorState> {
     int closureId,
     int actId,
   ) {
-    emit(
-      EditorState.loaded(
-        act: repository.loadAct(closureId, actId),
-        isNameEditing: false,
-      ),
-    );
+    //случай открытия общей информации
+    if (actId == -1) {
+      emit(
+        EditorState.loaded(
+          act: repository.loadClosure(closureId)!.commonInfo,
+          isNameEditing: false,
+        ),
+      );
+    } else {
+      emit(
+        EditorState.loaded(
+          act: repository.loadAct(closureId, actId),
+          isNameEditing: false,
+        ),
+      );
+    }
   }
 
   void changeField({

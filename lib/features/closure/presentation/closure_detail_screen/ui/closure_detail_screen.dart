@@ -89,6 +89,11 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                                 onPressed: () => fileCubit
                                     .makeFile(cubit.loadedState.closure),
                               ),
+                              const Spacer(),
+                              Button(
+                                child: const Text('Общая инфрмация'),
+                                onPressed: () => cubit.goToActEditor(-1),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 32),
