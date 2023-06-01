@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
@@ -30,23 +32,29 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
   void createAct(DocumentType type) {
     final closure = state.maybeWhen(
-      data: (closure) => closure,
+      data: (closure, isNameChanging) => closure,
       orElse: () => null,
     );
     if (closure == null) return;
 
+    int newIndex = 1 +
+        loadedState.closure.acts.fold(
+          0,
+          ((previousValue, element) => max(previousValue, element.id)),
+        );
+    final newAct = ActData.create(type, newIndex);
+
     final newItems = [...closure.acts];
-    final newAct = ActData.create(type);
     newItems.add(newAct);
 
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(ClosureDetailState.data(closure: newClosure));
+    emit(loadedState.copyWith(closure: newClosure));
   }
 
   void createRandomAct() {
     final closure = state.maybeWhen(
-      data: (closure) => closure,
+      data: (closure, isNameChanging) => closure,
       orElse: () => null,
     );
     if (closure == null) return;
@@ -57,29 +65,35 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(ClosureDetailState.data(closure: newClosure));
+    emit(loadedState.copyWith(closure: newClosure));
   }
 
   void duplicateAct(ActData act) {
     final closure = state.maybeWhen(
-      data: (closure) => closure,
+      data: (closure, isNameChanging) => closure,
       orElse: () => null,
     );
     if (closure == null) return;
 
+    int newIndex = 1 +
+        loadedState.closure.acts.fold(
+          0,
+          ((previousValue, element) => max(previousValue, element.id)),
+        );
+    final actClone = act.copyWith(name: '${act.name} (копия)', id: newIndex);
+
     final newItems = [...closure.acts];
-    final actIndex = newItems.indexOf(act);
-    final actClone = act.newId().copyWith(name: '${act.name} (копия)');
-    newItems.insert(actIndex + 1, actClone);
+    final indexForInsert = newItems.indexOf(act);
+    newItems.insert(indexForInsert, actClone);
 
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(ClosureDetailState.data(closure: newClosure));
+    emit(loadedState.copyWith(closure: newClosure));
   }
 
   void deleteAct(ActData act) {
     final closure = state.maybeWhen(
-      data: (closure) => closure,
+      data: (closure, isNameChanging) => closure,
       orElse: () => null,
     );
     if (closure == null) return;
@@ -88,12 +102,12 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(ClosureDetailState.data(closure: newClosure));
+    emit(loadedState.copyWith(closure: newClosure));
   }
 
   void reorderGrid(Iterable<({int oldIndex, int newIndex})> orderUpdates) {
     final closure = state.maybeWhen(
-      data: (closure) => closure,
+      data: (closure, isNameChanging) => closure,
       orElse: () => null,
     );
     if (closure == null) return;
@@ -107,7 +121,7 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(ClosureDetailState.data(closure: newClosure));
+    emit(loadedState.copyWith(closure: newClosure));
   }
 
   void setClosure(int closureId) {
@@ -115,7 +129,10 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     if (state is ClosureDetailStateData) {
       endSub();
     }
-    emit(ClosureDetailState.data(closure: repository.loadClosure(closureId)));
+    emit(ClosureDetailState.data(
+      closure: repository.loadClosure(closureId),
+      isNameEditing: false,
+    ));
     a.addListener(_onChanges);
   }
 
@@ -125,35 +142,66 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
   }
 
   void _onChanges() => emit(
-        ClosureDetailState.data(
+        loadedState.copyWith(
           closure: repository.loadClosure(loadedState.closure.id),
         ),
       );
 
-  void saveChanges(ActData? act) {
+  //TODO: функция для вызова её из кубита редактора. Временное решение
+  void saveChanges(ActData act) {
     if (state is! ClosureDetailStateData) {
       return;
     }
-    if (act != null) {
-      if (act.type == DocumentType.commonInfo) {
-        emit(
-          ClosureDetailState.data(
-            closure: loadedState.closure.copyWith(commonInfo: act),
+    if (act.type == DocumentType.commonInfo) {
+      emit(
+        loadedState.copyWith(
+          closure: loadedState.closure.copyWith(commonInfo: act),
+        ),
+      );
+    } else {
+      int indexOfChanged = loadedState.closure.acts
+          .indexWhere((element) => element.id == act.id);
+      emit(
+        loadedState.copyWith(
+          closure: loadedState.closure.copyWith(
+            acts: List.from(loadedState.closure.acts)..[indexOfChanged] = act,
           ),
-        );
-      } else {
-        int indexOfChanged = loadedState.closure.acts
-            .indexWhere((element) => element.id == act.id);
-        emit(
-          ClosureDetailState.data(
-            closure: loadedState.closure.copyWith(
-              acts: List.from(loadedState.closure.acts)..[indexOfChanged] = act,
-            ),
-          ),
-        );
-      }
+        ),
+      );
     }
 
+    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
+  }
+
+  void onNameEdit(String? newName) {
+    if (state is! ClosureDetailStateData) {
+      return;
+    }
+
+    if (loadedState.isNameEditing) {
+      emit(
+        loadedState.copyWith(
+          isNameEditing: !loadedState.isNameEditing,
+          closure: loadedState.closure
+              .copyWith(name: newName ?? loadedState.closure.name),
+        ),
+      );
+      Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
+    } else {
+      emit(loadedState.copyWith(isNameEditing: !loadedState.isNameEditing));
+    }
+  }
+
+  void changePath(String? newPath) {
+    if (state is! ClosureDetailStateData || newPath == null) {
+      return;
+    }
+
+    emit(
+      loadedState.copyWith(
+        closure: loadedState.closure.copyWith(path: newPath),
+      ),
+    );
     Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
   }
 }

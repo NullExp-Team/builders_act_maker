@@ -1,11 +1,7 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActBuilder
 {
@@ -16,17 +12,35 @@ namespace ActBuilder
         static Bitmap? bitmap;
         static Graphics? graphics;
 
+        public static void OpenFileByPath(string path)
+        {
+            if (File.Exists(path))
+            {
+                Process p = new()
+                {
+                    StartInfo = new ProcessStartInfo(path)
+                    {
+                        UseShellExecute = true
+                    }
+                };
+                p.Start();
+            }
+            else
+                Console.WriteLine("Файл не найден");
+
+        }
+
         // создаём файл и начинаем обрабатывать листы
         public static void CreateAct(Сlosure clouser)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            ExcelPackage packages = new ExcelPackage();
+            ExcelPackage packages = new();
             bitmap = new Bitmap(1, 1);
             graphics = Graphics.FromImage(bitmap);
 
             for (int i = 0; i < clouser.acts.Count; i++)
             {
-                MakeSheet(packages, clouser.acts[i] ,clouser.commonInfo);
+                MakeSheet(packages, clouser.acts[i], clouser.commonInfo.fields);
             }
 
             File.WriteAllBytes(clouser.path +"\\"+ clouser.name + ".xlsx", packages.GetAsByteArray());
@@ -38,11 +52,15 @@ namespace ActBuilder
         // создаём листы
         static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
-            ExcelPackage typeTemplate = new ExcelPackage(act.type + ".xlsx");
+            ExcelPackage typeTemplate = new("C:\\Users\\danek\\Documents\\GitHub\\builders_act_maker\\c#\\ActBuilder\\bin\\Debug\\net6.0\\win-x64\\publish\\" + act.type + ".xlsx");
+            if (typeTemplate.Workbook.Worksheets.Count == 0)
+            {
+                throw new Exception("Потеряны шаблоны");
+            }
             ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.name, typeTemplate.Workbook.Worksheets.First());
             typeTemplate.Dispose();
 
-            List<FieldData> fullFields = new List<FieldData>();
+            List<FieldData> fullFields = new();
             fullFields.AddRange(act.fields);
             fullFields.AddRange(commonInfo);
 
@@ -77,7 +95,10 @@ namespace ActBuilder
                     sheet.Cells[x, y + mergeCount].Value = field.subText ?? "";
                     sheet.Cells[x, y + mergeCount].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
                     widthOfSubPart = Math.Max(CalculateTextWidth(field.subText ?? "", sheet.Cells[x, y + mergeCount].Style.Font), sheet.Columns[y + mergeCount].Width);
-                } 
+                } else if (field.subText != null)
+                {
+                    field.text = field.subText + field.text;
+                }
 
                 double widthOfText = CalculateTextWidth(field.text, sheet.Cells[x, y].Style.Font);
                 

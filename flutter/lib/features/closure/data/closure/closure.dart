@@ -22,18 +22,21 @@ class Closure with _$Closure {
 
   factory Closure.fromJson(Map<String, dynamic> json) =>
       _$ClosureFromJson(json);
-
   factory Closure.random() => ClosureFactory.random();
+
+  factory Closure.newClosure(int id) => ClosureFactory.newClosure(id);
 }
 
 extension ClosureFactory on Closure {
-  // С hashCode хз, но всё на string переделывать лень
-  // Хз как ещё с id норм работать, не юзаю uuid из блоков
-  Closure newId() => copyWith(
-        id: uuid.v4().hashCode,
-        acts: acts.map((e) => e.newId()).toList(),
-        commonInfo: commonInfo.newId(),
-      );
+  static Closure newClosure(int id) {
+    return Closure(
+      id: id,
+      name: 'Закрытие $id',
+      path: 'path',
+      commonInfo: ActData.random(),
+      acts: [],
+    );
+  }
 
   static Closure random() {
     final random = Random();

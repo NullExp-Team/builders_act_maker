@@ -1,8 +1,5 @@
-﻿using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -14,24 +11,45 @@ namespace ActBuilder
     class FlutterAdapter
     {
         // основная функция создания файла. На время тестов отключаем атрибут
-        // [UnmanagedCallersOnly(EntryPoint = "createFile")]
-        public static int СreateFile(IntPtr pointerInput)
+        [UnmanagedCallersOnly(EntryPoint = "makeFile")]
+        public static IntPtr MakeFile(IntPtr pointerInput)
         {
             try
             {
-                string stringInput = Marshal.PtrToStringAnsi(pointerInput)!;
+                string stringInput = Marshal.PtrToStringUni(pointerInput)!;
                 JsonNode closureNode = JsonNode.Parse(stringInput)!;
                 Сlosure closure = closureNode.Deserialize<Сlosure>()!;
 
                 ActMaker.CreateAct(closure);
 
                 // ошибки нет, возвращаем 0
-                return 0;
+                
+                return Marshal.StringToHGlobalUni("0");
             }
-            catch
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                // если есть ошибка на стороне С, то возвращаем её код в дарт
+                return Marshal.StringToHGlobalUni(e.Message);
+            }
+        }
+
+        // основная функция создания файла. На время тестов отключаем атрибут
+        [UnmanagedCallersOnly(EntryPoint = "openFile")]
+        public static IntPtr OpenFile(IntPtr pointerInput)
+        {
+            try
+            {
+                string stringInput = Marshal.PtrToStringUni(pointerInput)!;
+                ActMaker.OpenFileByPath(stringInput);
+                
+                // ошибки нет, возвращаем 0
+                return Marshal.StringToHGlobalUni("0");
+            }
+            catch (Exception e)
             {
                 // если есть ошибка на стороне С, то возвращаем её код в дарт
-                return -1;
+                return Marshal.StringToHGlobalUni(e.Message);
             }
         }
     }

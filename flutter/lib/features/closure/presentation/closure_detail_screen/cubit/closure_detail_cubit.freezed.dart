@@ -20,7 +20,7 @@ mixin _$ClosureDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Closure closure) data,
+    required TResult Function(Closure closure, bool isNameEditing) data,
     required TResult Function(dynamic message, StackTrace stackTrace) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$ClosureDetailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Closure closure)? data,
+    TResult? Function(Closure closure, bool isNameEditing)? data,
     TResult? Function(dynamic message, StackTrace stackTrace)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$ClosureDetailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Closure closure)? data,
+    TResult Function(Closure closure, bool isNameEditing)? data,
     TResult Function(dynamic message, StackTrace stackTrace)? error,
     required TResult orElse(),
   }) =>
@@ -128,7 +128,7 @@ class _$ClosureDetailStateInitial implements ClosureDetailStateInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Closure closure) data,
+    required TResult Function(Closure closure, bool isNameEditing) data,
     required TResult Function(dynamic message, StackTrace stackTrace) error,
   }) {
     return initial();
@@ -139,7 +139,7 @@ class _$ClosureDetailStateInitial implements ClosureDetailStateInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Closure closure)? data,
+    TResult? Function(Closure closure, bool isNameEditing)? data,
     TResult? Function(dynamic message, StackTrace stackTrace)? error,
   }) {
     return initial?.call();
@@ -150,7 +150,7 @@ class _$ClosureDetailStateInitial implements ClosureDetailStateInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Closure closure)? data,
+    TResult Function(Closure closure, bool isNameEditing)? data,
     TResult Function(dynamic message, StackTrace stackTrace)? error,
     required TResult orElse(),
   }) {
@@ -244,7 +244,7 @@ class _$ClosureDetailStateLoading implements ClosureDetailStateLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Closure closure) data,
+    required TResult Function(Closure closure, bool isNameEditing) data,
     required TResult Function(dynamic message, StackTrace stackTrace) error,
   }) {
     return loading();
@@ -255,7 +255,7 @@ class _$ClosureDetailStateLoading implements ClosureDetailStateLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Closure closure)? data,
+    TResult? Function(Closure closure, bool isNameEditing)? data,
     TResult? Function(dynamic message, StackTrace stackTrace)? error,
   }) {
     return loading?.call();
@@ -266,7 +266,7 @@ class _$ClosureDetailStateLoading implements ClosureDetailStateLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Closure closure)? data,
+    TResult Function(Closure closure, bool isNameEditing)? data,
     TResult Function(dynamic message, StackTrace stackTrace)? error,
     required TResult orElse(),
   }) {
@@ -324,7 +324,7 @@ abstract class _$$ClosureDetailStateDataCopyWith<$Res> {
           $Res Function(_$ClosureDetailStateData) then) =
       __$$ClosureDetailStateDataCopyWithImpl<$Res>;
   @useResult
-  $Res call({Closure closure});
+  $Res call({Closure closure, bool isNameEditing});
 
   $ClosureCopyWith<$Res> get closure;
 }
@@ -341,12 +341,17 @@ class __$$ClosureDetailStateDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? closure = null,
+    Object? isNameEditing = null,
   }) {
     return _then(_$ClosureDetailStateData(
       closure: null == closure
           ? _value.closure
           : closure // ignore: cast_nullable_to_non_nullable
               as Closure,
+      isNameEditing: null == isNameEditing
+          ? _value.isNameEditing
+          : isNameEditing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -362,14 +367,17 @@ class __$$ClosureDetailStateDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ClosureDetailStateData implements ClosureDetailStateData {
-  const _$ClosureDetailStateData({required this.closure});
+  const _$ClosureDetailStateData(
+      {required this.closure, required this.isNameEditing});
 
   @override
   final Closure closure;
+  @override
+  final bool isNameEditing;
 
   @override
   String toString() {
-    return 'ClosureDetailState.data(closure: $closure)';
+    return 'ClosureDetailState.data(closure: $closure, isNameEditing: $isNameEditing)';
   }
 
   @override
@@ -377,11 +385,13 @@ class _$ClosureDetailStateData implements ClosureDetailStateData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ClosureDetailStateData &&
-            (identical(other.closure, closure) || other.closure == closure));
+            (identical(other.closure, closure) || other.closure == closure) &&
+            (identical(other.isNameEditing, isNameEditing) ||
+                other.isNameEditing == isNameEditing));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, closure);
+  int get hashCode => Object.hash(runtimeType, closure, isNameEditing);
 
   @JsonKey(ignore: true)
   @override
@@ -395,10 +405,10 @@ class _$ClosureDetailStateData implements ClosureDetailStateData {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Closure closure) data,
+    required TResult Function(Closure closure, bool isNameEditing) data,
     required TResult Function(dynamic message, StackTrace stackTrace) error,
   }) {
-    return data(closure);
+    return data(closure, isNameEditing);
   }
 
   @override
@@ -406,10 +416,10 @@ class _$ClosureDetailStateData implements ClosureDetailStateData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Closure closure)? data,
+    TResult? Function(Closure closure, bool isNameEditing)? data,
     TResult? Function(dynamic message, StackTrace stackTrace)? error,
   }) {
-    return data?.call(closure);
+    return data?.call(closure, isNameEditing);
   }
 
   @override
@@ -417,12 +427,12 @@ class _$ClosureDetailStateData implements ClosureDetailStateData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Closure closure)? data,
+    TResult Function(Closure closure, bool isNameEditing)? data,
     TResult Function(dynamic message, StackTrace stackTrace)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(closure);
+      return data(closure, isNameEditing);
     }
     return orElse();
   }
@@ -466,10 +476,12 @@ class _$ClosureDetailStateData implements ClosureDetailStateData {
 }
 
 abstract class ClosureDetailStateData implements ClosureDetailState {
-  const factory ClosureDetailStateData({required final Closure closure}) =
-      _$ClosureDetailStateData;
+  const factory ClosureDetailStateData(
+      {required final Closure closure,
+      required final bool isNameEditing}) = _$ClosureDetailStateData;
 
   Closure get closure;
+  bool get isNameEditing;
   @JsonKey(ignore: true)
   _$$ClosureDetailStateDataCopyWith<_$ClosureDetailStateData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -553,7 +565,7 @@ class _$ClosureDetailStateError implements ClosureDetailStateError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(Closure closure) data,
+    required TResult Function(Closure closure, bool isNameEditing) data,
     required TResult Function(dynamic message, StackTrace stackTrace) error,
   }) {
     return error(message, stackTrace);
@@ -564,7 +576,7 @@ class _$ClosureDetailStateError implements ClosureDetailStateError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(Closure closure)? data,
+    TResult? Function(Closure closure, bool isNameEditing)? data,
     TResult? Function(dynamic message, StackTrace stackTrace)? error,
   }) {
     return error?.call(message, stackTrace);
@@ -575,7 +587,7 @@ class _$ClosureDetailStateError implements ClosureDetailStateError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(Closure closure)? data,
+    TResult Function(Closure closure, bool isNameEditing)? data,
     TResult Function(dynamic message, StackTrace stackTrace)? error,
     required TResult orElse(),
   }) {

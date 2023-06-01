@@ -4,7 +4,7 @@ import 'package:flutter/material.dart' as m;
 import '../../../../../core/di.dart';
 import '../../../../../models/field_data/field_data.dart';
 import '../bloc/drop_down_map_cubit.dart';
-import '../../editor/bloc/editor_bloc.dart';
+import '../../editor/bloc/editor_cubit.dart';
 
 class DropDownField extends StatelessWidget {
   const DropDownField({
@@ -28,14 +28,12 @@ class DropDownField extends StatelessWidget {
 
     switch (state) {
       case DropDownMapStateLoaded():
-        saveFunction(text) => Di.get<EditorBloc>().add(
-              EditorEvent.editField(
-                fieldIndex: index,
-                text: text,
-                dependedFields: dependedMappedFields,
-                textForDependedFields:
-                    state.dropDownMap[mapKey]?.dependedFieldMapsMap[text],
-              ),
+        saveFunction(text) => Di.get<EditorCubit>().changeField(
+              fieldIndex: index,
+              text: text,
+              dependedFields: dependedMappedFields,
+              textForDependedFields:
+                  state.dropDownMap[mapKey]?.dependedFieldMapsMap[text],
             );
         final values = state.dropDownMap[mapKey]?.dropDownValuesMap ?? [];
         return Align(

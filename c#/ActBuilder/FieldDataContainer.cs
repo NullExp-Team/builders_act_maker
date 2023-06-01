@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ActBuilder
+﻿namespace ActBuilder
 {
     /// <summary>
     /// Хранит в себе coordsContainer, в котором по названию типа акта можно получить массив координат его полей
     /// </summary>
     static class FieldDataContainer
     {
-        static Dictionary<String, (int, int)[]>? coordsContainer;
+        static Dictionary<string, (int, int)[]>? coordsContainer;
         
         public static (int, int)[] GetCoordsContainer(string type)
         {
@@ -60,8 +53,10 @@ namespace ActBuilder
                 (87, 1),
             };
 
-            coordsContainer = new Dictionary<string, (int, int)[]>();
-            coordsContainer.Add("actOSR", listOfCoordsOSR);
+            coordsContainer = new Dictionary<string, (int, int)[]>
+            {
+                { "actOSR", listOfCoordsOSR }
+            };
         }
     }
 }

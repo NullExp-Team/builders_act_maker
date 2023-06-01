@@ -8,6 +8,7 @@ sealed class ClosureDetailState with _$ClosureDetailState {
 
   const factory ClosureDetailState.data({
     required Closure closure,
+    required bool isNameEditing,
   }) = ClosureDetailStateData;
 
   const factory ClosureDetailState.error({

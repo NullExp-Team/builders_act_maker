@@ -1,6 +1,8 @@
 import 'package:dyn_mouse_scroll/dyn_mouse_scroll.dart';
 
 import '../../../../../core/theme/theme_context_extension.dart';
+import '../../../../../core/widgets/editable_value_widget.dart';
+import '../file_ffi_manager/file_ffi_manager_cubit.dart';
 import 'widgets/act_card.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 import 'package:go_router/go_router.dart';
@@ -39,6 +41,7 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
         .toList();
 
     final cubit = Di.get<ClosureDetailCubit>()..setClosure(widget.closureId);
+    final fileCubit = FileFfiManagerCubit();
     return BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
       bloc: cubit,
       builder: (context, state) {
@@ -62,16 +65,36 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  closure.name,
-                                  style: context.textStyles.titleLarge,
+                                EditableValueWidget(
+                                  value: closure.name,
+                                  onEditButtonPress: cubit.onNameEdit,
+                                  isEditing: state.isNameEditing,
+                                  textSize:
+                                      context.textStyles.titleLarge?.fontSize ??
+                                          32,
                                 ),
                                 const SizedBox(height: 4),
-                                Text(
-                                  closure.path,
-                                  style: context.textStyles.body?.copyWith(
-                                    color: Colors.grey[80],
-                                  ),
+                                Row(
+                                  children: [
+                                    Button(
+                                      child: const Text('Изменить путь'),
+                                      onPressed: () async => cubit.changePath(
+                                        await fileCubit.choosePath(),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Button(
+                                      child: const Text('Открыть файл'),
+                                      onPressed: () => fileCubit
+                                          .openFile(cubit.loadedState.closure),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Button(
+                                      child: const Text('Сформировать файл'),
+                                      onPressed: () => fileCubit
+                                          .makeFile(cubit.loadedState.closure),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

@@ -18,6 +18,9 @@ class FieldData with _$FieldData {
   factory FieldData.fromJson(Map<String, dynamic> json) =>
       _$FieldDataFromJson(json);
 
+  factory FieldData.empty() =>
+      FieldData(text: '', hasSpace: false, subText: null);
+
   // random constructor
   factory FieldData.random() {
     final random = Random();
