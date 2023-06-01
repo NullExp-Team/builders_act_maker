@@ -20,14 +20,17 @@ class EditableValueWidget extends StatefulWidget {
 
 class _EditableValueWidgetState extends State<EditableValueWidget> {
   late final TextEditingController controller;
+  late final FocusNode focusNode;
   @override
   void initState() {
     controller = TextEditingController();
+    focusNode = FocusNode();
     super.initState();
   }
 
   @override
   void dispose() {
+    focusNode.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -41,6 +44,7 @@ class _EditableValueWidgetState extends State<EditableValueWidget> {
             ? SizedBox(
                 width: 400,
                 child: TextBox(
+                  focusNode: focusNode,
                   controller: controller,
                   style: TextStyle(fontSize: widget.textSize),
                 ),
@@ -51,7 +55,10 @@ class _EditableValueWidgetState extends State<EditableValueWidget> {
               ),
         const SizedBox(width: 30),
         Button(
-          onPressed: () => widget.onEditButtonPress(controller.text),
+          onPressed: () {
+            if (!widget.isEditing) focusNode.requestFocus();
+            widget.onEditButtonPress(controller.text);
+          },
           child: Icon(
             widget.isEditing ? m.Icons.save : m.Icons.edit,
           ),
