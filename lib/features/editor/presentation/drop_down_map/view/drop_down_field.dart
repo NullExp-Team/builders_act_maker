@@ -27,13 +27,24 @@ class DropDownField extends StatefulWidget {
 class _DropDownFieldState extends State<DropDownField> {
   late final TextEditingController firstController;
   late final TextEditingController secondController;
-  late final FocusNode focusNode;
+  late final FocusNode textFocusNode;
+  late final FocusNode buttonFocusNode;
   @override
   void initState() {
     firstController = TextEditingController();
     secondController = TextEditingController();
-    focusNode = FocusNode();
+    textFocusNode = FocusNode();
+    buttonFocusNode = FocusNode();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    firstController.dispose();
+    secondController.dispose();
+    textFocusNode.dispose();
+    buttonFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -65,6 +76,8 @@ class _DropDownFieldState extends State<DropDownField> {
         return Align(
           alignment: Alignment.topLeft,
           child: DropDownButton(
+            onOpen: () => buttonFocusNode.requestFocus(),
+            focusNode: buttonFocusNode,
             title: Align(
               alignment: Alignment.centerLeft,
               child: Text(widget.field.text),
@@ -72,13 +85,16 @@ class _DropDownFieldState extends State<DropDownField> {
             items: values
                 .map(
                   (e) => MenuFlyoutItem(
-                    onPressed: () => editorBloc.changeField(
-                      fieldIndex: widget.index,
-                      text: e,
-                      dependedFields: widget.dependedMappedFields,
-                      textForDependedFields: state
-                          .dropDownMap[widget.mapKey]?.dependedFieldMapsMap[e],
-                    ),
+                    onPressed: () {
+                      editorBloc.changeField(
+                        fieldIndex: widget.index,
+                        text: e,
+                        dependedFields: widget.dependedMappedFields,
+                        textForDependedFields: state.dropDownMap[widget.mapKey]
+                            ?.dependedFieldMapsMap[e],
+                      );
+                      buttonFocusNode.nextFocus();
+                    },
                     text: Row(
                       children: [
                         Text(e),
@@ -112,10 +128,11 @@ class _DropDownFieldState extends State<DropDownField> {
                               TextBox(
                                 placeholder: 'Новое значение',
                                 controller: firstController,
-                                onSubmitted: (text) => focusNode.requestFocus(),
+                                onSubmitted: (text) =>
+                                    textFocusNode.requestFocus(),
                               ),
                               TextBox(
-                                focusNode: focusNode,
+                                focusNode: textFocusNode,
                                 placeholder: 'Соответствующее',
                                 controller: secondController,
                                 onSubmitted: (text) => saveNewDropDownValue(),

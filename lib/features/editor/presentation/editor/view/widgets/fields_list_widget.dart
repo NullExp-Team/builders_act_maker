@@ -21,56 +21,65 @@ class FieldsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: const EdgeInsets.all(16),
-      itemBuilder: (context, index) {
-        final field = Di.get<EditorCubit>().loadedState.act.fields[index];
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (fieldsTypes[index] is! DuplicateFieldType)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    fieldsNames[index],
-                    style: const TextStyle(fontSize: 20),
-                  ),
+    return FocusScope(
+      //для правильной работы фокуса нужно загружать на экран сразу все поля
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+          child: Column(
+            children: [
+              for (int index = 0; index < fieldsNames.length; index++)
+                Builder(
+                  builder: (context) {
+                    final field =
+                        Di.get<EditorCubit>().loadedState.act.fields[index];
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (fieldsTypes[index] is! DuplicateFieldType)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                fieldsNames[index],
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ),
+                        switch (fieldsTypes[index]) {
+                          TextFieldType(:final dependedFields) =>
+                            TypedTextField(
+                              index: index,
+                              field: field,
+                              dependedFields: dependedFields,
+                            ),
+                          DropDownFieldType(
+                            :final name,
+                            :final dependedMappedFields,
+                          ) =>
+                            DropDownField(
+                              index: index,
+                              field: field,
+                              dependedMappedFields: dependedMappedFields,
+                              mapKey: name,
+                            ),
+                          SpaceTextFieldType() => SpaceTextField(
+                              index: index,
+                              field: field,
+                            ),
+                          DuplicateFieldType() => const SizedBox(),
+                        },
+                        if (fieldsTypes[index] is! DuplicateFieldType)
+                          const SizedBox(height: 10),
+                      ],
+                    );
+                  },
                 ),
-              ),
-            switch (fieldsTypes[index]) {
-              TextFieldType(:final dependedFields) => TypedTextField(
-                  index: index,
-                  field: field,
-                  dependedFields: dependedFields,
-                ),
-              DropDownFieldType(
-                :final name,
-                :final dependedMappedFields,
-              ) =>
-                DropDownField(
-                  index: index,
-                  field: field,
-                  dependedMappedFields: dependedMappedFields,
-                  mapKey: name,
-                ),
-              SpaceTextFieldType() => SpaceTextField(
-                  index: index,
-                  field: field,
-                ),
-              DuplicateFieldType() => const SizedBox(),
-            }
-          ],
-        );
-      },
-      separatorBuilder: (context, index) =>
-          fieldsTypes[index] is DuplicateFieldType
-              ? const SizedBox()
-              : const SizedBox(
-                  height: 15,
-                ),
-      itemCount: fieldsTypes.length,
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

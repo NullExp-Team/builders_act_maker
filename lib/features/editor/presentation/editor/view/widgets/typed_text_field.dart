@@ -22,36 +22,46 @@ class TypedTextField extends StatefulWidget {
 
 class _TypedTextFieldState extends State<TypedTextField> {
   late TextEditingController textEditingController;
+  late FocusNode focusNode;
   @override
   void initState() {
     textEditingController = TextEditingController(text: widget.field.text);
+    focusNode = FocusNode();
+    focusNode.addListener(
+      () => !focusNode.hasFocus
+          ? Di.get<EditorCubit>().changeField(
+              fieldIndex: widget.index,
+              text: textEditingController.text,
+              dependedFields: widget.dependedFields,
+            )
+          : (),
+    );
     super.initState();
   }
 
   @override
   void dispose() {
+    focusNode.dispose();
     textEditingController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Di.get<EditorCubit>();
-    textEditingController.text = bloc.loadedState.act.fields[widget.index].text;
+    textEditingController.text = widget.field.text;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Focus(
-          onFocusChange: (focus) => !focus
-              ? bloc.changeField(
-                  fieldIndex: widget.index,
-                  text: textEditingController.text,
-                  dependedFields: widget.dependedFields,
-                )
-              : (),
-          child: TextBox(
-            controller: textEditingController,
-          ),
+        TextBox(
+          focusNode: focusNode,
+          controller: textEditingController,
+          onSubmitted: (_) {
+            // из-за того, что в результате нажатия enter мы вначале теряем фокус, а после выполняем
+            // onSubmitted, то nextFocus() переключает фокус на первый элемент последнего FocusScope
+            // чтобы избежать этого - вновь запрашиваем фокус
+            focusNode.requestFocus();
+            focusNode.nextFocus();
+          },
         ),
         if (widget.field.subText != null)
           Align(
