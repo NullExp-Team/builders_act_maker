@@ -64,10 +64,11 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
   }
 
   @override
-  Closure loadClosure(int id) {
-    return (Hive.box(closuresBoxName).get(closuresBoxListKey) as Iterable)
-        .map((e) => e as Closure)
-        .firstWhere((element) => element.id == id);
+  Closure? loadClosure(int id) {
+    final list =
+        List<Closure>.from(Hive.box(closuresBoxName).get(closuresBoxListKey))
+            .where((element) => element.id == id);
+    return list.firstOrNull;
   }
 
   @override
