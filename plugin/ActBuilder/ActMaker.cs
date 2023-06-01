@@ -95,7 +95,8 @@ namespace ActBuilder
                     sheet.Cells[x, y + mergeCount].Value = field.subText ?? "";
                     sheet.Cells[x, y + mergeCount].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
                     widthOfSubPart = Math.Max(CalculateTextWidth(field.subText ?? "", sheet.Cells[x, y + mergeCount].Style.Font), sheet.Columns[y + mergeCount].Width);
-                } else if (field.subText != null)
+                }
+                else if (field.subText != null)
                 {
                     field.text = field.text + field.subText;
                 }
@@ -105,7 +106,8 @@ namespace ActBuilder
                 if (widthOfText + widthOfSubPart <= maxFieldsWidth)
                 {
                     sheet.Cells[x, y].Value = field.text;
-                } else
+                }
+                else
                 {
                     // если текст длиннее, чем одна строка, то дробим его на слова по пробелам и увеличиваем количество строк,
                     // до тех пор, пока не впихнём все слова
@@ -141,7 +143,8 @@ namespace ActBuilder
                             nowText = partOfText[j];
                             shift++;
                             x++;
-                        } else
+                        }
+                        else
                         {
                             nowText += " " + partOfText[j];
                         }
@@ -158,7 +161,7 @@ namespace ActBuilder
             if (string.IsNullOrEmpty(text)) return 0.0;
 
             var drawingFont = new Font(font.Name, font.Size * 1.01f);
-            var size = graphics.MeasureString(text, drawingFont);
+            var size = graphics!.MeasureString(text, drawingFont);
 
             return Convert.ToDouble(size.Width) / excelWidthMult;
         }
