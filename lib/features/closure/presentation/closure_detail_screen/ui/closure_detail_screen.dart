@@ -70,6 +70,11 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                           const SizedBox(height: 4),
                           Row(
                             children: [
+                              Button(
+                                child: const Text('Общая инфрмация'),
+                                onPressed: () => cubit.goToActEditor(-1),
+                              ),
+                              const SizedBox(width: 10),
                               MessageBoxButton(
                                 succsessMessage: 'Файл создан!',
                                 failureMessage: 'Ошибка создания файла',
@@ -80,24 +85,19 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                               ),
                               const SizedBox(width: 10),
                               MessageBoxButton(
-                                succsessMessage: 'Открывается файл...',
-                                failureMessage: 'Файл не найден!',
-                                child: const Text('Открыть файл'),
-                                callBack: () => fileCubit
-                                    .openFile(cubit.loadedState.closure),
-                              ),
-                              const SizedBox(width: 10),
-                              MessageBoxButton(
                                 succsessMessage: 'Файл создан!',
                                 failureMessage: 'Ошибка создания файла',
                                 child: const Text('Сформировать файл'),
                                 callBack: () => fileCubit
                                     .makeFile(cubit.loadedState.closure),
                               ),
-                              const Spacer(),
-                              Button(
-                                child: const Text('Общая инфрмация'),
-                                onPressed: () => cubit.goToActEditor(-1),
+                              const SizedBox(width: 10),
+                              MessageBoxButton(
+                                succsessMessage: 'Открывается файл...',
+                                failureMessage: 'Файл не найден!',
+                                child: const Text('Открыть файл'),
+                                callBack: () => fileCubit
+                                    .openFile(cubit.loadedState.closure),
                               ),
                             ],
                           ),
