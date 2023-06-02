@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
 import '../../../../../core/widgets/navigation_header.dart';
-import '../../../data/field_type_container/document_types_fields_info_container.dart';
+import '../../../data/document_types_fields_info_container/document_types_fields_info_container.dart';
 import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
 import '../bloc/editor_cubit.dart';
 import '../../../../../core/widgets/editable_value_widget.dart';

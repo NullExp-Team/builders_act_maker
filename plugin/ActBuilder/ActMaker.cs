@@ -2,6 +2,7 @@
 using OfficeOpenXml.Style;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 
 namespace ActBuilder
 {
@@ -60,21 +61,32 @@ namespace ActBuilder
             ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.name, typeTemplate.Workbook.Worksheets.First());
             typeTemplate.Dispose();
 
-            List<FieldData> fullFields = new();
-            fullFields.AddRange(act.fields);
-            fullFields.AddRange(commonInfo);
+            (int, int)[] fieldsCoords = FieldDataContainer.GetCoordsContainer(act.type);
+            List<ExcelFieldData> fields = new();
+            for (int i = 0; i < act.fields.Count; i++)
+            {
+                ExcelFieldData field = new (act.fields[i], fieldsCoords[i]);
+                fields.Add(field);
+            }
+            for (int i = 0; i < commonInfo.Count; i++)
+            {
+                ExcelFieldData field = new(commonInfo[i], fieldsCoords[act.fields.Count + i]);
+                fields.Add(field);
+            }
 
-            FillSheet(sheet, fullFields, FieldDataContainer.GetCoordsContainer(act.type));
+            fields.Sort();
+
+            FillSheet(sheet, fields);
         }
 
         // заполняем по координатам и по полям данный нам лист
-        static void FillSheet(ExcelWorksheet sheet, List<FieldData> fields, (int, int)[] coords)
+        static void FillSheet(ExcelWorksheet sheet, List<ExcelFieldData> fields)
         {
             int shift = 0;
             for (int i = 0; i < fields.Count; i++)
             {
-                FieldData field = fields[i];
-                (int x, int y) = coords[i];
+                FieldData field = fields[i].Text;
+                (int x, int y) = fields[i].Coords;
                 x += shift;
                 double widthOfSubPart = 0;
 
