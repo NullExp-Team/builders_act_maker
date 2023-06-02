@@ -35,3 +35,8 @@ class NumericFieldType extends FieldType {
   final String mainWord;
   const NumericFieldType({required this.mainWord});
 }
+
+class MultiLineFieldType extends FieldType {
+  final bool isNeedNumireate;
+  const MultiLineFieldType({required this.isNeedNumireate});
+}

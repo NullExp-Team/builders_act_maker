@@ -114,8 +114,9 @@ namespace ActBuilder
                 }
 
                 double widthOfText = CalculateTextWidth(field.text, sheet.Cells[x, y].Style.Font);
+                bool isMultiLine = field.text.Contains('\n');
 
-                if (widthOfText + widthOfSubPart <= maxFieldsWidth)
+                if (widthOfText + widthOfSubPart <= maxFieldsWidth && !isMultiLine)
                 {
                     sheet.Cells[x, y].Value = field.text;
                 }
@@ -130,15 +131,22 @@ namespace ActBuilder
                     {
                         mergeCount++;
                     }
-
+                    if (isMultiLine)
+                    {
+                        // выделяем отдельно \n
+                        field.text = field.text.Replace("\n", " \n ");
+                    }
                     List<string> partOfText = field.text.Split(" ").ToList();
                     string nowText = partOfText[0];
                     int j = 1;
                     while (j < partOfText.Count)
                     {
-                        double widthOfNextText = CalculateTextWidth(nowText + " " + partOfText[j], sheet.Cells[x, y].Style.Font) + widthOfSubPart;
+                        bool isNeedEnter = isMultiLine && partOfText[j] == "\n";
+                        // высчитываем ширину без знака переноса строки, чтобы ширина вычислялась для текста в одну линию
+                        double widthOfNextText = CalculateTextWidth(nowText + " " + partOfText[j].Replace("\n", string.Empty), sheet.Cells[x, y].Style.Font) + widthOfSubPart;
                         // если текст+следующее слово уже не помещаются в строку
-                        if (widthOfNextText > maxFieldsWidth)
+                        // или если ныне веделенный текст имеет \n в себе
+                        if (widthOfNextText > maxFieldsWidth || isNeedEnter)
                         {
                             // дополнительная часть влияет только на первую строку
                             widthOfSubPart = 0;
@@ -152,11 +160,23 @@ namespace ActBuilder
                                 sheet.Cells[x, y + k].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
                             }
 
-                            nowText = partOfText[j];
+                            if (isNeedEnter)
+                            {
+                                // добавляем j, ибо он указывает на \n
+                                j++;
+                            }
+                            // если \n был последним словом, то создаём ещё одну строку, пустую
+                            if (j == partOfText.Count)
+                            {
+                                nowText = "";
+                            }
+                            else
+                            {
+                                nowText = partOfText[j];
+                            }
                             shift++;
                             x++;
-                        }
-                        else
+                        } else
                         {
                             nowText += " " + partOfText[j];
                         }

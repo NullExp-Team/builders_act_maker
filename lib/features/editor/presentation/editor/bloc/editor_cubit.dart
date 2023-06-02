@@ -137,6 +137,51 @@ class EditorCubit extends Cubit<EditorState> {
     );
   }
 
+  void changeMultiLineField({
+    required int fieldIndex,
+    required String text,
+    required bool isNeedNumireate,
+  }) {
+    if (state is! EditorStateLoaded) {
+      return;
+    }
+    List<String> lines = text.split('\n');
+    if (text == '') {
+      lines = [];
+    }
+    // избавляемся от прошлой нумерации
+    lines = lines.map((e) {
+      final number = RegExp(r'(\d+)\.(\s?)').firstMatch(e);
+      if (number != null && number.start == 0) {
+        e = e.substring(number.end);
+      }
+      return e;
+    }).toList();
+
+    // соединяем всё в стринг
+    String multiLine = '';
+    for (int i = 0; i < lines.length; i++) {
+      // если нужно, нумеруем
+      if (isNeedNumireate) {
+        multiLine += '${i + 1}. ';
+      }
+      multiLine += '${lines[i]}\n';
+    }
+    if (multiLine != '') {
+      multiLine = multiLine.substring(0, multiLine.length - 1);
+    }
+
+    // меняем сам текст
+    ActData newAct =
+        _changeElement(loadedState.act, fieldIndex, multiLine, false);
+
+    emit(
+      loadedState.copyWith(
+        act: newAct,
+      ),
+    );
+  }
+
   void save() {
     if (state is! EditorStateLoaded) {
       return;
