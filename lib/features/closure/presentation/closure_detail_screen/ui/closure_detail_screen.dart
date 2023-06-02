@@ -49,7 +49,11 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
             return const Center(child: ProgressRing());
           case ClosureDetailStateData(:var closure):
             return ScaffoldPage(
-              header: NavigationHeader(routes: routes),
+              header: NavigationHeader(
+                routes: routes,
+                isDataHasChanges: () =>
+                    cubit.isClosureHasChanges(widget.closureId),
+              ),
               content: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Column(

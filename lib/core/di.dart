@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../features/closure/data/repository/closures_repository_hive_impl.dart';
 import '../features/closure/domain/closures_repository.dart';

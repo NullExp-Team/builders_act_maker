@@ -15,6 +15,17 @@ class EditorCubit extends Cubit<EditorState> {
 
   EditorStateLoaded get loadedState => state as EditorStateLoaded;
 
+  bool isActHasChanges(
+    int closureId,
+    int actId,
+  ) {
+    if (state is! EditorStateLoaded) {
+      return false;
+    }
+
+    return repository.loadAct(closureId, actId) != loadedState.act;
+  }
+
   void init(
     int closureId,
     int actId,

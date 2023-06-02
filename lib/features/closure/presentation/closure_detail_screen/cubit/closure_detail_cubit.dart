@@ -24,6 +24,14 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
   ClosureDetailStateData get loadedState => state as ClosureDetailStateData;
 
+  bool isClosureHasChanges(int closureId) {
+    if (state is! ClosureDetailStateData) {
+      return false;
+    }
+
+    return repository.loadClosure(closureId)! != loadedState.closure;
+  }
+
   void goToActEditor(int actId) {
     goRouter.go(
       ActEditorRoute(closureId: loadedState.closure.id, actId: actId).location,

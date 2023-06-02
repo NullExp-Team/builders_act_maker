@@ -36,7 +36,11 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
     final editorCubit = Di.get<EditorCubit>()
       ..init(widget.closureId, widget.actId);
     return ScaffoldPage(
-      header: NavigationHeader(routes: routes),
+      header: NavigationHeader(
+        routes: routes,
+        isDataHasChanges: () =>
+            editorCubit.isActHasChanges(widget.closureId, widget.actId),
+      ),
       content: BlocBuilder<DropDownMapCubit, DropDownMapState>(
         bloc: dropDownCubit,
         builder: (context, state) {
