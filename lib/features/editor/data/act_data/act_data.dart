@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:hive/hive.dart';
 
-import '../../core/utils.dart';
-import '../../features/editor/data/document_type/document_type.dart';
+import '../../../../core/utils.dart';
+import '../document_type/document_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../features/editor/data/field_type_container/document_types_fields_info_container.dart';
+import '../field_type_container/document_types_fields_info_container.dart';
 import '../field_data/field_data.dart';
 
 part 'act_data.freezed.dart';

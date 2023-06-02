@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../../models/act_data/act_data.dart';
+import '../../editor/data/act_data/act_data.dart';
 import '../../editor/data/drop_down_map_data/drop_down_map_data.dart';
 import '../data/closure/closure.dart';
 

@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
 import '../../../../core/utils.dart';
-import '../../../../models/act_data/act_data.dart';
+import '../../../editor/data/act_data/act_data.dart';
 
 part 'closure.freezed.dart';
 part 'closure.g.dart';

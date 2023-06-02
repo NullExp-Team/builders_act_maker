@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../../models/act_data/act_data.dart';
-import '../../../../models/field_data/field_data.dart';
+import '../../../editor/data/act_data/act_data.dart';
+import '../../../editor/data/field_data/field_data.dart';
 import '../../../editor/data/document_type/document_type.dart';
 import '../../../editor/data/drop_down_map_data/drop_down_map_data.dart';
 import '../../domain/closures_repository.dart';

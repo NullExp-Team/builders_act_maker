@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../../../core/di.dart';
 import '../../../../../../core/theme/theme_context_extension.dart';
-import '../../../../../../models/act_data/act_data.dart';
+import '../../../../../editor/data/act_data/act_data.dart';
 import '../../cubit/closure_detail_cubit.dart';
 
 class ActCard extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as m;
 
 import '../../../../../core/di.dart';
-import '../../../../../models/field_data/field_data.dart';
+import '../../../data/field_data/field_data.dart';
 import '../bloc/drop_down_map_cubit.dart';
 import '../../editor/bloc/editor_cubit.dart';
 

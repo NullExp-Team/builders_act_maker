@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
 import '../../../../../../core/di.dart';
-import '../../../../../../models/field_data/field_data.dart';
+import '../../../../data/field_data/field_data.dart';
 import '../../bloc/editor_cubit.dart';
 
 class TypedTextField extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../models/act_data/act_data.dart';
+import '../../../../editor/data/act_data/act_data.dart';
 import '../../../../../core/di.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../editor/data/document_type/document_type.dart';

@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/widgets/navigation_header.dart';
 import '../cubit/closure_detail_cubit.dart';
 import 'widgets/create_act_cart.dart';
-import 'widgets/message_box_button.dart';
+import '../../../../../core/widgets/message_box_button.dart';
 
 class ClosureDetailScreen extends StatefulWidget {
   final int closureId;

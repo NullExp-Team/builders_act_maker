@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/di.dart';
-import '../../../../../models/act_data/act_data.dart';
+import '../../../data/act_data/act_data.dart';
 import '../../../../closure/domain/closures_repository.dart';
 import '../../../../closure/presentation/closure_detail_screen/cubit/closure_detail_cubit.dart';
 
