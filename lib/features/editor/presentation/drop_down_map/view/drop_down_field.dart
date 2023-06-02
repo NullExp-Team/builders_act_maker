@@ -13,12 +13,16 @@ class DropDownField extends StatefulWidget {
     required this.field,
     required this.dependedMappedFields,
     required this.mapKey,
+    this.placeholderNew,
+    this.placeholderDepended,
   });
 
   final int index;
   final FieldData field;
   final List<int>? dependedMappedFields;
   final String mapKey;
+  final String? placeholderNew;
+  final String? placeholderDepended;
 
   @override
   State<DropDownField> createState() => _DropDownFieldState();
@@ -126,14 +130,16 @@ class _DropDownFieldState extends State<DropDownField> {
                           child: Column(
                             children: [
                               TextBox(
-                                placeholder: 'Новое значение',
+                                placeholder:
+                                    widget.placeholderNew ?? 'Новое значение',
                                 controller: firstController,
                                 onSubmitted: (text) =>
                                     textFocusNode.requestFocus(),
                               ),
                               TextBox(
                                 focusNode: textFocusNode,
-                                placeholder: 'Соответствующее',
+                                placeholder: widget.placeholderDepended ??
+                                    'Соответствующее',
                                 controller: secondController,
                                 onSubmitted: (text) => saveNewDropDownValue(),
                               ),

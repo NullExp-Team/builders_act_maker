@@ -58,12 +58,16 @@ class FieldsList extends StatelessWidget {
                           DropDownFieldType(
                             :final name,
                             :final dependedMappedFields,
+                            :final placeholderNew,
+                            :final placeholderDepended,
                           ) =>
                             DropDownField(
                               index: index,
                               field: field,
                               dependedMappedFields: dependedMappedFields,
                               mapKey: name,
+                              placeholderNew: placeholderNew,
+                              placeholderDepended: placeholderDepended,
                             ),
                           SpaceTextFieldType() => SpaceTextField(
                               index: index,

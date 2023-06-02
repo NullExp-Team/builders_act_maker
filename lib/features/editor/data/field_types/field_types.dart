@@ -10,11 +10,15 @@ class TextFieldType extends FieldType {
 
 class DropDownFieldType extends FieldType {
   final String name;
+  final String? placeholderNew;
+  final String? placeholderDepended;
   // аналогично массиву из TextFieldType, но текст проходит через map
   final List<int>? dependedMappedFields;
   const DropDownFieldType({
     required this.name,
     this.dependedMappedFields,
+    this.placeholderNew,
+    this.placeholderDepended,
   });
 }
 
