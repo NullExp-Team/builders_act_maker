@@ -87,6 +87,10 @@ namespace ActBuilder
             {
                 FieldData field = fields[i].Text;
                 (int x, int y) = fields[i].Coords;
+                if (x == 0 || y == 0)
+                {
+                    continue;
+                }
                 x += shift;
                 double widthOfSubPart = 0;
 
