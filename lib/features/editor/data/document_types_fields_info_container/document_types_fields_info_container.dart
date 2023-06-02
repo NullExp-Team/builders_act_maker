@@ -15,6 +15,7 @@ class FieldTypeContainer {
       _metaDataByType[type]?.types ?? [];
 
   // данные
+  // TODO: расписать бы как это всё работает
   static const Map<DocumentType, _TypeMetaData> _metaDataByType = {
     DocumentType.actOSR: _TypeMetaData(
       names: [
@@ -31,7 +32,6 @@ class FieldTypeContainer {
         '6. Работы выполнены в соответствии с (только рабочая документация)',
         '7. Разрешается производство последующих работ по',
         'Дополнительные сведения',
-        'Акт составлен в ',
         'Приложения',
       ],
       types: [
@@ -53,7 +53,6 @@ class FieldTypeContainer {
         TextFieldType(),
         TextFieldType(),
         TextFieldType(),
-        NumericFieldType(mainWord: 'экземпляр'),
         TextFieldType(),
       ],
     ),
@@ -71,8 +70,9 @@ class FieldTypeContainer {
         'Представитель лица, осуществляющего подготовку проектной документации',
         'Представитель лица, выполнившего работы, подлежащие освидетельствованию',
         'а также иные представители лиц, участвующих в освидетельствовании:',
-        // исполнитель
+        // исполнитель и экземпляры
         'Произвели осмотр работ, выполненных',
+        'Акт составлен в ',
         // подписанты
         'Представитель застройщика по вопросам строительного контроля',
         'Представитель лица, осуществляющего строительство',
@@ -94,8 +94,9 @@ class FieldTypeContainer {
         TextFieldType(),
         TextFieldType(),
         TextFieldType(),
-        // исполнитель
+        // исполнитель и экземпляры
         TextFieldType(),
+        NumericFieldType(mainWord: 'экземпляр'),
         // подписанты
         SpaceTextFieldType(),
         SpaceTextFieldType(),
