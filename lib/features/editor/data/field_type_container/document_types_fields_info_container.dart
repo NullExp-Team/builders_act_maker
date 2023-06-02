@@ -41,7 +41,7 @@ class FieldTypeContainer {
         'Работы выполнены в соответствии с (только рабочая документация)',
         'Разрешается производство последующих работ по',
         'Дополнительные сведения',
-        'Акт составлен в ',
+        //'Акт составлен в ',
         'Приложения',
       ],
       types: [
@@ -68,7 +68,7 @@ class FieldTypeContainer {
         TextFieldType(),
         TextFieldType(),
         TextFieldType(),
-        NumericFieldType(mainWord: 'экземпляр'),
+        //NumericFieldType(mainWord: 'экземпляр'),
         TextFieldType(),
       ],
     ),

@@ -226,9 +226,9 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     }
   }
 
-  void changePath(String? newPath) {
+  bool changePath(String? newPath) {
     if (state is! ClosureDetailStateData || newPath == null) {
-      return;
+      return false;
     }
 
     emit(
@@ -237,5 +237,6 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       ),
     );
     Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
+    return true;
   }
 }

@@ -9,13 +9,12 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
 import 'package:fluent_ui/fluent_ui.dart';
-// ignore: unused_import
-import 'package:flutter/material.dart' as m;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widgets/navigation_header.dart';
 import '../cubit/closure_detail_cubit.dart';
 import 'widgets/create_act_cart.dart';
+import 'widgets/message_box_button.dart';
 
 class ClosureDetailScreen extends StatefulWidget {
   final int closureId;
@@ -71,22 +70,28 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              Button(
+                              MessageBoxButton(
+                                succsessMessage: 'Файл создан!',
+                                failureMessage: 'Ошибка создания файла',
                                 child: const Text('Изменить путь'),
-                                onPressed: () async => cubit.changePath(
+                                callBack: () async => cubit.changePath(
                                   await fileCubit.choosePath(),
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Button(
+                              MessageBoxButton(
+                                succsessMessage: 'Открывается файл...',
+                                failureMessage: 'Файл не найден!',
                                 child: const Text('Открыть файл'),
-                                onPressed: () => fileCubit
+                                callBack: () => fileCubit
                                     .openFile(cubit.loadedState.closure),
                               ),
                               const SizedBox(width: 10),
-                              Button(
+                              MessageBoxButton(
+                                succsessMessage: 'Файл создан!',
+                                failureMessage: 'Ошибка создания файла',
                                 child: const Text('Сформировать файл'),
-                                onPressed: () => fileCubit
+                                callBack: () => fileCubit
                                     .makeFile(cubit.loadedState.closure),
                               ),
                               const Spacer(),

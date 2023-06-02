@@ -24,7 +24,7 @@ class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
     return selectedDirectory;
   }
 
-  int openFile(Closure closure) {
+  bool openFile(Closure closure) {
     final filePath = '${closure.path}\\${closure.name}.xlsx';
     final lib = DynamicLibrary.open(_pathToDll);
     Pointer<NativeFunction<Cfunc>> cFunc =
@@ -32,16 +32,14 @@ class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
     Dartfunc dartFunc = cFunc.asFunction<Dartfunc>();
 
     final result = dartFunc(filePath.toNativeUtf16());
-    if (result == 0) {
-      //norm;
-      return 0;
+    if (result.toDartString() == "0") {
+      return true;
     } else {
-      //error
-      return -1;
+      return false;
     }
   }
 
-  Future<int> makeFile(Closure closure) async {
+  Future<bool> makeFile(Closure closure) async {
     try {
       final lib = DynamicLibrary.open(_pathToDll);
       Pointer<NativeFunction<Cfunc>> cFunc =
@@ -52,20 +50,18 @@ class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
       final pointer = strText.toNativeUtf16();
       final result = dartFunc(pointer);
       if (result.toDartString() == '0') {
-        //norm;
-        return 0;
+        return true;
       } else {
-        //error
         if (kDebugMode) {
           print(result.toDartString());
         }
-        return -1;
+        return false;
       }
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      return -1;
+      return false;
     }
   }
 }
