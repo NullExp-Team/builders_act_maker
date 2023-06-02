@@ -58,6 +58,7 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
     emit(loadedState.copyWith(closure: newClosure));
+    goToActEditor(newAct.id);
   }
 
   void createRandomAct() {

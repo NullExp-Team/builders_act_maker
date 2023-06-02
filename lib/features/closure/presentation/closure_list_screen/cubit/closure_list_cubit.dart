@@ -47,10 +47,11 @@ class ClosureListCubit extends Cubit<ClosureListState> {
     emit(
       ClosureListState.data(
         closures: List.from(loadedState.closures)
-          ..add(Closure.newClosure(newIndex)),
+          ..insert(0, Closure.newClosure(newIndex)),
       ),
     );
     repository.saveClosures(loadedState.closures);
+    goToClosureDetail(loadedState.closures[0]);
   }
 
   void deleteClosure(Closure closure) {
