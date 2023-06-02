@@ -103,19 +103,17 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                                 callBack: () => fileCubit
                                     .openFile(cubit.loadedState.closure),
                               ),
-                            ],
-                          ),
-                          const SizedBox(height: 32),
-                          const InfoBar(
-                            title: Text('Справка'),
-                            content: Padding(
-                              padding: EdgeInsets.only(right: 6),
-                              child: Text(
-                                'Можно менять порядок элементов, зажимая и перетаскивая их.',
+                              const SizedBox(width: 10),
+                              MessageBoxButton(
+                                succsessMessage:
+                                    'Можно менять порядок элементов, зажимая и перетаскивая их.',
+                                child: const Icon(
+                                  FluentIcons.info,
+                                  size: 18,
+                                ),
+                                callBack: () => true,
                               ),
-                            ),
-                            severity: InfoBarSeverity.info,
-                            isLong: true,
+                            ],
                           ),
                         ],
                       ),
