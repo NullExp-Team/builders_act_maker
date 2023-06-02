@@ -26,3 +26,8 @@ class DuplicateFieldType extends FieldType {
 class SpaceTextFieldType extends FieldType {
   const SpaceTextFieldType();
 }
+
+class NumericFieldType extends FieldType {
+  final String mainWord;
+  const NumericFieldType({required this.mainWord});
+}

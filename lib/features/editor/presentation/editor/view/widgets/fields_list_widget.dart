@@ -4,6 +4,7 @@ import '../../../../../../core/di.dart';
 import '../../../../data/field_types/field_types.dart';
 import '../../bloc/editor_cubit.dart';
 import '../../../drop_down_map/view/drop_down_field.dart';
+import 'numeric_text_field.dart';
 import 'space_text_field.dart';
 import 'typed_text_field.dart';
 
@@ -67,6 +68,11 @@ class FieldsList extends StatelessWidget {
                           SpaceTextFieldType() => SpaceTextField(
                               index: index,
                               field: field,
+                            ),
+                          NumericFieldType(:final mainWord) => NumericTextField(
+                              index: index,
+                              field: field,
+                              mainWord: mainWord,
                             ),
                           DuplicateFieldType() => const SizedBox(),
                         },

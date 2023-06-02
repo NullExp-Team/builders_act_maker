@@ -21,11 +21,32 @@ class SpaceTextField extends StatefulWidget {
 class _SpaceTextFieldState extends State<SpaceTextField> {
   late TextEditingController textEditingController;
   late TextEditingController subTextEditingController;
+  late FocusNode firstFocusNode;
+  late FocusNode secondFocusNode;
   @override
   void initState() {
+    final bloc = Di.get<EditorCubit>();
     textEditingController = TextEditingController(text: widget.field.text);
     subTextEditingController = TextEditingController(
       text: widget.field.subText,
+    );
+    firstFocusNode = FocusNode();
+    secondFocusNode = FocusNode();
+    firstFocusNode.addListener(
+      () => !firstFocusNode.hasFocus
+          ? bloc.changeField(
+              fieldIndex: widget.index,
+              text: textEditingController.text,
+            )
+          : (),
+    );
+    secondFocusNode.addListener(
+      () => !secondFocusNode.hasFocus
+          ? bloc.changeSubField(
+              fieldIndex: widget.index,
+              subText: subTextEditingController.text,
+            )
+          : (),
     );
     super.initState();
   }
@@ -34,6 +55,8 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
   void dispose() {
     textEditingController.dispose();
     subTextEditingController.dispose();
+    firstFocusNode.dispose();
+    secondFocusNode.dispose();
     super.dispose();
   }
 
@@ -46,33 +69,27 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
     return Row(
       children: [
         Expanded(
-          child: Focus(
-            onFocusChange: (focus) => !focus
-                ? bloc.changeField(
-                    fieldIndex: widget.index,
-                    text: textEditingController.text,
-                  )
-                : (),
-            child: TextBox(
-              controller: textEditingController,
-            ),
+          child: TextBox(
+            focusNode: firstFocusNode,
+            controller: textEditingController,
+            onSubmitted: (_) {
+              firstFocusNode.requestFocus();
+              firstFocusNode.nextFocus();
+            },
           ),
         ),
         const SizedBox(
           width: 30,
         ),
         Expanded(
-          child: Focus(
-            onFocusChange: (focus) => !focus
-                ? bloc.changeSubField(
-                    fieldIndex: widget.index,
-                    subText: subTextEditingController.text,
-                  )
-                : (),
-            child: TextBox(
-              textAlign: TextAlign.right,
-              controller: subTextEditingController,
-            ),
+          child: TextBox(
+            focusNode: secondFocusNode,
+            textAlign: TextAlign.right,
+            controller: subTextEditingController,
+            onSubmitted: (_) {
+              secondFocusNode.requestFocus();
+              secondFocusNode.nextFocus();
+            },
           ),
         ),
       ],

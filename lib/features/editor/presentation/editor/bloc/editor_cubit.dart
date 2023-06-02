@@ -94,6 +94,38 @@ class EditorCubit extends Cubit<EditorState> {
     );
   }
 
+  void changeNumericField({
+    required int fieldIndex,
+    required String text,
+    required String mainWord,
+  }) {
+    if (state is! EditorStateLoaded) {
+      return;
+    }
+    // меняем сам текст
+    ActData newAct = _changeElement(loadedState.act, fieldIndex, text, false);
+
+    //работа с числом
+    if (int.tryParse(text) != null) {
+      final intText = int.parse(text);
+      if (intText > 0) {
+        if (intText == 1) {
+          newAct = _changeElement(newAct, fieldIndex, '-ом $mainWordе', true);
+        } else if (intText % 5 == 0) {
+          newAct = _changeElement(newAct, fieldIndex, '-ти $mainWordах', true);
+        } else {
+          newAct = _changeElement(newAct, fieldIndex, '-х $mainWordах', true);
+        }
+      }
+    }
+
+    emit(
+      loadedState.copyWith(
+        act: newAct,
+      ),
+    );
+  }
+
   void save() {
     if (state is! EditorStateLoaded) {
       return;
