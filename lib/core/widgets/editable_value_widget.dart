@@ -1,9 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as m;
 
+import 'message_box_button.dart';
+
 class EditableValueWidget extends StatefulWidget {
   final String value;
-  final Function onEditButtonPress;
+  final bool Function(String) onEditButtonPress;
   final bool isEditing;
   final double textSize;
   const EditableValueWidget({
@@ -54,10 +56,12 @@ class _EditableValueWidgetState extends State<EditableValueWidget> {
                 style: TextStyle(fontSize: widget.textSize),
               ),
         const SizedBox(width: 30),
-        Button(
-          onPressed: () {
+        MessageBoxButton(
+          failureMessage: 'Такое имя акта уже есть',
+          callBack: () {
             if (!widget.isEditing) focusNode.requestFocus();
-            widget.onEditButtonPress(controller.text);
+            bool isSuccess = widget.onEditButtonPress(controller.text);
+            return isSuccess;
           },
           child: Icon(
             widget.isEditing ? m.Icons.save : m.Icons.edit,

@@ -54,7 +54,8 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
                           EditableValueWidget(
                             value: actData.name,
                             isEditing: state.isNameEditing,
-                            onEditButtonPress: editorCubit.onNameEdit,
+                            onEditButtonPress: (newName) => editorCubit
+                                .onNameEdit(newName, widget.closureId),
                             textSize: 32,
                           ),
                           const Spacer(),

@@ -207,9 +207,9 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
   }
 
-  void onNameEdit(String? newName) {
+  bool onNameEdit(String? newName) {
     if (state is! ClosureDetailStateData) {
-      return;
+      return false;
     }
 
     if (loadedState.isNameEditing) {
@@ -224,6 +224,7 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     } else {
       emit(loadedState.copyWith(isNameEditing: !loadedState.isNameEditing));
     }
+    return true;
   }
 
   bool changePath(String? newPath) {

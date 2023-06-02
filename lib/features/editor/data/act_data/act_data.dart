@@ -48,7 +48,7 @@ extension ActDataFactory on ActData {
 
   static ActData create(DocumentType type, int newIndex) => ActData(
         id: newIndex,
-        name: 'Новый ${type.label.decapitalize()}',
+        name: 'Новый ${type.label.decapitalize()} $newIndex',
         type: type,
         fields: List.filled(
           FieldTypeContainer.getFieldsTypes(type).length,

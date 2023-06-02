@@ -149,12 +149,21 @@ class EditorCubit extends Cubit<EditorState> {
     );
   }
 
-  void onNameEdit(String? newName) {
+  bool onNameEdit(String? newName, int closureId) {
     if (state is! EditorStateLoaded) {
-      return;
+      return false;
     }
 
     if (loadedState.isNameEditing) {
+      //проверяем имя на уникальность, так как этого требует эксель
+      final isHasNewName = repository.loadClosure(closureId)!.acts.any(
+            (element) =>
+                element.id != loadedState.act.id && element.name == newName,
+          );
+      if (isHasNewName) {
+        return false;
+      }
+
       emit(
         loadedState.copyWith(
           isNameEditing: !loadedState.isNameEditing,
@@ -164,5 +173,7 @@ class EditorCubit extends Cubit<EditorState> {
     } else {
       emit(loadedState.copyWith(isNameEditing: !loadedState.isNameEditing));
     }
+
+    return true;
   }
 }
