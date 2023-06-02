@@ -54,6 +54,27 @@ class ClosureListCubit extends Cubit<ClosureListState> {
     goToClosureDetail(loadedState.closures[0]);
   }
 
+  void copyClosure(Closure closure) {
+    if (state is! ClosureListStateData) {
+      return;
+    }
+
+    int newIndex = 1 +
+        loadedState.closures.fold(
+          0,
+          ((previousValue, element) => max(previousValue, element.id)),
+        );
+
+    emit(
+      ClosureListState.data(
+        closures: List.from(loadedState.closures)
+          ..insert(0, closure.copyWith(id: newIndex)),
+      ),
+    );
+    repository.saveClosures(loadedState.closures);
+    goToClosureDetail(loadedState.closures[0]);
+  }
+
   void deleteClosure(Closure closure) {
     if (state is! ClosureListStateData) {
       return;

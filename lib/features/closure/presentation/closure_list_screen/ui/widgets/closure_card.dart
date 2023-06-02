@@ -43,38 +43,46 @@ class ClosureCard extends StatelessWidget {
                 ),
               ],
             ),
-            FlyoutTarget(
-              controller: flyoutController,
-              child: IconButton(
-                icon: const Icon(FluentIcons.delete),
-                onPressed: () {
-                  flyoutController.showFlyout(
-                    builder: (context) {
-                      return FlyoutContent(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              'Вы уверены, что хотите удалить это закрытие?',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(FluentIcons.duplicate_row),
+                  onPressed: () => cubit.copyClosure(closure),
+                ),
+                FlyoutTarget(
+                  controller: flyoutController,
+                  child: IconButton(
+                    icon: const Icon(FluentIcons.delete),
+                    onPressed: () {
+                      flyoutController.showFlyout(
+                        builder: (context) {
+                          return FlyoutContent(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'Вы уверены, что хотите удалить это закрытие?',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 12.0),
+                                Button(
+                                  onPressed: () {
+                                    cubit.deleteClosure(closure);
+                                    Flyout.of(context).close();
+                                  },
+                                  child: const Text('Да, удалить закрытие'),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 12.0),
-                            Button(
-                              onPressed: () {
-                                cubit.deleteClosure(closure);
-                                Flyout.of(context).close();
-                              },
-                              child: const Text('Да, удалить закрытие'),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       );
                     },
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
