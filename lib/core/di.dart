@@ -22,7 +22,8 @@ abstract final class Di {
   static Future<void> initialize() async {
     _getIt.registerSingleton(GoRouter(routes: $appRoutes));
 
-    Directory dir = await getTemporaryDirectory();
+    //сохранения лежат в одной папке с самой программой
+    Directory dir = Directory('saves');
     Hive.init(dir.path);
 
     ClosuresRepository localRepo = ClosuresRepositoryHiveImpl();
