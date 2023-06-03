@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/di.dart';
 import '../../../../../../core/theme/theme_context_extension.dart';
 import '../../../../../editor/data/act_data/act_data.dart';
 import '../../cubit/closure_detail_cubit.dart';
@@ -14,7 +14,7 @@ class ActCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final flyoutController = FlyoutController();
 
-    final cubit = Di.get<ClosureDetailCubit>();
+    final cubit = context.read<ClosureDetailCubit>();
 
     return Button(
       onPressed: () => cubit.goToActEditor(act.id),

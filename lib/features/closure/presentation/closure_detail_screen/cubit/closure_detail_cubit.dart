@@ -24,6 +24,62 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
   ClosureDetailStateData get loadedState => state as ClosureDetailStateData;
 
+  void setClosure(int closureId) {
+    final a = repository.getClosureListenable();
+    if (state is ClosureDetailStateData) {
+      endSub();
+    }
+    final closure = repository.loadClosure(closureId);
+
+    if (closure == null) {
+      emit(
+        ClosureDetailState.error(
+          message: 'Закрытие не найдено',
+          stackTrace: StackTrace.current,
+        ),
+      );
+    } else {
+      emit(
+        ClosureDetailState.data(
+          closure: closure,
+          isNameEditing: false,
+        ),
+      );
+    }
+
+    a.addListener(_onChanges);
+  }
+
+  void endSub() {
+    final a = repository.getClosureListenable();
+    a.removeListener(_onChanges);
+  }
+
+  void _onChanges() {
+    final closure = state.maybeWhen(
+      data: (closure, isNameChanging) => closure,
+      orElse: () => null,
+    );
+    if (closure == null) return;
+
+    final newClosure = repository.loadClosure(loadedState.closure.id);
+    if (newClosure == null) {
+      emit(
+        ClosureDetailState.error(
+          message: 'Закрытие не найдено',
+          stackTrace: StackTrace.current,
+        ),
+      );
+      return;
+    }
+
+    emit(
+      loadedState.copyWith(
+        closure: newClosure,
+      ),
+    );
+  }
+
   bool isClosureHasChanges(int closureId) {
     if (state is! ClosureDetailStateData) {
       return false;
@@ -132,88 +188,6 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     final newClosure = closure.copyWith(acts: newItems);
     Di.get<ClosureListCubit>().changeClosure(newClosure);
     emit(loadedState.copyWith(closure: newClosure));
-  }
-
-  void setClosure(int closureId) {
-    final a = repository.getClosureListenable();
-    if (state is ClosureDetailStateData) {
-      endSub();
-    }
-    final closure = repository.loadClosure(closureId);
-
-    if (closure == null) {
-      emit(
-        ClosureDetailState.error(
-          message: 'Закрытие не найдено',
-          stackTrace: StackTrace.current,
-        ),
-      );
-    } else {
-      emit(
-        ClosureDetailState.data(
-          closure: closure,
-          isNameEditing: false,
-        ),
-      );
-    }
-
-    a.addListener(_onChanges);
-  }
-
-  void endSub() {
-    final a = repository.getClosureListenable();
-    a.removeListener(_onChanges);
-  }
-
-  void _onChanges() {
-    final closure = state.maybeWhen(
-      data: (closure, isNameChanging) => closure,
-      orElse: () => null,
-    );
-    if (closure == null) return;
-
-    final newClosure = repository.loadClosure(loadedState.closure.id);
-    if (newClosure == null) {
-      emit(
-        ClosureDetailState.error(
-          message: 'Закрытие не найдено',
-          stackTrace: StackTrace.current,
-        ),
-      );
-      return;
-    }
-
-    emit(
-      loadedState.copyWith(
-        closure: closure,
-      ),
-    );
-  }
-
-  //TODO: функция для вызова её из кубита редактора. Временное решение
-  void saveChanges(ActData act) {
-    if (state is! ClosureDetailStateData) {
-      return;
-    }
-    if (act.type == DocumentType.commonInfo) {
-      emit(
-        loadedState.copyWith(
-          closure: loadedState.closure.copyWith(commonInfo: act),
-        ),
-      );
-    } else {
-      int indexOfChanged = loadedState.closure.acts
-          .indexWhere((element) => element.id == act.id);
-      emit(
-        loadedState.copyWith(
-          closure: loadedState.closure.copyWith(
-            acts: List.from(loadedState.closure.acts)..[indexOfChanged] = act,
-          ),
-        ),
-      );
-    }
-
-    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
   }
 
   bool onNameEdit(String? newName) {

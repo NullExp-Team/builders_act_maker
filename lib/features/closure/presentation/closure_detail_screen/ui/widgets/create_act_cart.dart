@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/di.dart';
 import '../../../../../editor/data/document_type/document_type.dart';
 import '../../cubit/closure_detail_cubit.dart';
 
@@ -12,7 +12,7 @@ class CreateActCart extends StatelessWidget {
   Widget build(BuildContext context) {
     final flyoutController = FlyoutController();
 
-    final cubit = Di.get<ClosureDetailCubit>();
+    final cubit = context.read<ClosureDetailCubit>();
 
     return FlyoutTarget(
       controller: flyoutController,

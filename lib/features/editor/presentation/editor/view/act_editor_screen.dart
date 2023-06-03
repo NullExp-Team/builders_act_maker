@@ -62,7 +62,7 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
                               Button(
                                 child: const Text('Сохранить изменения'),
                                 onPressed: () {
-                                  bloc.save();
+                                  bloc.save(widget.closureId);
                                   goRouter.pop();
                                 },
                               ),

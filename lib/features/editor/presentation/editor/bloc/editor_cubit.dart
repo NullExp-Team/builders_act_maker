@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../core/di.dart';
 import '../../../data/act_data/act_data.dart';
 import '../../../../closure/domain/closures_repository.dart';
-import '../../../../closure/presentation/closure_detail_screen/cubit/closure_detail_cubit.dart';
 
 part 'editor_state.dart';
 part 'editor_cubit.freezed.dart';
@@ -182,12 +180,12 @@ class EditorCubit extends Cubit<EditorState> {
     );
   }
 
-  void save() {
+  void save(int closureId) {
     if (state is! EditorStateLoaded) {
       return;
     }
 
-    Di.get<ClosureDetailCubit>().saveChanges(loadedState.act);
+    repository.saveChangedAct(closureId, loadedState.act);
   }
 
   ActData _changeElement(

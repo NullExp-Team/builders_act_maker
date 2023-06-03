@@ -64,6 +64,29 @@ class ClosuresRepositoryHiveImpl implements ClosuresRepository {
   }
 
   @override
+  void saveChangedAct(int idClosure, ActData act) {
+    final closures = loadClosures();
+    final indexOfChangedClosure =
+        closures.indexWhere((element) => element.id == idClosure);
+    final changedClosure = closures[indexOfChangedClosure];
+
+    List<Closure> newClosures;
+    if (act.type == DocumentType.commonInfo) {
+      newClosures = List<Closure>.from(closures)
+        ..[indexOfChangedClosure] = changedClosure.copyWith(commonInfo: act);
+    } else {
+      int indexOfChangedAct =
+          changedClosure.acts.indexWhere((element) => element.id == act.id);
+      newClosures = List<Closure>.from(closures)
+        ..[indexOfChangedClosure] = changedClosure.copyWith(
+          acts: List<ActData>.from(changedClosure.acts)
+            ..[indexOfChangedAct] = act,
+        );
+    }
+    saveClosures(newClosures);
+  }
+
+  @override
   Closure? loadClosure(int id) {
     final list =
         List<Closure>.from(Hive.box(closuresBoxName).get(closuresBoxListKey))
