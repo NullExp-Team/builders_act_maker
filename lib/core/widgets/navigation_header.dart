@@ -9,8 +9,11 @@ class NavigationHeader extends StatefulWidget {
   final List<GoRoute> routes;
   final Function? isDataHasChanges;
 
-  const NavigationHeader(
-      {super.key, required this.routes, this.isDataHasChanges});
+  const NavigationHeader({
+    super.key,
+    required this.routes,
+    this.isDataHasChanges,
+  });
 
   @override
   State<NavigationHeader> createState() => _NavigationHeaderState();

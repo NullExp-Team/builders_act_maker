@@ -14,8 +14,12 @@ class FieldTypeContainer {
   static List<FieldType> getFieldsTypes(DocumentType type) =>
       _metaDataByType[type]?.types ?? [];
 
-  // данные
-  // TODO: расписать бы как это всё работает
+  // Данные типа документов.
+  // Представляют собой упорядоченный список отображаемых на экране редакторв имён,
+  // типов ввода полей и координат ячейки для записи в документ.
+  // Работа с данными полями построена так, что в каждый момент времени в ActData записана готовая
+  // к обработке информация.
+  // В код с# из flutter передаются лишь данные полей, а координаты полей уже находятся там
   static const Map<DocumentType, _TypeMetaData> _metaDataByType = {
     DocumentType.actOSR: _TypeMetaData(
       names: [
