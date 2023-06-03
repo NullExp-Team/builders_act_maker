@@ -4,10 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import 'core/di.dart';
 import 'features/closure/presentation/closure_list_screen/cubit/closure_list_cubit.dart';
-import 'features/editor/data/act_data/act_data.dart';
-import 'features/closure/data/closure/closure.dart';
-import 'features/editor/data/document_type/document_type.dart';
-import 'features/editor/data/field_data/field_data.dart';
 
 void main() async {
   await Di.initialize();
@@ -22,90 +18,6 @@ class MainApp extends StatelessWidget {
     final color = Colors.blue;
 
     final goRouter = Di.get<GoRouter>();
-
-    final closure = Closure(
-      id: 0,
-      name: 'lol',
-      path: 'kek',
-      commonInfo: ActData(
-        id: 1,
-        name: 'Общая информация',
-        type: DocumentType.commonInfo,
-        fields: [
-          FieldData(
-            text: 'rar',
-            hasSpace: true,
-            subText: null,
-          ),
-          FieldData(
-            text: 'tat',
-            hasSpace: true,
-            subText: 'hah',
-          ),
-          FieldData(
-            text: 'rar',
-            hasSpace: true,
-            subText: null,
-          ),
-          FieldData(
-            text: 'tat',
-            hasSpace: true,
-            subText: 'hah',
-          ),
-        ],
-      ),
-      acts: [
-        ActData(
-          id: 2,
-          name: 'super',
-          type: DocumentType.actOSR,
-          fields: [
-            FieldData(
-              text: 'rar',
-              hasSpace: false,
-              subText: null,
-            ),
-            FieldData(
-              text: 'tat',
-              hasSpace: true,
-              subText: 'hah',
-            ),
-            FieldData(
-              text: 'tat',
-              hasSpace: false,
-              subText: 'hah',
-            ),
-            FieldData(
-              text: 'tat',
-              hasSpace: false,
-              subText: 'hah',
-            ),
-            FieldData(
-              text: 'tat',
-              hasSpace: true,
-              subText: 'hah',
-            ),
-          ],
-        ),
-        ActData(
-          id: 3,
-          name: 'repus',
-          type: DocumentType.actOSR,
-          fields: [
-            FieldData(
-              text: 'tat',
-              hasSpace: false,
-              subText: null,
-            ),
-            FieldData(
-              text: 'rar',
-              hasSpace: true,
-              subText: 'hah',
-            ),
-          ],
-        ),
-      ],
-    );
 
     return FluentApp.router(
       debugShowCheckedModeBanner: false,
@@ -130,7 +42,8 @@ class MainApp extends StatelessWidget {
       builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => Di.get<ClosureListCubit>(),
+            create: (context) =>
+                ClosureListCubit(goRouter: Di.get(), repository: Di.get()),
           ),
         ],
         child: child!,

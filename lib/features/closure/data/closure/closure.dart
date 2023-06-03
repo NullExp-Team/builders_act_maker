@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
-import '../../../../core/utils.dart';
 import '../../../editor/data/act_data/act_data.dart';
 
 part 'closure.freezed.dart';
@@ -22,7 +19,6 @@ class Closure with _$Closure {
 
   factory Closure.fromJson(Map<String, dynamic> json) =>
       _$ClosureFromJson(json);
-  factory Closure.random() => ClosureFactory.random();
 
   factory Closure.newClosure(int id) => ClosureFactory.newClosure(id);
 }
@@ -35,26 +31,6 @@ extension ClosureFactory on Closure {
       path: 'path',
       commonInfo: ActData.commonInfo(),
       acts: [],
-    );
-  }
-
-  static Closure random() {
-    final random = Random();
-    final id = uuid.v4().hashCode;
-    final name = 'Closure $id';
-    final path = 'Path $id';
-    final acts = List.generate(
-      random.nextInt(10),
-      (index) => ActData.random(),
-    );
-    final commonInfo = ActData.random();
-
-    return Closure(
-      id: id,
-      name: name,
-      path: path,
-      acts: acts,
-      commonInfo: commonInfo,
     );
   }
 }

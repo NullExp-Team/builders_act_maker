@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../editor/data/document_type/document_type.dart';
@@ -26,14 +25,6 @@ class CreateActCart extends StatelessWidget {
                     text: Text(type.label),
                     onPressed: () {
                       cubit.createAct(type);
-                      Flyout.of(context).close();
-                    },
-                  ),
-                if (kDebugMode)
-                  MenuFlyoutItem(
-                    text: const Text('Random (debug only)'),
-                    onPressed: () {
-                      cubit.createRandomAct();
                       Flyout.of(context).close();
                     },
                   ),

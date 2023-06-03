@@ -9,6 +9,8 @@ abstract class ClosuresRepository {
 
   void saveClosures(List<Closure> closures);
 
+  void saveClosure(Closure closures);
+
   void saveChangedAct(int idClosure, ActData act);
 
   List<Closure> loadClosures();

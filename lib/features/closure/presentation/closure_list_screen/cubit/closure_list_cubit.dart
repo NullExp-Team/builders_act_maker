@@ -21,11 +21,15 @@ class ClosureListCubit extends Cubit<ClosureListState> {
   ClosureListStateData get loadedState => state as ClosureListStateData;
 
   Future<void> loadClosures() async {
-    emit(const ClosureListState.loading());
-
+    // загружаем данные
     final closures = repository.loadClosures();
-
     emit(ClosureListState.data(closures: closures));
+
+    //подписываемся на изменения. Отписку не реализуем, ибо экземпляр кубита единственный на всё приложение
+    final valueListenable = repository.getClosureListenable();
+    valueListenable.addListener(
+      () => emit(loadedState.copyWith(closures: repository.loadClosures())),
+    );
   }
 
   void goToClosureDetail(Closure closure) {
@@ -85,21 +89,5 @@ class ClosureListCubit extends Cubit<ClosureListState> {
       ),
     );
     repository.saveClosures(loadedState.closures);
-  }
-
-  void changeClosure(Closure closure) {
-    if (state is! ClosureListStateData) {
-      return;
-    }
-    int indexOfChanged =
-        loadedState.closures.indexWhere((element) => element.id == closure.id);
-    if (indexOfChanged != -1) {
-      emit(
-        ClosureListState.data(
-          closures: List.from(loadedState.closures)..[indexOfChanged] = closure,
-        ),
-      );
-      repository.saveClosures(loadedState.closures);
-    }
   }
 }

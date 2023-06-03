@@ -8,8 +8,6 @@ import 'routing/routes.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/closure/presentation/closure_list_screen/cubit/closure_list_cubit.dart';
-
 abstract final class Di {
   static final _getIt = GetIt.instance;
 
@@ -25,12 +23,5 @@ abstract final class Di {
     ClosuresRepository localRepo = ClosuresRepositoryHiveImpl();
     await localRepo.initRepository();
     _getIt.registerSingleton<ClosuresRepository>(localRepo);
-
-    _getIt.registerSingleton(
-      ClosureListCubit(
-        goRouter: get(),
-        repository: get(),
-      ),
-    );
   }
 }

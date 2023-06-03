@@ -18,17 +18,13 @@ import '../../../../../core/widgets/message_box_button.dart';
 
 class ClosureDetailScreen extends StatefulWidget {
   final int closureId;
-
-  const ClosureDetailScreen({
-    super.key,
-    required this.closureId,
-  });
+  const ClosureDetailScreen({super.key, required this.closureId});
 
   @override
-  State<ClosureDetailScreen> createState() => _ClosureDetailScreenState();
+  State<ClosureDetailScreen> createState() => ClosureDetailScreenState();
 }
 
-class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
+class ClosureDetailScreenState extends State<ClosureDetailScreen> {
   final gridKey = GlobalKey();
 
   @override
@@ -38,15 +34,15 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
     final routes = goRouter.routerDelegate.currentConfiguration.matches
         .map((e) => e.route as GoRoute)
         .toList();
-    final fileCubit = FileFfiManagerCubit();
 
     return BlocProvider(
       create: (context) =>
           ClosureDetailCubit(goRouter: Di.get(), repository: Di.get())
-            ..setClosure(widget.closureId),
+            ..subscribeClosure(widget.closureId),
       child: BlocBuilder<ClosureDetailCubit, ClosureDetailState>(
         builder: (context, state) {
           final cubit = context.read<ClosureDetailCubit>();
+          final fileCubit = FileFfiManagerCubit();
           switch (state) {
             case ClosureDetailStateInitial() || ClosureDetailStateLoading():
               return const Center(child: ProgressRing());
@@ -54,8 +50,7 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
               return ScaffoldPage(
                 header: NavigationHeader(
                   routes: routes,
-                  isDataHasChanges: () =>
-                      cubit.isClosureHasChanges(widget.closureId),
+                  isDataHasChanges: () => cubit.isClosureHasChanges(),
                 ),
                 content: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -169,7 +164,6 @@ class _ClosureDetailScreenState extends State<ClosureDetailScreen> {
                   ),
                 ),
               );
-
             case ClosureDetailStateError():
               return const Center(child: Text('Ошибка'));
           }

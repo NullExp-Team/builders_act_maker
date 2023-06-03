@@ -5,12 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../editor/data/act_data/act_data.dart';
-import '../../../../../core/di.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../editor/data/document_type/document_type.dart';
 import '../../../data/closure/closure.dart';
 import '../../../domain/closures_repository.dart';
-import '../../closure_list_screen/cubit/closure_list_cubit.dart';
 
 part 'closure_detail_state.dart';
 part 'closure_detail_cubit.freezed.dart';
@@ -24,11 +22,8 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
   ClosureDetailStateData get loadedState => state as ClosureDetailStateData;
 
-  void setClosure(int closureId) {
-    final a = repository.getClosureListenable();
-    if (state is ClosureDetailStateData) {
-      endSub();
-    }
+  void subscribeClosure(int closureId) {
+    final valueListenable = repository.getClosureListenable();
     final closure = repository.loadClosure(closureId);
 
     if (closure == null) {
@@ -47,12 +42,14 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       );
     }
 
-    a.addListener(_onChanges);
+    valueListenable.addListener(_onChanges);
   }
 
-  void endSub() {
-    final a = repository.getClosureListenable();
-    a.removeListener(_onChanges);
+  @override
+  Future<void> close() async {
+    final valueListenable = repository.getClosureListenable();
+    valueListenable.removeListener(_onChanges);
+    await super.close();
   }
 
   void _onChanges() {
@@ -80,18 +77,24 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     );
   }
 
-  bool isClosureHasChanges(int closureId) {
+  bool isClosureHasChanges() {
     if (state is! ClosureDetailStateData) {
       return false;
     }
 
-    return repository.loadClosure(closureId)! != loadedState.closure;
+    return repository.loadClosure(loadedState.closure.id)! !=
+        loadedState.closure;
   }
 
   void goToActEditor(int actId) {
     goRouter.go(
       ActEditorRoute(closureId: loadedState.closure.id, actId: actId).location,
     );
+  }
+
+  void _saveClosure(Closure newClosure) {
+    emit(loadedState.copyWith(closure: newClosure));
+    repository.saveClosure(newClosure);
   }
 
   void createAct(DocumentType type) {
@@ -106,31 +109,14 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
           0,
           ((previousValue, element) => max(previousValue, element.id)),
         );
+
     final newAct = ActData.create(type, newIndex);
-
     final newItems = [...closure.acts];
     newItems.add(newAct);
 
-    final newClosure = closure.copyWith(acts: newItems);
-    Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(loadedState.copyWith(closure: newClosure));
+    final newClosure = loadedState.closure.copyWith(acts: newItems);
+    _saveClosure(newClosure);
     goToActEditor(newAct.id);
-  }
-
-  void createRandomAct() {
-    final closure = state.maybeWhen(
-      data: (closure, isNameChanging) => closure,
-      orElse: () => null,
-    );
-    if (closure == null) return;
-
-    final newItems = [...closure.acts];
-    final newAct = ActData.random();
-    newItems.add(newAct);
-
-    final newClosure = closure.copyWith(acts: newItems);
-    Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(loadedState.copyWith(closure: newClosure));
   }
 
   void duplicateAct(ActData act) {
@@ -152,9 +138,8 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
     final indexForInsert = newItems.indexOf(act) + 1;
     newItems.insert(indexForInsert, actClone);
 
-    final newClosure = closure.copyWith(acts: newItems);
-    Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(loadedState.copyWith(closure: newClosure));
+    final newClosure = loadedState.closure.copyWith(acts: newItems);
+    _saveClosure(newClosure);
   }
 
   void deleteAct(ActData act) {
@@ -166,9 +151,8 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
 
     final newItems = closure.acts.where((element) => element != act).toList();
 
-    final newClosure = closure.copyWith(acts: newItems);
-    Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(loadedState.copyWith(closure: newClosure));
+    final newClosure = loadedState.closure.copyWith(acts: newItems);
+    _saveClosure(newClosure);
   }
 
   void reorderGrid(Iterable<({int oldIndex, int newIndex})> orderUpdates) {
@@ -185,9 +169,8 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       newItems.insert(update.newIndex, item);
     }
 
-    final newClosure = closure.copyWith(acts: newItems);
-    Di.get<ClosureListCubit>().changeClosure(newClosure);
-    emit(loadedState.copyWith(closure: newClosure));
+    final newClosure = loadedState.closure.copyWith(acts: newItems);
+    _saveClosure(newClosure);
   }
 
   bool onNameEdit(String? newName) {
@@ -199,11 +182,12 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       emit(
         loadedState.copyWith(
           isNameEditing: !loadedState.isNameEditing,
-          closure: loadedState.closure
-              .copyWith(name: newName ?? loadedState.closure.name),
         ),
       );
-      Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
+
+      final newClosure = loadedState.closure
+          .copyWith(name: newName ?? loadedState.closure.name);
+      _saveClosure(newClosure);
     } else {
       emit(loadedState.copyWith(isNameEditing: !loadedState.isNameEditing));
     }
@@ -215,12 +199,8 @@ class ClosureDetailCubit extends Cubit<ClosureDetailState> {
       return false;
     }
 
-    emit(
-      loadedState.copyWith(
-        closure: loadedState.closure.copyWith(path: newPath),
-      ),
-    );
-    Di.get<ClosureListCubit>().changeClosure(loadedState.closure);
+    final newClosure = loadedState.closure.copyWith(path: newPath);
+    _saveClosure(newClosure);
     return true;
   }
 }
