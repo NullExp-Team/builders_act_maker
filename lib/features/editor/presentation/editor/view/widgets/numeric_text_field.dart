@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/di.dart';
 import '../../../../data/field_data/field_data.dart';
@@ -29,11 +30,11 @@ class _NumericTextFieldState extends State<NumericTextField> {
     focusNode = FocusNode();
     focusNode.addListener(
       () => !focusNode.hasFocus
-          ? Di.get<EditorCubit>().changeNumericField(
-              fieldIndex: widget.index,
-              text: textEditingController.text,
-              mainWord: widget.mainWord,
-            )
+          ? context.read<EditorCubit>().changeNumericField(
+                fieldIndex: widget.index,
+                text: textEditingController.text,
+                mainWord: widget.mainWord,
+              )
           : (),
     );
     super.initState();

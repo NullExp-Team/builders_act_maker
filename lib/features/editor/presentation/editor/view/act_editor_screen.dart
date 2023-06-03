@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/di.dart';
 import '../../../../../core/widgets/navigation_header.dart';
 import '../../../data/document_types_fields_info_container/document_types_fields_info_container.dart';
-import '../../drop_down_map/bloc/drop_down_map_cubit.dart';
 import '../bloc/editor_cubit.dart';
 import '../../../../../core/widgets/editable_value_widget.dart';
 import 'widgets/fields_list_widget.dart';
@@ -32,62 +31,55 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
         .map((e) => e.route as GoRoute)
         .toList();
 
-    final dropDownCubit = Di.get<DropDownMapCubit>()..loadMap();
-    final editorCubit = Di.get<EditorCubit>()
-      ..init(widget.closureId, widget.actId);
-    return ScaffoldPage(
-      header: NavigationHeader(
-        routes: routes,
-        isDataHasChanges: () =>
-            editorCubit.isActHasChanges(widget.closureId, widget.actId),
-      ),
-      content: BlocBuilder<DropDownMapCubit, DropDownMapState>(
-        bloc: dropDownCubit,
+    return BlocProvider(
+      create: (context) => EditorCubit(repository: Di.get())
+        ..init(widget.closureId, widget.actId),
+      child: BlocBuilder<EditorCubit, EditorState>(
         builder: (context, state) {
-          return BlocBuilder<EditorCubit, EditorState>(
-            bloc: editorCubit,
-            builder: (context, state) {
-              if (state is EditorStateLoaded) {
-                final actData = state.act;
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        children: [
-                          EditableValueWidget(
-                            value: actData.name,
-                            isEditing: state.isNameEditing,
-                            onEditButtonPress: (newName) => editorCubit
-                                .onNameEdit(newName, widget.closureId),
-                            textSize: 32,
+          final bloc = context.read<EditorCubit>();
+          return ScaffoldPage(
+              header: NavigationHeader(
+                routes: routes,
+                isDataHasChanges: () => context
+                    .read<EditorCubit>()
+                    .isActHasChanges(widget.closureId, widget.actId),
+              ),
+              content: state is EditorStateLoaded
+                  ? Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Row(
+                            children: [
+                              EditableValueWidget(
+                                value: state.act.name,
+                                isEditing: state.isNameEditing,
+                                onEditButtonPress: (newName) =>
+                                    bloc.onNameEdit(newName, widget.closureId),
+                                textSize: 32,
+                              ),
+                              const Spacer(),
+                              Button(
+                                child: const Text('Сохранить изменения'),
+                                onPressed: () {
+                                  bloc.save();
+                                  goRouter.pop();
+                                },
+                              ),
+                            ],
                           ),
-                          const Spacer(),
-                          Button(
-                            child: const Text('Сохранить изменения'),
-                            onPressed: () {
-                              Di.get<EditorCubit>().save();
-                              goRouter.pop();
-                            },
+                        ),
+                        Expanded(
+                          child: FieldsList(
+                            fieldsTypes: FieldTypeContainer.getFieldsTypes(
+                                state.act.type),
+                            fieldsNames: FieldTypeContainer.getFieldsNames(
+                                state.act.type),
                           ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: FieldsList(
-                        fieldsTypes:
-                            FieldTypeContainer.getFieldsTypes(actData.type),
-                        fieldsNames:
-                            FieldTypeContainer.getFieldsNames(actData.type),
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return const ProgressRing();
-              }
-            },
-          );
+                        ),
+                      ],
+                    )
+                  : const ProgressRing());
         },
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/di.dart';
 import '../../../../data/field_data/field_data.dart';
 import '../../bloc/editor_cubit.dart';
 
@@ -25,7 +25,7 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
   late FocusNode secondFocusNode;
   @override
   void initState() {
-    final bloc = Di.get<EditorCubit>();
+    final bloc = context.read<EditorCubit>();
     textEditingController = TextEditingController(text: widget.field.text);
     subTextEditingController = TextEditingController(
       text: widget.field.subText,
@@ -62,7 +62,7 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Di.get<EditorCubit>();
+    final bloc = context.read<EditorCubit>();
     textEditingController.text = bloc.loadedState.act.fields[widget.index].text;
     subTextEditingController.text =
         bloc.loadedState.act.fields[widget.index].subText ?? '';

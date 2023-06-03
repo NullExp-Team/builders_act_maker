@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/di.dart';
 import '../../../../data/field_data/field_data.dart';
@@ -29,11 +30,11 @@ class _TypedTextFieldState extends State<TypedTextField> {
     focusNode = FocusNode();
     focusNode.addListener(
       () => !focusNode.hasFocus
-          ? Di.get<EditorCubit>().changeField(
-              fieldIndex: widget.index,
-              text: textEditingController.text,
-              dependedFields: widget.dependedFields,
-            )
+          ? context.read<EditorCubit>().changeField(
+                fieldIndex: widget.index,
+                text: textEditingController.text,
+                dependedFields: widget.dependedFields,
+              )
           : (),
     );
     super.initState();

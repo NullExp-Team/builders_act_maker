@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/di.dart';
 import '../../../../data/field_types/field_types.dart';
 import '../../bloc/editor_cubit.dart';
 import '../../../drop_down_map/view/drop_down_field.dart';
@@ -33,8 +33,11 @@ class FieldsList extends StatelessWidget {
               for (int index = 0; index < fieldsNames.length; index++)
                 Builder(
                   builder: (context) {
-                    final field =
-                        Di.get<EditorCubit>().loadedState.act.fields[index];
+                    final field = context
+                        .read<EditorCubit>()
+                        .loadedState
+                        .act
+                        .fields[index];
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

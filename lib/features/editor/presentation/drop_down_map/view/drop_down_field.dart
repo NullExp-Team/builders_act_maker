@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as m;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/di.dart';
 import '../../../data/field_data/field_data.dart';
@@ -53,113 +54,122 @@ class _DropDownFieldState extends State<DropDownField> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Di.get<DropDownMapCubit>();
-    final state = bloc.state;
     const width = 250.0;
-    final editorBloc = Di.get<EditorCubit>();
+    return BlocProvider(
+      create: (context) => DropDownMapCubit(repository: Di.get())..loadMap(),
+      child: BlocBuilder<DropDownMapCubit, DropDownMapState>(
+        builder: (context, state) {
+          switch (state) {
+            case DropDownMapStateLoaded():
+              final bloc = context.read<DropDownMapCubit>();
+              final editorBloc = context.read<EditorCubit>();
+              saveNewDropDownValue() {
+                bloc.saveNewValue(
+                  widget.mapKey,
+                  firstController.text,
+                  secondController.text,
+                );
+                editorBloc.changeField(
+                  fieldIndex: widget.index,
+                  text: firstController.text,
+                  dependedFields: widget.dependedMappedFields,
+                  textForDependedFields: secondController.text,
+                );
+                Navigator.pop(context);
+              }
 
-    saveNewDropDownValue() {
-      bloc.saveNewValue(
-        widget.mapKey,
-        firstController.text,
-        secondController.text,
-      );
-      editorBloc.changeField(
-        fieldIndex: widget.index,
-        text: firstController.text,
-        dependedFields: widget.dependedMappedFields,
-        textForDependedFields: secondController.text,
-      );
-      Navigator.pop(context);
-    }
-
-    switch (state) {
-      case DropDownMapStateLoaded():
-        final values =
-            state.dropDownMap[widget.mapKey]?.dropDownValuesMap ?? [];
-        return Align(
-          alignment: Alignment.topLeft,
-          child: DropDownButton(
-            onOpen: () => buttonFocusNode.requestFocus(),
-            focusNode: buttonFocusNode,
-            title: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(widget.field.text),
-            ),
-            items: values
-                .map(
-                  (e) => MenuFlyoutItem(
-                    onPressed: () {
-                      editorBloc.changeField(
-                        fieldIndex: widget.index,
-                        text: e,
-                        dependedFields: widget.dependedMappedFields,
-                        textForDependedFields: state.dropDownMap[widget.mapKey]
-                            ?.dependedFieldMapsMap[e],
-                      );
-                      buttonFocusNode.nextFocus();
-                    },
-                    text: Row(
-                      children: [
-                        Text(e),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context, widget.field.text);
-                            bloc.deleteValue(widget.mapKey, e);
-                          },
-                          icon: const Icon(m.Icons.delete),
-                        )
-                      ],
-                    ),
+              final values =
+                  state.dropDownMap[widget.mapKey]?.dropDownValuesMap ?? [];
+              return Align(
+                alignment: Alignment.topLeft,
+                child: DropDownButton(
+                  onOpen: () => buttonFocusNode.requestFocus(),
+                  focusNode: buttonFocusNode,
+                  title: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget.field.text),
                   ),
-                )
-                .toList()
-              ..add(
-                MenuFlyoutItem(
-                  onPressed: () {},
-                  text: SizedBox(
-                    width: width,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width - width / 2 <
-                                  200
-                              ? 200
-                              : MediaQuery.of(context).size.width - width / 2,
-                          child: Column(
+                  items: values
+                      .map(
+                        (e) => MenuFlyoutItem(
+                          onPressed: () {
+                            editorBloc.changeField(
+                              fieldIndex: widget.index,
+                              text: e,
+                              dependedFields: widget.dependedMappedFields,
+                              textForDependedFields: state
+                                  .dropDownMap[widget.mapKey]
+                                  ?.dependedFieldMapsMap[e],
+                            );
+                            buttonFocusNode.nextFocus();
+                          },
+                          text: Row(
                             children: [
-                              TextBox(
-                                placeholder:
-                                    widget.placeholderNew ?? 'Новое значение',
-                                controller: firstController,
-                                onSubmitted: (text) =>
-                                    textFocusNode.requestFocus(),
+                              Text(e),
+                              const Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context, widget.field.text);
+                                  bloc.deleteValue(widget.mapKey, e);
+                                },
+                                icon: const Icon(m.Icons.delete),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList()
+                    ..add(
+                      MenuFlyoutItem(
+                        onPressed: () {},
+                        text: SizedBox(
+                          width: width,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width -
+                                            width / 2 <
+                                        200
+                                    ? 200
+                                    : MediaQuery.of(context).size.width -
+                                        width / 2,
+                                child: Column(
+                                  children: [
+                                    TextBox(
+                                      placeholder: widget.placeholderNew ??
+                                          'Новое значение',
+                                      controller: firstController,
+                                      onSubmitted: (text) =>
+                                          textFocusNode.requestFocus(),
+                                    ),
+                                    TextBox(
+                                      focusNode: textFocusNode,
+                                      placeholder: widget.placeholderDepended ??
+                                          'Соответствующее',
+                                      controller: secondController,
+                                      onSubmitted: (text) =>
+                                          saveNewDropDownValue(),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              TextBox(
-                                focusNode: textFocusNode,
-                                placeholder: widget.placeholderDepended ??
-                                    'Соответствующее',
-                                controller: secondController,
-                                onSubmitted: (text) => saveNewDropDownValue(),
+                              const Spacer(),
+                              IconButton(
+                                onPressed: () => saveNewDropDownValue(),
+                                icon: const Icon(m.Icons.add),
                               ),
                             ],
                           ),
                         ),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () => saveNewDropDownValue(),
-                          icon: const Icon(m.Icons.add),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
                 ),
-              ),
-          ),
-        );
-      default:
-        return const ProgressRing();
-    }
+              );
+            default:
+              return const ProgressRing();
+          }
+        },
+      ),
+    );
   }
 }

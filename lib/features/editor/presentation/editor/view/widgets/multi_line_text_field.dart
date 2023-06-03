@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/di.dart';
 import '../../../../data/field_data/field_data.dart';
@@ -29,11 +30,11 @@ class _MultiLineTextFieldState extends State<MultiLineTextField> {
     focusNode = FocusNode();
     focusNode.addListener(
       () => !focusNode.hasFocus
-          ? Di.get<EditorCubit>().changeMultiLineField(
-              fieldIndex: widget.index,
-              text: textEditingController.text,
-              isNeedNumireate: widget.isNeedNumireate,
-            )
+          ? context.read<EditorCubit>().changeMultiLineField(
+                fieldIndex: widget.index,
+                text: textEditingController.text,
+                isNeedNumireate: widget.isNeedNumireate,
+              )
           : (),
     );
     super.initState();
