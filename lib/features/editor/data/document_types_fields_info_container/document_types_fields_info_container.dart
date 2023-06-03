@@ -1,18 +1,15 @@
 import '../document_type/document_type.dart';
 import '../field_types/field_types.dart';
 
-class _TypeMetaData {
-  final List<String> names;
-  final List<FieldType> types;
-  const _TypeMetaData({required this.names, required this.types});
+class FieldMetaData {
+  final String name;
+  final FieldType type;
+  const FieldMetaData(this.name, this.type);
 }
 
 class FieldTypeContainer {
-  static List<String> getFieldsNames(DocumentType type) =>
-      _metaDataByType[type]?.names ?? [];
-
-  static List<FieldType> getFieldsTypes(DocumentType type) =>
-      _metaDataByType[type]?.types ?? [];
+  static List<FieldMetaData> getFieldsMetaData(DocumentType type) =>
+      _metaDataByType[type] ?? [];
 
   // Данные типа документов.
   // Представляют собой упорядоченный список отображаемых на экране редакторв имён,
@@ -20,131 +17,194 @@ class FieldTypeContainer {
   // Работа с данными полями построена так, что в каждый момент времени в ActData записана готовая
   // к обработке информация.
   // В код с# из flutter передаются лишь данные полей, а координаты полей уже находятся там
-  static const Map<DocumentType, _TypeMetaData> _metaDataByType = {
-    DocumentType.actOSR: _TypeMetaData(
-      names: [
-        // лист 1
+  static const Map<DocumentType, List<FieldMetaData>> _metaDataByType = {
+    DocumentType.actOSR: [
+      // лист 1
+      FieldMetaData(
         '№ документа',
-        'Дата окончания работ',
-        //лист 2
-        '1. К освидетельствованию предъявлены следующие работы',
-        '2. Работы выполнены по проектной документации',
-        '3. При выполнении работ применены',
-        '4. Предъявлены документы, подтверждающие соответствие работ предъявляемым к ним требованиям',
-        '5. Дата начала работ',
-        '5. Дата окончания работ',
-        '6. Работы выполнены в соответствии с (только рабочая документация)',
-        '7. Разрешается производство последующих работ по',
-        'Дополнительные сведения',
-        'Приложения',
-      ],
-      types: [
-        // лист 1
         TextFieldType(),
+      ),
+      FieldMetaData(
+        'Дата окончания работ',
         DuplicateFieldType(),
-        //лист2
+      ),
+      //лист 2
+      FieldMetaData(
+        '1. К освидетельствованию предъявлены следующие работы',
         DropDownFieldType(
           name: 'workTypeFromAOSR',
           dependedMappedFields: [8],
           placeholderNew: '1. Новое значение',
           placeholderDepended: '6. Соответствующее значение',
         ),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(dependedFields: [1]),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-      ],
-    ),
-    DocumentType.commonInfo: _TypeMetaData(
-      names: [
-        // основа
-        'Объект капитального строительства',
-        'Застройщик (технический заказчик, эксплуатирующая организация или региональный оператор) ',
-        'Лицо, осуществляющее строительство',
-        'Лицо, осуществляющее подготовку проектной документации',
-        // представители
-        'Представитель застройщика по вопросам строительного контроля',
-        'Представитель лица, осуществляющего строительство',
-        'Представитель лица, осуществляющего строительство, по вопросам строительного контроля',
-        'Представитель лица, осуществляющего подготовку проектной документации',
-        'Представитель лица, выполнившего работы, подлежащие освидетельствованию',
-        'а также иные представители лиц, участвующих в освидетельствовании:',
-        // исполнитель и экземпляры
-        'Произвели осмотр работ, выполненных',
-        'Акт составлен в ',
-        // подписанты
-        'Представитель застройщика по вопросам строительного контроля',
-        'Представитель лица, осуществляющего строительство',
-        'Представитель лица, осуществляющего строительство, по вопросам строительного контроля',
-        'Представитель лица, осуществляющего подготовку проектной документации',
-        'Представитель лица, выполнившего работы, подлежащие освидетельствованию',
-        'Представители иных лиц:',
-      ],
-      types: [
-        // основа
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        // представители
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        // исполнитель и экземпляры
-        TextFieldType(),
-        NumericFieldType(mainWord: 'экземпляр'),
-        // подписанты
-        SpaceTextFieldType(),
-        SpaceTextFieldType(),
-        SpaceTextFieldType(),
-        SpaceTextFieldType(),
-        SpaceTextFieldType(),
-        SpaceTextFieldType(),
-      ],
-    ),
-    DocumentType.clouseAct: _TypeMetaData(
-      names: [
-        //объект и комиссия
-        'Объект',
-        'Дата',
-        'Представитель застройщика по вопросам строительного контроля',
-        'Представитель лица, осуществляющего строительство',
-        'Представитель лица, осуществляющего строительство, по вопросам строительного контроля',
-        'Представитель лица, осуществляющего подготовку проектной документации',
-        'Представитель лица, выполнившего работы, подлежащие освидетельствованию',
-        'а также иные представители лиц, участвующих в освидетельствовании:',
-        // пункты
-        '1. К освидетельствованию предъявлены следующие работы',
+      ),
+      FieldMetaData(
         '2. Работы выполнены по проектной документации',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        '3. При выполнении работ применены',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        '4. Предъявлены документы, подтверждающие соответствие работ предъявляемым к ним требованиям',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        '5. Дата начала работ',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        '5. Дата окончания работ',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        '6. Работы выполнены в соответствии с (только рабочая документация)',
+        TextFieldType(dependedFields: [1]),
+      ),
+      FieldMetaData(
+        '7. Разрешается производство последующих работ по',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Дополнительные сведения',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Приложения',
+        TextFieldType(),
+      ),
+    ],
+    DocumentType.commonInfo: [
+      // основа
+      FieldMetaData(
+        'Объект капитального строительства',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Застройщик (технический заказчик, эксплуатирующая организация или региональный оператор) ',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Лицо, осуществляющее строительство',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Лицо, осуществляющее подготовку проектной документации',
+        TextFieldType(),
+      ),
+      // представители
+      FieldMetaData(
+        'Представитель застройщика по вопросам строительного контроля',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего строительство',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего строительство, по вопросам строительного контроля',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего подготовку проектной документации',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, выполнившего работы, подлежащие освидетельствованию',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'а также иные представители лиц, участвующих в освидетельствовании:',
+        TextFieldType(),
+      ),
+      // исполнитель и экземпляры
+      FieldMetaData(
+        'Произвели осмотр работ, выполненных',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Акт составлен в ',
+        NumericFieldType(mainWord: 'экземпляр'),
+      ),
+      // подписанты
+      FieldMetaData(
+        'Представитель застройщика по вопросам строительного контроля',
+        SpaceTextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего строительство',
+        SpaceTextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего строительство, по вопросам строительного контроля',
+        SpaceTextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего подготовку проектной документации',
+        SpaceTextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, выполнившего работы, подлежащие освидетельствованию',
+        SpaceTextFieldType(),
+      ),
+      FieldMetaData(
+        'Представители иных лиц:',
+        SpaceTextFieldType(),
+      ),
+    ],
+    DocumentType.clouseAct: [
+      //объект и комиссия
+      FieldMetaData(
+        'Объект',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Дата',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель застройщика по вопросам строительного контроля',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего строительство',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего строительство, по вопросам строительного контроля',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, осуществляющего подготовку проектной документации',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'Представитель лица, выполнившего работы, подлежащие освидетельствованию',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        'а также иные представители лиц, участвующих в освидетельствовании:',
+        TextFieldType(),
+      ),
+      // пункты
+      FieldMetaData(
+        '1. К освидетельствованию предъявлены следующие работы',
+        TextFieldType(),
+      ),
+      FieldMetaData(
+        '2. Работы выполнены по проектной документации',
+        TextFieldType(),
+      ),
+      FieldMetaData(
         'При этом установлено:',
-        // список
+        TextFieldType(),
+      ),
+      // список
+      FieldMetaData(
         'Перечень прилагаемой к акту приемо-сдаточной документации:',
-      ],
-      types: [
-        //объект и комиссия
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        // пункты
-        TextFieldType(),
-        TextFieldType(),
-        TextFieldType(),
-        // список
         MultiLineFieldType(isNeedNumireate: true),
-      ],
-    ),
+      ),
+    ],
   };
 }

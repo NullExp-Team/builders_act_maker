@@ -35,7 +35,7 @@ extension ActDataFactory on ActData {
         name: 'Общая информация',
         type: DocumentType.commonInfo,
         fields: List.filled(
-          FieldTypeContainer.getFieldsTypes(DocumentType.commonInfo).length,
+          FieldTypeContainer.getFieldsMetaData(DocumentType.commonInfo).length,
           FieldData.empty(),
         ),
       );
@@ -45,7 +45,7 @@ extension ActDataFactory on ActData {
         name: 'Новый ${type.label.decapitalize()} $newIndex',
         type: type,
         fields: List.filled(
-          FieldTypeContainer.getFieldsTypes(type).length,
+          FieldTypeContainer.getFieldsMetaData(type).length,
           FieldData.empty(),
         ),
       );
