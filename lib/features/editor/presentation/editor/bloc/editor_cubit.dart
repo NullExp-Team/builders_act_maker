@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../data/act_data/act_data.dart';
 import '../../../../closure/domain/closures_repository.dart';
+import '../../../data/document_type/document_type.dart';
 
 part 'editor_state.dart';
 part 'editor_cubit.freezed.dart';
@@ -21,7 +22,11 @@ class EditorCubit extends Cubit<EditorState> {
       return false;
     }
 
-    return repository.loadAct(closureId, actId) != loadedState.act;
+    if (loadedState.act.type != DocumentType.commonInfo) {
+      return repository.loadAct(closureId, actId) != loadedState.act;
+    } else {
+      return repository.loadClosure(closureId)!.commonInfo != loadedState.act;
+    }
   }
 
   void init(
