@@ -26,8 +26,6 @@ class ActEditorScreen extends StatefulWidget {
 class _ActEditorScreenState extends State<ActEditorScreen> {
   @override
   Widget build(BuildContext context) {
-    final goRouter = Di.get<GoRouter>();
-
     return BlocProvider(
       create: (context) => EditorCubit(repository: Di.get())
         ..init(widget.closureId, widget.actId),
@@ -36,7 +34,6 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
           final bloc = context.read<EditorCubit>();
           return ScaffoldPage(
             header: NavigationHeader(
-              // routes: routes,
               isDataHasChanges: () => context
                   .read<EditorCubit>()
                   .isActHasChanges(widget.closureId, widget.actId),
@@ -60,7 +57,7 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
                               child: const Text('Сохранить изменения'),
                               onPressed: () {
                                 bloc.save(widget.closureId);
-                                goRouter.pop();
+                                context.pop();
                               },
                             ),
                           ],
