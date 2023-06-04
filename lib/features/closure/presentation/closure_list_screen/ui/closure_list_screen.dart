@@ -34,7 +34,7 @@ class _ClosureListScreenState extends State<ClosureListScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
-      header: NavigationHeader(routes: routes),
+      header: NavigationHeader(),
       content: BlocBuilder<ClosureListCubit, ClosureListState>(
         builder: (context, state) {
           switch (state) {

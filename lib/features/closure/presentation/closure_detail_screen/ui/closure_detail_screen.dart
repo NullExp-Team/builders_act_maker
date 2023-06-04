@@ -5,7 +5,6 @@ import '../../../../../core/widgets/editable_value_widget.dart';
 import '../file_ffi_manager/file_ffi_manager_cubit.dart';
 import 'widgets/act_card.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/di.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -29,12 +28,6 @@ class ClosureDetailScreenState extends State<ClosureDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: явно есть какая-то реализация получше
-    final goRouter = Di.get<GoRouter>();
-    final routes = goRouter.routerDelegate.currentConfiguration.matches
-        .map((e) => e.route as GoRoute)
-        .toList();
-
     return BlocProvider(
       create: (context) =>
           ClosureDetailCubit(goRouter: Di.get(), repository: Di.get())
@@ -49,7 +42,7 @@ class ClosureDetailScreenState extends State<ClosureDetailScreen> {
             case ClosureDetailStateData(:var closure):
               return ScaffoldPage(
                 header: NavigationHeader(
-                  routes: routes,
+                  // routes: routes,
                   isDataHasChanges: () => cubit.isClosureHasChanges(),
                 ),
                 content: Padding(

@@ -27,9 +27,6 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
   @override
   Widget build(BuildContext context) {
     final goRouter = Di.get<GoRouter>();
-    final routes = goRouter.routerDelegate.currentConfiguration.matches
-        .map((e) => e.route as GoRoute)
-        .toList();
 
     return BlocProvider(
       create: (context) => EditorCubit(repository: Di.get())
@@ -38,48 +35,51 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
         builder: (context, state) {
           final bloc = context.read<EditorCubit>();
           return ScaffoldPage(
-              header: NavigationHeader(
-                routes: routes,
-                isDataHasChanges: () => context
-                    .read<EditorCubit>()
-                    .isActHasChanges(widget.closureId, widget.actId),
-              ),
-              content: state is EditorStateLoaded
-                  ? Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Row(
-                            children: [
-                              EditableValueWidget(
-                                value: state.act.name,
-                                isEditing: state.isNameEditing,
-                                onEditButtonPress: (newName) =>
-                                    bloc.onNameEdit(newName, widget.closureId),
-                                textSize: 32,
-                              ),
-                              const Spacer(),
-                              Button(
-                                child: const Text('Сохранить изменения'),
-                                onPressed: () {
-                                  bloc.save(widget.closureId);
-                                  goRouter.pop();
-                                },
-                              ),
-                            ],
+            header: NavigationHeader(
+              // routes: routes,
+              isDataHasChanges: () => context
+                  .read<EditorCubit>()
+                  .isActHasChanges(widget.closureId, widget.actId),
+            ),
+            content: state is EditorStateLoaded
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          children: [
+                            EditableValueWidget(
+                              value: state.act.name,
+                              isEditing: state.isNameEditing,
+                              onEditButtonPress: (newName) =>
+                                  bloc.onNameEdit(newName, widget.closureId),
+                              textSize: 32,
+                            ),
+                            const Spacer(),
+                            Button(
+                              child: const Text('Сохранить изменения'),
+                              onPressed: () {
+                                bloc.save(widget.closureId);
+                                goRouter.pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: FieldsList(
+                          fieldsTypes: FieldTypeContainer.getFieldsTypes(
+                            state.act.type,
+                          ),
+                          fieldsNames: FieldTypeContainer.getFieldsNames(
+                            state.act.type,
                           ),
                         ),
-                        Expanded(
-                          child: FieldsList(
-                            fieldsTypes: FieldTypeContainer.getFieldsTypes(
-                                state.act.type),
-                            fieldsNames: FieldTypeContainer.getFieldsNames(
-                                state.act.type),
-                          ),
-                        ),
-                      ],
-                    )
-                  : const ProgressRing());
+                      ),
+                    ],
+                  )
+                : const ProgressRing(),
+          );
         },
       ),
     );
