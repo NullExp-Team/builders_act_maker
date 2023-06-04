@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../data/document_types_fields_info_container/document_types_fields_info_container.dart';
 import '../../../../data/field_types/field_types.dart';
 import '../../bloc/editor_cubit.dart';
 import '../../../drop_down_map/view/drop_down_field.dart';
@@ -12,14 +13,10 @@ import 'typed_text_field.dart';
 class FieldsList extends StatelessWidget {
   const FieldsList({
     super.key,
-    required this.fieldsTypes,
-    required this.fieldsNames,
+    required this.fieldsMetaData,
   });
 
-  //получаем инфу о типах полей
-  final List<FieldType> fieldsTypes;
-  //получаем инфу о названиях полей
-  final List<String> fieldsNames;
+  final List<FieldMetaData> fieldsMetaData;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +27,7 @@ class FieldsList extends StatelessWidget {
           padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Column(
             children: [
-              for (int index = 0; index < fieldsNames.length; index++)
+              for (int index = 0; index < fieldsMetaData.length; index++)
                 Builder(
                   builder: (context) {
                     final field = context
@@ -41,18 +38,18 @@ class FieldsList extends StatelessWidget {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        if (fieldsTypes[index] is! DuplicateFieldType)
+                        if (fieldsMetaData[index].type is! DuplicateFieldType)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                fieldsNames[index],
+                                fieldsMetaData[index].name,
                                 style: const TextStyle(fontSize: 20),
                               ),
                             ),
                           ),
-                        switch (fieldsTypes[index]) {
+                        switch (fieldsMetaData[index].type) {
                           TextFieldType(:final dependedFields) =>
                             TypedTextField(
                               index: index,
@@ -90,7 +87,7 @@ class FieldsList extends StatelessWidget {
                             ),
                           DuplicateFieldType() => const SizedBox(),
                         },
-                        if (fieldsTypes[index] is! DuplicateFieldType)
+                        if (fieldsMetaData[index].type is! DuplicateFieldType)
                           const SizedBox(height: 10),
                       ],
                     );

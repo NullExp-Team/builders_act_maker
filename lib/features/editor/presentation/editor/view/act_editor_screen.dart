@@ -68,10 +68,7 @@ class _ActEditorScreenState extends State<ActEditorScreen> {
                       ),
                       Expanded(
                         child: FieldsList(
-                          fieldsTypes: FieldTypeContainer.getFieldsTypes(
-                            state.act.type,
-                          ),
-                          fieldsNames: FieldTypeContainer.getFieldsNames(
+                          fieldsMetaData: FieldTypeContainer.getFieldsMetaData(
                             state.act.type,
                           ),
                         ),
