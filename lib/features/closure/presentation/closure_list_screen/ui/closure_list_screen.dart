@@ -1,6 +1,3 @@
-import 'package:go_router/go_router.dart';
-
-import '../../../../../core/di.dart';
 import '../../../../../core/widgets/navigation_header.dart';
 import 'widgets/add_closure_card.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -20,11 +17,6 @@ class ClosureListScreen extends StatefulWidget {
 class _ClosureListScreenState extends State<ClosureListScreen> {
   late final cubit = context.read<ClosureListCubit>();
 
-  final goRouter = Di.get<GoRouter>();
-  late final routes = goRouter.routerDelegate.currentConfiguration.matches
-      .map((e) => e.route as GoRoute)
-      .toList();
-
   @override
   void initState() {
     super.initState();
@@ -34,7 +26,7 @@ class _ClosureListScreenState extends State<ClosureListScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
-      header: NavigationHeader(routes: routes),
+      header: NavigationHeader(),
       content: BlocBuilder<ClosureListCubit, ClosureListState>(
         builder: (context, state) {
           switch (state) {

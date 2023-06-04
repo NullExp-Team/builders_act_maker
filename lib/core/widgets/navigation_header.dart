@@ -6,12 +6,11 @@ import 'navigation_breadcrumb.dart';
 import 'package:flutter/material.dart' as m;
 
 class NavigationHeader extends StatefulWidget {
-  final List<GoRoute> routes;
   final Function? isDataHasChanges;
 
-  const NavigationHeader({
+  // ignore: prefer_const_constructors_in_immutables
+  NavigationHeader({
     super.key,
-    required this.routes,
     this.isDataHasChanges,
   });
 
@@ -34,23 +33,25 @@ class _NavigationHeaderState extends State<NavigationHeader> {
     super.dispose();
   }
 
+  final goRouter = Di.get<GoRouter>();
+
+  void pop(int count) {
+    for (var i = 0; i < count; i++) {
+      goRouter.pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Всё это кринж, переделать
+    final routes = goRouter.routerDelegate.currentConfiguration.matches
+        .map((e) => e.route as GoRoute)
+        .toList();
 
-    final goRouter = Di.get<GoRouter>();
+    final routesLength = routes.length;
 
-    void pop(int count) {
-      for (var i = 0; i < count; i++) {
-        goRouter.pop();
-      }
-    }
-
-    final routesLength = widget.routes.length;
-
-    final allRoutes = widget.routes
+    final routeNames = routes
         .map(
-          (e) => e.name ?? 'Hey',
+          (e) => e.name ?? 'Unknown',
         )
         .toList();
 
@@ -64,7 +65,7 @@ class _NavigationHeaderState extends State<NavigationHeader> {
             scrollDirection: Axis.horizontal,
             itemCount: routesLength,
             itemBuilder: (context, index) => NavigationBreadcrumb(
-              text: allRoutes[index],
+              text: routeNames[index],
               isCurrent: index == routesLength - 1,
               onPressed: () async {
                 if (widget.isDataHasChanges != null &&

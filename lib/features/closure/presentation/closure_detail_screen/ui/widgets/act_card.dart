@@ -5,19 +5,25 @@ import '../../../../../../core/theme/theme_context_extension.dart';
 import '../../../../../editor/data/act_data/act_data.dart';
 import '../../cubit/closure_detail_cubit.dart';
 
-class ActCard extends StatelessWidget {
+class ActCard extends StatefulWidget {
   final ActData act;
 
   const ActCard({super.key, required this.act});
 
   @override
+  State<ActCard> createState() => _ActCardState();
+}
+
+class _ActCardState extends State<ActCard> {
+  // Инициализируем кубит тут, т.к. виджет может выходить за пределы BlocProvider и виджет не найдет кубит
+  late final cubit = context.read<ClosureDetailCubit>();
+
+  @override
   Widget build(BuildContext context) {
     final flyoutController = FlyoutController();
 
-    final cubit = context.read<ClosureDetailCubit>();
-
     return Button(
-      onPressed: () => cubit.goToActEditor(act.id),
+      onPressed: () => cubit.goToActEditor(widget.act.id),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -28,7 +34,7 @@ class ActCard extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  act.name,
+                  widget.act.name,
                   style: context.textStyles.subtitle,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
@@ -46,7 +52,7 @@ class ActCard extends StatelessWidget {
                             leading: const Icon(FluentIcons.edit),
                             text: const Text('Редактировать'),
                             onPressed: () {
-                              cubit.goToActEditor(act.id);
+                              cubit.goToActEditor(widget.act.id);
                               Flyout.of(context).close();
                             },
                           ),
@@ -54,7 +60,7 @@ class ActCard extends StatelessWidget {
                             leading: const Icon(FluentIcons.copy),
                             text: const Text('Дублировать'),
                             onPressed: () {
-                              cubit.duplicateAct(act);
+                              cubit.duplicateAct(widget.act);
                               Flyout.of(context).close();
                             },
                           ),
@@ -77,7 +83,7 @@ class ActCard extends StatelessWidget {
                                         const SizedBox(height: 12.0),
                                         Button(
                                           onPressed: () {
-                                            cubit.deleteAct(act);
+                                            cubit.deleteAct(widget.act);
                                             Flyout.of(context)
                                               ..close()
                                               ..close();
@@ -101,7 +107,7 @@ class ActCard extends StatelessWidget {
           ),
           Chip(
             text: Text(
-              act.type.label,
+              widget.act.type.label,
               overflow: TextOverflow.ellipsis,
               style: context.textStyles.caption,
             ),

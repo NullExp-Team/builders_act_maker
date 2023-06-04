@@ -44,3 +44,5 @@ app.*.map.json
 /android/app/release
 saves/closures.hive
 saves/closures.lock
+
+.fvm/flutter_sdk
