@@ -88,6 +88,7 @@ class EditorCubit extends Cubit<EditorState> {
   void changeSubField({
     required int fieldIndex,
     required String subText,
+    required bool isHasSpace,
   }) {
     if (state is! EditorStateLoaded) {
       return;
@@ -98,7 +99,7 @@ class EditorCubit extends Cubit<EditorState> {
       fieldIndex,
       subText,
       true,
-      true,
+      isHasSpace,
     );
 
     emit(
