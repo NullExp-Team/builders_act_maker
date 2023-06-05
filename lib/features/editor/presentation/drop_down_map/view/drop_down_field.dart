@@ -30,16 +30,30 @@ class DropDownField extends StatefulWidget {
 }
 
 class _DropDownFieldState extends State<DropDownField> {
+  late final TextEditingController subController;
   late final TextEditingController firstController;
   late final TextEditingController secondController;
+  late final FocusNode subFocusNode;
   late final FocusNode textFocusNode;
   late final FocusNode buttonFocusNode;
   @override
   void initState() {
+    subController = TextEditingController();
     firstController = TextEditingController();
     secondController = TextEditingController();
+    subFocusNode = FocusNode();
     textFocusNode = FocusNode();
     buttonFocusNode = FocusNode();
+
+    subFocusNode.addListener(
+      () => !subFocusNode.hasFocus
+          ? context.read<EditorCubit>().changeSubField(
+                fieldIndex: widget.index,
+                subText: subController.text,
+                isHasSpace: false,
+              )
+          : (),
+    );
     super.initState();
   }
 
@@ -80,51 +94,46 @@ class _DropDownFieldState extends State<DropDownField> {
 
               final values =
                   state.dropDownMap[widget.mapKey]?.dropDownValuesMap ?? [];
-              return Align(
-                alignment: Alignment.topLeft,
-                child: DropDownButton(
-                  onOpen: () => buttonFocusNode.requestFocus(),
-                  focusNode: buttonFocusNode,
-                  title: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget.field.text),
-                  ),
-                  items: values
-                      .map(
-                        (e) => MenuFlyoutItem(
-                          onPressed: () {
-                            editorBloc.changeField(
-                              fieldIndex: widget.index,
-                              text: e,
-                              dependedFields: widget.dependedMappedFields,
-                              textForDependedFields: state
-                                  .dropDownMap[widget.mapKey]
-                                  ?.dependedFieldMapsMap[e],
-                            );
-                            buttonFocusNode.nextFocus();
-                          },
-                          text: Row(
-                            children: [
-                              Text(e),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context, widget.field.text);
-                                  bloc.deleteValue(widget.mapKey, e);
-                                },
-                                icon: const Icon(m.Icons.delete),
-                              )
-                            ],
+              return Row(
+                children: [
+                  DropDownButton(
+                    onOpen: () => buttonFocusNode.requestFocus(),
+                    focusNode: buttonFocusNode,
+                    title: Text(widget.field.text),
+                    items: values
+                        .map(
+                          (e) => MenuFlyoutItem(
+                            onPressed: () {
+                              editorBloc.changeField(
+                                fieldIndex: widget.index,
+                                text: e,
+                                dependedFields: widget.dependedMappedFields,
+                                textForDependedFields: state
+                                    .dropDownMap[widget.mapKey]
+                                    ?.dependedFieldMapsMap[e],
+                              );
+                              buttonFocusNode.nextFocus();
+                            },
+                            text: Row(
+                              children: [
+                                Text(e),
+                                const Spacer(),
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, widget.field.text);
+                                    bloc.deleteValue(widget.mapKey, e);
+                                  },
+                                  icon: const Icon(m.Icons.delete),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                      .toList()
-                    ..add(
-                      MenuFlyoutItem(
-                        onPressed: () {},
-                        text: SizedBox(
-                          width: width,
-                          child: Row(
+                        )
+                        .toList()
+                      ..add(
+                        MenuFlyoutItem(
+                          onPressed: () {},
+                          text: Row(
                             children: [
                               SizedBox(
                                 width: MediaQuery.of(context).size.width -
@@ -162,8 +171,19 @@ class _DropDownFieldState extends State<DropDownField> {
                           ),
                         ),
                       ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: TextBox(
+                      focusNode: subFocusNode,
+                      controller: subController,
+                      onSubmitted: (_) {
+                        subFocusNode.requestFocus();
+                        subFocusNode.nextFocus();
+                      },
                     ),
-                ),
+                  ),
+                ],
               );
             default:
               return const ProgressRing();

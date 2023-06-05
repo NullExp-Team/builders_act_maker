@@ -45,6 +45,7 @@ class _SpaceTextFieldState extends State<SpaceTextField> {
           ? bloc.changeSubField(
               fieldIndex: widget.index,
               subText: subTextEditingController.text,
+              isHasSpace: true,
             )
           : (),
     );
