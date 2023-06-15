@@ -22,6 +22,7 @@ class MainApp extends StatelessWidget {
     return FluentApp.router(
       debugShowCheckedModeBanner: false,
       color: color,
+      themeMode: ThemeMode.dark,
       darkTheme: FluentThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.grey[170],
