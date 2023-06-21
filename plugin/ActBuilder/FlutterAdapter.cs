@@ -1,7 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
+using Newtonsoft.Json.Linq;
 
 namespace ActBuilder
 {
@@ -16,9 +14,9 @@ namespace ActBuilder
         {
             try
             {
-                string stringInput = Marshal.PtrToStringUni(pointerInput)!;
-                JsonNode closureNode = JsonNode.Parse(stringInput)!;
-                Сlosure closure = closureNode.Deserialize<Сlosure>()!;
+                string stringInput = Marshal.PtrToStringUTF8(pointerInput)!;
+                JObject closureNode = JObject.Parse(stringInput)!;
+                Сlosure closure = closureNode.ToObject<Сlosure>()!;
 
                 ActMaker.CreateAct(closure);
 
@@ -39,9 +37,9 @@ namespace ActBuilder
         {
             try
             {
-                string stringInput = Marshal.PtrToStringUni(pointerInput)!;
+                string stringInput = Marshal.PtrToStringUTF8(pointerInput)!;
                 ActMaker.OpenFileByPath(stringInput);
-                
+
                 // ошибки нет, возвращаем 0
                 return Marshal.StringToHGlobalUni("0");
             }

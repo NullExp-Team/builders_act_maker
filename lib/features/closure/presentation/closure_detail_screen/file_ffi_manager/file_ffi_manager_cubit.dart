@@ -12,8 +12,8 @@ import '../../../data/closure/closure.dart';
 part 'file_ffi_manager_state.dart';
 part 'file_ffi_manager_cubit.freezed.dart';
 
-typedef Cfunc = Pointer<Utf16> Function(Pointer<Utf16>);
-typedef Dartfunc = Pointer<Utf16> Function(Pointer<Utf16>);
+typedef Cfunc = Pointer<Utf8> Function(Pointer<Utf8>);
+typedef Dartfunc = Pointer<Utf8> Function(Pointer<Utf8>);
 
 class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
   FileFfiManagerCubit() : super(const FileFfiManagerState.loaded());
@@ -31,7 +31,7 @@ class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
         lib.lookup<NativeFunction<Cfunc>>('openFile');
     Dartfunc dartFunc = cFunc.asFunction<Dartfunc>();
 
-    final result = dartFunc(filePath.toNativeUtf16());
+    final result = dartFunc(filePath.toNativeUtf8());
     if (result.toDartString() == "0") {
       return true;
     } else {
@@ -47,7 +47,7 @@ class FileFfiManagerCubit extends Cubit<FileFfiManagerState> {
       Dartfunc dartFunc = cFunc.asFunction<Dartfunc>();
 
       final strText = json.encode(closure.toJson());
-      final pointer = strText.toNativeUtf16();
+      final pointer = strText.toNativeUtf8();
       final result = dartFunc(pointer);
       if (result.toDartString() == '0') {
         return true;

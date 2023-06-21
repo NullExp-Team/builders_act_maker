@@ -39,12 +39,12 @@ namespace ActBuilder
             bitmap = new Bitmap(1, 1);
             graphics = Graphics.FromImage(bitmap);
 
-            for (int i = 0; i < clouser.acts.Count; i++)
+            for (int i = 0; i < clouser.Acts.Count; i++)
             {
-                MakeSheet(packages, clouser.acts[i], clouser.commonInfo.fields);
+                MakeSheet(packages, clouser.Acts[i], clouser.CommonInfo.Fields);
             }
 
-            File.WriteAllBytes(clouser.path + "\\" + clouser.name + ".xlsx", packages.GetAsByteArray());
+            File.WriteAllBytes(clouser.Path + "\\" + clouser.Name + ".xlsx", packages.GetAsByteArray());
             packages.Dispose();
             bitmap?.Dispose();
             graphics?.Dispose();
@@ -53,24 +53,24 @@ namespace ActBuilder
         // создаём листы
         static void MakeSheet(ExcelPackage packages, ActData act, List<FieldData> commonInfo)
         {
-            ExcelPackage typeTemplate = new("plugin\\act_builder_lib\\" + act.type + ".xlsx");
+            ExcelPackage typeTemplate = new("plugin\\act_builder_lib\\" + act.Type + ".xlsx");
             if (typeTemplate.Workbook.Worksheets.Count == 0)
             {
                 throw new Exception("Потеряны шаблоны");
             }
-            ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.name, typeTemplate.Workbook.Worksheets.First());
+            ExcelWorksheet sheet = packages.Workbook.Worksheets.Add(act.Name, typeTemplate.Workbook.Worksheets.First());
             typeTemplate.Dispose();
 
-            (int, int)[] fieldsCoords = FieldDataContainer.GetCoordsContainer(act.type);
+            (int, int)[] fieldsCoords = FieldDataContainer.GetCoordsContainer(act.Type);
             List<ExcelFieldData> fields = new();
-            for (int i = 0; i < act.fields.Count; i++)
+            for (int i = 0; i < act.Fields.Count; i++)
             {
-                ExcelFieldData field = new (act.fields[i], fieldsCoords[i]);
+                ExcelFieldData field = new (act.Fields[i], fieldsCoords[i]);
                 fields.Add(field);
             }
             for (int i = 0; i < commonInfo.Count; i++)
             {
-                ExcelFieldData field = new(commonInfo[i], fieldsCoords[act.fields.Count + i]);
+                ExcelFieldData field = new(commonInfo[i], fieldsCoords[act.Fields.Count + i]);
                 fields.Add(field);
             }
 
@@ -96,7 +96,7 @@ namespace ActBuilder
 
                 // если нужен отступ, то размещаем дополнительный текст его в первой строке,
                 // а дальше действуем как обычно с учётом уменьшенной длины первой строки
-                if (field.hasSpace)
+                if (field.HasSpace)
                 {
                     // считаем сколько клеток смержено
                     int mergeCount = 0;
@@ -108,21 +108,21 @@ namespace ActBuilder
                     sheet.Cells[x, y, x, y + mergeCount].Merge = false;
                     sheet.Cells[x, y, x, y + mergeCount - 1].Merge = true;
 
-                    sheet.Cells[x, y + mergeCount].Value = field.subText ?? "";
+                    sheet.Cells[x, y + mergeCount].Value = field.SubText ?? "";
                     sheet.Cells[x, y + mergeCount].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
-                    widthOfSubPart = Math.Max(CalculateTextWidth(field.subText ?? "", sheet.Cells[x, y + mergeCount].Style.Font), sheet.Columns[y + mergeCount].Width);
+                    widthOfSubPart = Math.Max(CalculateTextWidth(field.SubText ?? "", sheet.Cells[x, y + mergeCount].Style.Font), sheet.Columns[y + mergeCount].Width);
                 }
-                else if (field.subText != null)
+                else if (field.SubText != null)
                 {
-                    field.text = field.text + field.subText;
+                    field.Text = field.Text + field.SubText;
                 }
 
-                double widthOfText = CalculateTextWidth(field.text, sheet.Cells[x, y].Style.Font);
-                bool isMultiLine = field.text.Contains('\n');
+                double widthOfText = CalculateTextWidth(field.Text, sheet.Cells[x, y].Style.Font);
+                bool isMultiLine = field.Text.Contains('\n');
 
                 if (widthOfText + widthOfSubPart <= maxFieldsWidth && !isMultiLine)
                 {
-                    sheet.Cells[x, y].Value = field.text;
+                    sheet.Cells[x, y].Value = field.Text;
                 }
                 else
                 {
@@ -138,9 +138,9 @@ namespace ActBuilder
                     if (isMultiLine)
                     {
                         // выделяем отдельно \n
-                        field.text = field.text.Replace("\n", " \n ");
+                        field.Text = field.Text.Replace("\n", " \n ");
                     }
-                    List<string> partOfText = field.text.Split(" ").ToList();
+                    List<string> partOfText = field.Text.Split(" ").ToList();
                     string nowText = partOfText[0];
                     int j = 1;
                     while (j < partOfText.Count)

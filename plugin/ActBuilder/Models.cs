@@ -2,23 +2,23 @@
 {
     class Сlosure
     {
-        public string name { get; set; }
-        public string path { get; set; }
-        public ActData commonInfo { get; set; }
-        public List<ActData> acts { get; set; }
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public ActData CommonInfo { get; set; }
+        public List<ActData> Acts { get; set; }
     }
     class ActData
     {
-        public string name { get; set; }
-        public string type { get; set; }
-        public List<FieldData> fields { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public List<FieldData> Fields { get; set; }
     }
 
     class FieldData
     {
-        public string text { get; set; }
-        public bool hasSpace { get; set; }
-        public string? subText { get; set; }
+        public string Text { get; set; }
+        public bool HasSpace { get; set; }
+        public string? SubText { get; set; }
     }
 
     class ExcelFieldData : IComparable<ExcelFieldData>
