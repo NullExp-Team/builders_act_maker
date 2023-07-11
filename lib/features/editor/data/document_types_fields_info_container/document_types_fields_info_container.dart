@@ -56,11 +56,11 @@ class FieldTypeContainer {
       ),
       FieldMetaData(
         '5. Дата окончания работ',
-        TextFieldType(),
+        TextFieldType(dependedFields: [1]),
       ),
       FieldMetaData(
         '6. Работы выполнены в соответствии с (только рабочая документация)',
-        TextFieldType(dependedFields: [1]),
+        TextFieldType(),
       ),
       FieldMetaData(
         '7. Разрешается производство последующих работ по',
