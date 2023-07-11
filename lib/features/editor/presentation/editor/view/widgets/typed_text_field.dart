@@ -53,14 +53,18 @@ class _TypedTextFieldState extends State<TypedTextField> {
       mainAxisSize: MainAxisSize.min,
       children: [
         TextBox(
+          minLines: 1,
+          maxLines: null,
           focusNode: focusNode,
           controller: textEditingController,
           onSubmitted: (_) {
+            // сейчас не юзается, ибо строки мультилайн
+
             // из-за того, что в результате нажатия enter мы вначале теряем фокус, а после выполняем
             // onSubmitted, то nextFocus() переключает фокус на первый элемент последнего FocusScope
             // чтобы избежать этого - вновь запрашиваем фокус
-            focusNode.requestFocus();
-            focusNode.nextFocus();
+            // focusNode.requestFocus();
+            // focusNode.nextFocus();
           },
         ),
         if (widget.field.subText != null)
