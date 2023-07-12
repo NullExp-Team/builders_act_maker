@@ -2,7 +2,7 @@ import 'package:dyn_mouse_scroll/dyn_mouse_scroll.dart';
 
 import '../../../../../core/theme/theme_context_extension.dart';
 import '../../../../../core/widgets/editable_value_widget.dart';
-import '../file_ffi_manager/file_ffi_manager_cubit.dart';
+import '../../../domain/file_ffi_manager/file_ffi_manager_cubit.dart';
 import 'widgets/act_card.dart';
 import 'package:flutter_reorderable_grid_view/widgets/reorderable_builder.dart';
 

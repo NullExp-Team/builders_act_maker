@@ -7,7 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../data/closure/closure.dart';
+import '../../data/closure/closure.dart';
 
 part 'file_ffi_manager_state.dart';
 part 'file_ffi_manager_cubit.freezed.dart';
