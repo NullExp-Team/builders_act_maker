@@ -2,14 +2,18 @@
 using OfficeOpenXml.Style;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace ActBuilder
 {
 
     static class ActMaker
     {
-        const double maxFieldsWidth = 107;
+        const double maxFieldsWidth = 109;
+        const string testString = "йцукенгшщзхъфывапролджэячсмитьбю1234567890 !№;%:?*()-=_+ё.,{}[];:";
+        const double testStringWidth = 554.2149;
+        const double excelWidthMult = 8.625;
+        static double textScale = 1.0;
         static Bitmap? bitmap;
         static Graphics? graphics;
 
@@ -65,7 +69,7 @@ namespace ActBuilder
             List<ExcelFieldData> fields = new();
             for (int i = 0; i < act.Fields.Count; i++)
             {
-                ExcelFieldData field = new (act.Fields[i], fieldsCoords[i]);
+                ExcelFieldData field = new(act.Fields[i], fieldsCoords[i]);
                 fields.Add(field);
             }
             for (int i = 0; i < commonInfo.Count; i++)
@@ -82,7 +86,9 @@ namespace ActBuilder
         // заполняем по координатам и по полям данный нам лист
         static void FillSheet(ExcelWorksheet sheet, List<ExcelFieldData> fields)
         {
+            
             int shift = 0;
+            bool isScaleCalculated = false;
             for (int i = 0; i < fields.Count; i++)
             {
                 FieldData field = fields[i].Text;
@@ -90,6 +96,12 @@ namespace ActBuilder
                 if (x == 0 || y == 0)
                 {
                     continue;
+                }
+
+                if (!isScaleCalculated)
+                {
+                    CalculateTextScale(sheet.Cells[x, y].Style.Font);
+                    isScaleCalculated = true;
                 }
                 x += shift;
                 double widthOfSubPart = 0;
@@ -180,7 +192,8 @@ namespace ActBuilder
                             }
                             shift++;
                             x++;
-                        } else
+                        }
+                        else
                         {
                             nowText += " " + partOfText[j];
                         }
@@ -193,13 +206,23 @@ namespace ActBuilder
 
         static double CalculateTextWidth(string text, ExcelFont font)
         {
-            const double excelWidthMult = 8.625;
             if (string.IsNullOrEmpty(text)) return 0.0;
-
             var drawingFont = new Font(font.Name, font.Size * 1.01f);
             var size = graphics!.MeasureString(text, drawingFont);
 
-            return Convert.ToDouble(size.Width) / excelWidthMult;
+            return Convert.ToDouble(size.Width) / textScale / excelWidthMult;
+        }
+
+        // из-за разного SystemDpi и сложности его получения, вычисляемая ширина текста будет умножаться на scale, который вычисляется с помощью тестовой строки
+        static void CalculateTextScale(ExcelFont font)
+        {
+            var drawingFont = new Font(font.Name, font.Size * 1.01f);
+            var size = graphics!.MeasureString(testString, drawingFont);
+
+            if (size.Width != testStringWidth)
+            {
+                textScale = size.Width / testStringWidth;
+            }
         }
     }
 }
