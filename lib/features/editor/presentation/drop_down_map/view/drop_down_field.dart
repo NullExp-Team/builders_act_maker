@@ -38,9 +38,9 @@ class _DropDownFieldState extends State<DropDownField> {
   late final FocusNode buttonFocusNode;
   @override
   void initState() {
-    subController = TextEditingController();
     firstController = TextEditingController();
     secondController = TextEditingController();
+    subController = TextEditingController(text: widget.field.subText);
     subFocusNode = FocusNode();
     textFocusNode = FocusNode();
     buttonFocusNode = FocusNode();
